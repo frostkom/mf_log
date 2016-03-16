@@ -1,0 +1,605 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: MF Base\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-03-14 09:33+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Martin Fors\n"
+"Language-Team: Martin Fors\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: sv_SE\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: esc_html__;esc_html_e;esc_attr__;esc_attr_e;__;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../include/classes.php:23
+msgid "The information was deleted"
+msgstr "Informationen togs bort"
+
+#: ../include/classes.php:33
+msgid "The information is now set to be ignored"
+msgstr "Informationen är satt till att ignoreras"
+
+#: ../include/classes.php:135
+msgid "All"
+msgstr "Alla"
+
+#: ../include/classes.php:137
+#: ../include/classes.php:182
+msgid "Ignore"
+msgstr "Ignorera"
+
+#: ../include/classes.php:138
+msgid "Trash"
+msgstr "Papperskorg"
+
+#: ../include/classes.php:145
+msgid "Name"
+msgstr "Namn"
+
+#: ../include/classes.php:146
+msgid "Date"
+msgstr "Datum"
+
+#: ../include/classes.php:174
+msgid "Delete"
+msgstr "Radera"
+
+#: ../include/classes.php:247
+#: ../include/classes.php:272
+msgid "SQL Debug"
+msgstr ""
+
+#: ../include/classes.php:275
+msgid "Total query time"
+msgstr ""
+
+#: ../include/classes.php:279
+msgid "Total num_query time"
+msgstr ""
+
+#: ../include/functions.php:6
+#: ../include/functions.php:7
+#: ../include/functions.php:8
+#: ../include/functions.php:109
+#: ../include/functions.php:174
+#: ../list/index.php:8
+msgid "Log"
+msgstr "Logg"
+
+#: ../include/functions.php:62
+msgid "debug.log was too large so it was deleted"
+msgstr "debug.log var för stor så den raderades"
+
+#: ../include/functions.php:78
+msgid "Settings"
+msgstr "Inställningar"
+
+#: ../include/functions.php:90
+msgid "Debug DB queries"
+msgstr "Debugga databasfrågor"
+
+#: ../include/functions.php:95
+msgid "Query time limit"
+msgstr "Gränsvärde för databasfrågor"
+
+#: ../include/functions.php:96
+msgid "Page time limit"
+msgstr "Gränsvärde för sidvisning"
+
+#: ../include/functions.php:118
+msgid "No"
+msgstr "Nej"
+
+#: ../include/functions.php:119
+msgid "Yes"
+msgstr "Ja"
+
+#: ../include/functions.php:123
+msgid "This will hurt performance on the frontend so use this for debugging only and then turn off"
+msgstr "Detta påverkar prestandan negativt på webbsidan så använd detta endast för debugging och stäng av det efteråt"
+
+#: ../include/functions.php:132
+#: ../include/functions.php:141
+msgid "0-9.9999"
+msgstr ""
+
+#: ../include/functions.php:158
+msgid "New"
+msgstr "Ny"
+
+#: ../include/functions.php:193
+#, php-format
+msgid "%s should be set to %s in wp-config.php"
+msgstr "%s bör vara satt till %s i wp-config.php"
+
+#~ msgid "Recover"
+#~ msgstr "Återställ"
+
+#~ msgid "Search"
+#~ msgstr "Sök"
+
+#~ msgid "My Settings"
+#~ msgstr "Mina inställningar"
+
+#~ msgid "See DIBS test info"
+#~ msgstr "Se DIBS testinfo"
+
+#~ msgid "Send in test mode (No money will be charged)"
+#~ msgstr "Skicka i testläge (Pengar kommer ej att dras)"
+
+#~ msgid "Sent to payment"
+#~ msgstr "Skickat till betalning"
+
+#~ msgid "User canceled"
+#~ msgstr "Användaren avbröt"
+
+#~ msgid "User has paid. Waiting for confirmation..."
+#~ msgstr "Användaren har betalat. Väntar på kvitto..."
+
+#~ msgid ""
+#~ "User has paid & has been sent to confirmation page. Waiting for "
+#~ "confirmation..."
+#~ msgstr ""
+#~ "Användaren har betalat & har skickats till tacksida. Väntar på kvitto..."
+
+#~ msgid "Processing..."
+#~ msgstr "Bearbetar..."
+
+#~ msgid "Payment done"
+#~ msgstr "Betalning genomförd"
+
+#~ msgid "But could not verify"
+#~ msgstr "Men kunde inte verifiera"
+
+#~ msgid "Failed"
+#~ msgstr "Misslyckad"
+
+#~ msgid "Processed"
+#~ msgstr "Bearbetad"
+
+#~ msgid "Pending"
+#~ msgstr "Väntande"
+
+#~ msgid "Cancelled"
+#~ msgstr "Avbruten"
+
+#~ msgid "Updated"
+#~ msgstr "Uppdaterade"
+
+#~ msgid "Already up to date"
+#~ msgstr "Redan uppdaterade"
+
+#~ msgid "Inserted"
+#~ msgstr "Inlagda"
+
+#~ msgid "Not inserted"
+#~ msgstr "Inte inlagda"
+
+#~ msgid "Deleted"
+#~ msgstr "Borttagen"
+
+#~ msgid "Not deleted"
+#~ msgstr "Inte borttagna"
+
+#~ msgid "Did not exist"
+#~ msgstr "Fanns inte"
+
+#~ msgid "Check"
+#~ msgstr "Kolla"
+
+#~ msgid "Choose here"
+#~ msgstr "Välj här"
+
+#~ msgid "Import"
+#~ msgstr "Importera"
+
+#~ msgid "Action"
+#~ msgstr "Åtgärd"
+
+#~ msgid "Text"
+#~ msgstr "Text"
+
+#~ msgid "Value 1\tValue 2\tValue 3"
+#~ msgstr "Värde 1\tVärde 2\tVärde 3"
+
+#~ msgid "File"
+#~ msgstr "Fil"
+
+#~ msgid "Skip first row"
+#~ msgstr "Hoppa över första raden"
+
+#~ msgid "Run"
+#~ msgstr "Kör"
+
+#~ msgid "Rows"
+#~ msgstr "Rader"
+
+#~ msgid "Column"
+#~ msgstr "Kolumn"
+
+#~ msgid "Example"
+#~ msgstr "Exempel"
+
+#~ msgid "Add Attachment"
+#~ msgstr "Bifoga fil"
+
+#~ msgid "You need to install the plugin %s%s%s first"
+#~ msgstr "Du måste installera pluginet %s%s%s först"
+
+#~ msgid "We highly recommend that you install %s%s%s aswell"
+#~ msgstr "Vi rekommenderar att du installerar %s%s%s också"
+
+#~ msgid "Versions"
+#~ msgstr "Versioner"
+
+#~ msgid "Update core automatically"
+#~ msgstr "Uppdatera Wordpress automatiskt"
+
+#~ msgid "Update notification"
+#~ msgstr "Meddelande om uppdatering"
+
+#~ msgid "Requirements"
+#~ msgstr "Krav"
+
+#~ msgid "None"
+#~ msgstr "Inga"
+
+#~ msgid "Minor"
+#~ msgstr "Små"
+
+#~ msgid "default"
+#~ msgstr "standard"
+
+#~ msgid "Send e-mail to admin after auto core update"
+#~ msgstr ""
+#~ "Skicka e-post till admin efter en automatisk uppdatering av Wordpress"
+
+#~ msgid "The file could not be opened"
+#~ msgstr "Filen kunde inte öppnas"
+
+#~ msgid "To view this protected post, enter the password below"
+#~ msgstr "För att se innehållet på denna sida, skriv in lösenordet nedan"
+
+#~ msgid "Password"
+#~ msgstr "Lösenord"
+
+#~ msgid "Submit"
+#~ msgstr "Skicka"
+
+#~ msgid "January"
+#~ msgstr "Januari"
+
+#~ msgid "February"
+#~ msgstr "Februari"
+
+#~ msgid "March"
+#~ msgstr "Mars"
+
+#~ msgid "April"
+#~ msgstr "April"
+
+#~ msgid "May"
+#~ msgstr "Maj"
+
+#~ msgid "June"
+#~ msgstr "Juni"
+
+#~ msgid "July"
+#~ msgstr "Juli"
+
+#~ msgid "August"
+#~ msgstr "Augusti"
+
+#~ msgid "September"
+#~ msgstr "September"
+
+#~ msgid "October"
+#~ msgstr "Oktober"
+
+#~ msgid "November"
+#~ msgstr "November"
+
+#~ msgid "December"
+#~ msgstr "December"
+
+#~ msgid "Sunday"
+#~ msgstr "Söndag"
+
+#~ msgid "Monday"
+#~ msgstr "Måndag"
+
+#~ msgid "Tuesday"
+#~ msgstr "Tisdag"
+
+#~ msgid "Wednesday"
+#~ msgstr "Onsdag"
+
+#~ msgid "Thursday"
+#~ msgstr "Torsdag"
+
+#~ msgid "Friday"
+#~ msgstr "Fredag"
+
+#~ msgid "Saturday"
+#~ msgstr "Lördag"
+
+#~ msgid "Add"
+#~ msgstr "Lägg till"
+
+#~ msgid "Text (Every row is separated)"
+#~ msgstr "Text"
+
+#~ msgid "Basic info"
+#~ msgstr "Information"
+
+#~ msgid "Add new plugin"
+#~ msgstr "Lägg till nytt plugin"
+
+#~ msgid "E-mail"
+#~ msgstr "E-post"
+
+#~ msgid "Phone no"
+#~ msgstr "Telefonnummer"
+
+#~ msgid "URL"
+#~ msgstr "URL"
+
+#~ msgid "Range"
+#~ msgstr "Spann"
+
+#~ msgid "Input field"
+#~ msgstr "Textrad"
+
+#~ msgid "Textarea"
+#~ msgstr "Textfält"
+
+#~ msgid "Space"
+#~ msgstr "mellanrum"
+
+#~ msgid "Datepicker"
+#~ msgstr "Datumväljare"
+
+#~ msgid "Radio button"
+#~ msgstr "Flervalsalternativ"
+
+#~ msgid "Referer URL"
+#~ msgstr "Referens-URL"
+
+#~ msgid "Dropdown"
+#~ msgstr "Rullgardin"
+
+#~ msgid "Multiple selection"
+#~ msgstr "Rullgardin (flerval)"
+
+#~ msgid "Zip code"
+#~ msgstr "Postnummer"
+
+#~ msgid "Social security number"
+#~ msgstr "Personnummer"
+
+#~ msgid "digits"
+#~ msgstr "siffror"
+
+#~ msgid "Answers in"
+#~ msgstr "Svar i"
+
+#~ msgid "Created"
+#~ msgstr "Skapad"
+
+#~ msgid "Edit"
+#~ msgstr "Redigera"
+
+#~ msgid "ID"
+#~ msgstr "ID"
+
+#~ msgid "IP"
+#~ msgstr "IP"
+
+#~ msgid "Please, enter all required fields"
+#~ msgstr "Var vänlig fyll i alla obligatoriska fält"
+
+#~ msgid "Couldn't update the field"
+#~ msgstr "Det gick inte att uppdatera fältet"
+
+#~ msgid "Couldn't insert the new field"
+#~ msgstr "Det gick inte att lägga in det nya fältet"
+
+#~ msgid "Content"
+#~ msgstr "Innehåll"
+
+#~ msgid "Type"
+#~ msgstr "Typ"
+
+#~ msgid "Validate as"
+#~ msgstr "Validera som"
+
+#~ msgid "Placeholder Text"
+#~ msgstr "Valfri text"
+
+#~ msgid "Feel free to write anything you like here"
+#~ msgstr "Här kan du fylla i valfri text som visas i textfältet"
+
+#~ msgid "Custom CSS class"
+#~ msgstr "Anpassad CSS-klass"
+
+#~ msgid "Min value"
+#~ msgstr "Minsta värde"
+
+#~ msgid "Max value"
+#~ msgstr "Högsta värde"
+
+#~ msgid "Value"
+#~ msgstr "Värde"
+
+#~ msgid "Enter option here"
+#~ msgstr "Skriv in alternativ här"
+
+#~ msgid "Preview"
+#~ msgstr "Förhandsgranska"
+
+#~ msgid "Choose page here"
+#~ msgstr "Välj sida här"
+
+#~ msgid "Confirmation page"
+#~ msgstr "Bekräftelsesida"
+
+#~ msgid "Send e-mail confirmation to questionnaire"
+#~ msgstr "Skicka e-postbekräftelse till besökaren"
+
+#~ msgid "E-mail confirmation content"
+#~ msgstr "Innehåll för e-postbekräftelse"
+
+#~ msgid ""
+#~ "If you don't choose a page, the content of the form will be sent as "
+#~ "content"
+#~ msgstr "Om du inte väljer en sida skickas istället svaren från formuläret"
+
+#~ msgid "Encrypted"
+#~ msgstr "Krypterade svar"
+
+#~ msgid "Improve UX"
+#~ msgstr "Förbättra användarupplevelsen"
+
+#~ msgid "Show Answers"
+#~ msgstr "Visa svar"
+
+#~ msgid "Send e-mail from/to"
+#~ msgstr "Skicka e-post från/till"
+
+#~ msgid "Send notification on new answer"
+#~ msgstr "Skicka e-post vid nytt svar"
+
+#~ msgid "Subject"
+#~ msgstr "Ämne"
+
+#~ msgid "Language"
+#~ msgstr "Språk"
+
+#~ msgid "Button text"
+#~ msgstr "Knapptext"
+
+#~ msgid "Provider"
+#~ msgstr "Leverantör"
+
+#~ msgid "Merchant ID"
+#~ msgstr "Butiks-ID"
+
+#~ msgid "Merchant E-mail"
+#~ msgstr "E-post"
+
+#~ msgid "HMAC key"
+#~ msgstr "HMAC-nyckel"
+
+#~ msgid "Secret word"
+#~ msgstr "Hemligt ord"
+
+#~ msgid "Field for accepting payment"
+#~ msgstr "Fält för att acceptera betalning"
+
+#~ msgid "Field for payment cost"
+#~ msgstr "Fält för kostnad"
+
+#~ msgid "Forms"
+#~ msgstr "Formulär"
+
+#~ msgid "Form"
+#~ msgstr "formulär"
+
+#~ msgid "Click here to send e-mail"
+#~ msgstr "Klicka här för att skicka e-post"
+
+#~ msgid "Form to replace all e-mail links"
+#~ msgstr "Formulär för att ersätta alla e-postlänkar"
+
+#~ msgid ""
+#~ "If you would like all e-mail links in text to be replaced by a form, "
+#~ "choose one here"
+#~ msgstr ""
+#~ "Om du vill att alla e-postlänkar i text ska ersättas med ett formulär, "
+#~ "välj det här"
+
+#~ msgid "Unread answers"
+#~ msgstr "Olästa svar"
+
+#~ msgid "Last Answers"
+#~ msgstr "Senaste svaren"
+
+#~ msgid "Edit Last Answer"
+#~ msgstr "Redigera senaste svar"
+
+#~ msgid "Thank you!"
+#~ msgstr "Tack så mycket!"
+
+#~ msgid "space"
+#~ msgstr "mellanslag"
+
+#~ msgid "Autofocus"
+#~ msgstr "Fokusera automatiskt"
+
+#~ msgid "Perform test payment"
+#~ msgstr "Genomför testbetalning"
+
+#~ msgid "Edit this form"
+#~ msgstr "Redigera formuläret"
+
+#~ msgid ""
+#~ "Something went wrong. Contact your admin and add this URL as reference"
+#~ msgstr ""
+#~ "Något gick fel. Kontakta en administratör och skicka med denna URL som "
+#~ "referens"
+
+#~ msgid "Back"
+#~ msgstr "Bakåt"
+
+#~ msgid ""
+#~ "Could not create a folder in uploads. Please add the correct rights for "
+#~ "the script to create a new subfolder"
+#~ msgstr ""
+#~ "Det gick inte att skapa en mapp i uploads. Lägg till rätt behörigheter "
+#~ "för mappen uploads så att det går att skapa en undermapp"
+
+#~ msgid "There were no answers to export"
+#~ msgstr "Det fanns inga svar att exportera"
+
+#~ msgid "Row count"
+#~ msgstr "Antal rader"
+
+#~ msgid "It was not possible to export all answers from"
+#~ msgstr "Det gick inte att exportera alla svar från"
+
+#~ msgid "All forms"
+#~ msgstr "Alla formulär"
+
+#~ msgid "Shortcode"
+#~ msgstr "Kortkod"
+
+#~ msgid "Answers"
+#~ msgstr "Svar"
+
+#~ msgid "There is nothing to show"
+#~ msgstr "Det finns inget att visa"
+
+#~ msgid "Copy"
+#~ msgstr "Kopiera"
+
+#~ msgid "Edit Page"
+#~ msgstr "Redigera sida"
+
+#~ msgid "View page"
+#~ msgstr "Visa sida"
+
+#~ msgid "Export Answers"
+#~ msgstr "Exportera svar"
+
+#~ msgid "Payment (DIBS)"
+#~ msgstr "Betalning (DIBS)"
+
+#~ msgid "All Forms"
+#~ msgstr "Alla formulär"
+
+#~ msgid "Deny Duplicates"
+#~ msgstr "Spärra dubletter"
