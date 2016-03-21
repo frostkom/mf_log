@@ -106,35 +106,24 @@ function settings_log_callback()
 
 function setting_log_query_debug_callback()
 {
-	$option = get_option('setting_log_query_debug', 'no');
+	$setting_key = get_setting_key(__FUNCTION__);
+	$option = get_option($setting_key, 'no');
 
-	$arr_data = array();
-
-	$arr_data[] = array('no', __("No", 'lang_log'));
-	$arr_data[] = array('yes', __("Yes", 'lang_log'));
-
-	echo "<label>"
-		.show_select(array('data' => $arr_data, 'name' => 'setting_log_query_debug', 'compare' => $option))
-		."<span class='description'>".__("This will hurt performance on the frontend so use this for debugging only and then turn off", 'lang_log')."</span>"
-	."</label>";
+	echo show_select(array('data' => get_yes_no_for_select(), 'name' => $setting_key, 'compare' => $option, 'suffix' => __("This will hurt performance on the frontend so use this for debugging only and then turn off", 'lang_log')));
 }
 
 function setting_log_query_time_limit_callback()
 {
 	$option = get_option('setting_log_query_time_limit');
 
-	echo "<label>"
-		.show_textfield(array('name' => 'setting_log_query_time_limit', 'value' => $option, 'placeholder' => __("0-9.9999", 'lang_log'), 'pattern' => "\d{1}(\.\d{0,4})?"))
-	."</label>";
+	echo show_textfield(array('name' => 'setting_log_query_time_limit', 'value' => $option, 'placeholder' => __("0-9.9999", 'lang_log'), 'pattern' => "\d{1}(\.\d{0,4})?"));
 }
 
 function setting_log_page_time_limit_callback()
 {
 	$option = get_option('setting_log_page_time_limit');
 
-	echo "<label>"
-		.show_textfield(array('name' => 'setting_log_page_time_limit', 'value' => $option, 'placeholder' => __("0-9.9999", 'lang_log'), 'pattern' => "\d{1}(\.\d{0,4})?"))
-	."</label>";
+	echo show_textfield(array('name' => 'setting_log_page_time_limit', 'value' => $option, 'placeholder' => __("0-9.9999", 'lang_log'), 'pattern' => "\d{1}(\.\d{0,4})?"));
 }
 
 function get_count_log($id = 0)
