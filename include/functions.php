@@ -35,22 +35,11 @@ function cron_log()
 
 			if($file != '')
 			{
-				/*$arr_exclude = array(
-					"Too many connections",
-					//"got kan vara fel med WordPress\.org eller denna serverkonfiguration",
-					"convert_to_screen\(\)",
-					"wp-includes\/ms-settings\.php on line 35",
-					"failed to delete buffer zlib output compression in",
-				);*/
-
 				foreach($file as $value)
 				{
-					/*if(!preg_match("/(".implode("|", $arr_exclude).")/is", $value))
-					{*/
-						list($date, $value) = explode("] ", $value, 2);
+					list($date, $value) = explode("] ", $value, 2);
 
-						do_log($value);
-					//}
+					do_log($value);
 				}
 			}
 
@@ -75,7 +64,7 @@ function cron_log()
 
 function settings_log()
 {
-	$options_area = "settings_log";
+	$options_area = __FUNCTION__;
 
 	add_settings_section($options_area, "", $options_area."_callback", BASE_OPTIONS_PAGE);
 
@@ -114,16 +103,18 @@ function setting_log_query_debug_callback()
 
 function setting_log_query_time_limit_callback()
 {
-	$option = get_option('setting_log_query_time_limit');
+	$setting_key = get_setting_key(__FUNCTION__);
+	$option = get_option($setting_key);
 
-	echo show_textfield(array('name' => 'setting_log_query_time_limit', 'value' => $option, 'placeholder' => __("0-9.9999", 'lang_log'), 'pattern' => "\d{1}(\.\d{0,4})?"));
+	echo show_textfield(array('name' => $setting_key, 'value' => $option, 'placeholder' => __("0-9.9999", 'lang_log'), 'pattern' => "\d{1}(\.\d{0,4})?"));
 }
 
 function setting_log_page_time_limit_callback()
 {
-	$option = get_option('setting_log_page_time_limit');
+	$setting_key = get_setting_key(__FUNCTION__);
+	$option = get_option($setting_key);
 
-	echo show_textfield(array('name' => 'setting_log_page_time_limit', 'value' => $option, 'placeholder' => __("0-9.9999", 'lang_log'), 'pattern' => "\d{1}(\.\d{0,4})?"));
+	echo show_textfield(array('name' => $setting_key, 'value' => $option, 'placeholder' => __("0-9.9999", 'lang_log'), 'pattern' => "\d{1}(\.\d{0,4})?"));
 }
 
 function get_count_log($id = 0)
@@ -162,17 +153,47 @@ function notices_log()
 {
 	global $wpdb, $error_text;
 
-	if(IS_ADMIN && get_current_user_id() == 1)
+	if(IS_ADMIN)
 	{
 		$arr_conditions = array(
 			array('constant' => "WP_DEBUG", 'check' => false, 'check_text' => "true"),
 			array('constant' => "WP_DEBUG_LOG", 'check' => false, 'check_text' => "true"),
 			array('constant' => "WP_DEBUG_DISPLAY", 'check' => true, 'check_text' => "false"),
+			array('file' => ABSPATH."wp-content/debug.log"),
 		);
 
 		foreach($arr_conditions as $condition)
 		{
-			if(!defined($condition['constant']) || constant($condition['constant']) == $condition['check'])
+			if(isset($condition['file']))
+			{
+				if(!file_exists($condition['file']))
+				{
+					/*$fp = @fopen($condition['file'], "w");
+					
+					if(!$fp)
+					{
+						$error_text = sprintf(__("%s is not writable. Please, make sure that the file can be written so that Wordpress can log errors", 'lang_log'), $condition['file'])."";
+
+						break;
+					}*/
+
+					if(!is_writable(dirname($condition['file'])))
+					{
+						$error_text = sprintf(__("%s is not writable. Please, make sure that the folder can be written to so that Wordpress can log errors", 'lang_log'), dirname($condition['file']))."";
+
+						break;
+					}
+
+					/*if(!is_writable($condition['file']))
+					{
+						$error_text = sprintf(__("%s is not writable. Please, make sure that the file can be written so that Wordpress can log errors", 'lang_log'), $condition['file'])."";
+
+						break;
+					}*/
+				}
+			}
+
+			else if(!defined($condition['constant']) || constant($condition['constant']) == $condition['check'])
 			{
 				$error_text = sprintf(__("%s should be set to %s in wp-config.php", 'lang_log'), $condition['constant'], $condition['check_text'])."";
 

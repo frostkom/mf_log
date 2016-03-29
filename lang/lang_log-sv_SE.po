@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MF Base\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-14 09:33+0100\n"
+"POT-Creation-Date: 2016-03-22 09:53+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Fors\n"
 "Language-Team: Martin Fors\n"
@@ -48,73 +48,83 @@ msgstr "Datum"
 msgid "Delete"
 msgstr "Radera"
 
-#: ../include/classes.php:247
-#: ../include/classes.php:272
-msgid "SQL Debug"
-msgstr ""
+#: ../include/classes.php:290
+msgid "Debug query"
+msgstr "Debugga databasfrågor"
 
-#: ../include/classes.php:275
+#: ../include/classes.php:315
+msgid "Debug page"
+msgstr "Debugga sida"
+
+#: ../include/classes.php:318
 msgid "Total query time"
 msgstr ""
 
-#: ../include/classes.php:279
+#: ../include/classes.php:322
 msgid "Total num_query time"
 msgstr ""
 
 #: ../include/functions.php:6
 #: ../include/functions.php:7
 #: ../include/functions.php:8
-#: ../include/functions.php:109
-#: ../include/functions.php:174
+#: ../include/functions.php:93
+#: ../include/functions.php:149
 #: ../list/index.php:8
 msgid "Log"
 msgstr "Logg"
 
-#: ../include/functions.php:62
+#: ../include/functions.php:51
 msgid "debug.log was too large so it was deleted"
 msgstr "debug.log var för stor så den raderades"
 
-#: ../include/functions.php:78
-msgid "Settings"
-msgstr "Inställningar"
-
-#: ../include/functions.php:90
+#: ../include/functions.php:72
 msgid "Debug DB queries"
 msgstr "Debugga databasfrågor"
 
-#: ../include/functions.php:95
+#: ../include/functions.php:77
 msgid "Query time limit"
 msgstr "Gränsvärde för databasfrågor"
 
-#: ../include/functions.php:96
+#: ../include/functions.php:78
 msgid "Page time limit"
 msgstr "Gränsvärde för sidvisning"
 
-#: ../include/functions.php:118
-msgid "No"
-msgstr "Nej"
-
-#: ../include/functions.php:119
-msgid "Yes"
-msgstr "Ja"
-
-#: ../include/functions.php:123
+#: ../include/functions.php:101
 msgid "This will hurt performance on the frontend so use this for debugging only and then turn off"
 msgstr "Detta påverkar prestandan negativt på webbsidan så använd detta endast för debugging och stäng av det efteråt"
 
-#: ../include/functions.php:132
-#: ../include/functions.php:141
+#: ../include/functions.php:109
+#: ../include/functions.php:117
 msgid "0-9.9999"
 msgstr ""
 
-#: ../include/functions.php:158
+#: ../include/functions.php:133
 msgid "New"
 msgstr "Ny"
 
-#: ../include/functions.php:193
+#: ../include/functions.php:173
+#, php-format
+msgid "%s is not writable. Please, make sure that the folder can be written to so that Wordpress can log errors"
+msgstr "%s är inte skrivbar. Se till så att mappen är skrivbar så att Wordpress kan logga fel"
+
+#: ../include/functions.php:180
+#, php-format
+msgid "%s is not writable. Please, make sure that the file can be written so that Wordpress can log errors"
+msgstr "%s är inte skrivbar. Se till så att filen är skrivbar så att Wordpress kan logga fel"
+
+#: ../include/functions.php:189
 #, php-format
 msgid "%s should be set to %s in wp-config.php"
 msgstr "%s bör vara satt till %s i wp-config.php"
+
+#~ msgid "Settings"
+#~ msgstr "Inställningar"
+
+#~ msgid "No"
+#~ msgstr "Nej"
+
+#~ msgid "Yes"
+#~ msgstr "Ja"
 
 #~ msgid "Recover"
 #~ msgstr "Återställ"
@@ -588,9 +598,6 @@ msgstr "%s bör vara satt till %s i wp-config.php"
 
 #~ msgid "Edit Page"
 #~ msgstr "Redigera sida"
-
-#~ msgid "View page"
-#~ msgstr "Visa sida"
 
 #~ msgid "Export Answers"
 #~ msgstr "Exportera svar"

@@ -3,9 +3,13 @@
 Plugin Name: MF Log
 Plugin URI: https://github.com/frostkom/mf_log
 Description: 
-Version: 3.2.3
+Version: 3.2.8
 Author: Martin Fors
 Author URI: http://frostkom.se
+Text Domain: lang_log
+Domain Path: /lang
+
+GitHub Plugin URI: frostkom/mf_log
 */
 
 include_once("include/classes.php");
