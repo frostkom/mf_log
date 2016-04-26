@@ -168,28 +168,12 @@ function notices_log()
 			{
 				if(!file_exists($condition['file']))
 				{
-					/*$fp = @fopen($condition['file'], "w");
-					
-					if(!$fp)
-					{
-						$error_text = sprintf(__("%s is not writable. Please, make sure that the file can be written so that Wordpress can log errors", 'lang_log'), $condition['file'])."";
-
-						break;
-					}*/
-
 					if(!is_writable(dirname($condition['file'])))
 					{
 						$error_text = sprintf(__("%s is not writable. Please, make sure that the folder can be written to so that Wordpress can log errors", 'lang_log'), dirname($condition['file']))."";
 
 						break;
 					}
-
-					/*if(!is_writable($condition['file']))
-					{
-						$error_text = sprintf(__("%s is not writable. Please, make sure that the file can be written so that Wordpress can log errors", 'lang_log'), $condition['file'])."";
-
-						break;
-					}*/
 				}
 			}
 
