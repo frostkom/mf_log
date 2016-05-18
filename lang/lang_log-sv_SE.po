@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-27 15:40+0100\n"
+"POT-Creation-Date: 2016-05-17 14:53+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Fors\n"
 "Language-Team: \n"
@@ -64,50 +64,59 @@ msgstr ""
 msgid "Total num_query time"
 msgstr ""
 
-#: ../include/functions.php:6
-#: ../include/functions.php:7
-#: ../include/functions.php:8
-#: ../include/functions.php:93
-#: ../include/functions.php:149
+#: ../include/functions.php:17
+#, php-format
+msgid "There are %d new errors in the log"
+msgstr "Det  finns %d nya fel i loggen"
+
+#: ../include/functions.php:17
+msgid "There is one new error in the log"
+msgstr "Det  finns ett nytt fel i loggen"
+
+#: ../include/functions.php:34
+#: ../include/functions.php:35
+#: ../include/functions.php:36
+#: ../include/functions.php:121
+#: ../include/functions.php:177
 #: ../list/index.php:8
 msgid "Log"
 msgstr "Logg"
 
-#: ../include/functions.php:51
+#: ../include/functions.php:79
 msgid "debug.log was too large so it was deleted"
 msgstr "debug.log var för stor så den raderades"
 
-#: ../include/functions.php:72
+#: ../include/functions.php:100
 msgid "Debug DB queries"
 msgstr "Debugga databasfrågor"
 
-#: ../include/functions.php:77
+#: ../include/functions.php:105
 msgid "Query time limit"
 msgstr "Gränsvärde för databasfrågor"
 
-#: ../include/functions.php:78
+#: ../include/functions.php:106
 msgid "Page time limit"
 msgstr "Gränsvärde för sidvisning"
 
-#: ../include/functions.php:101
+#: ../include/functions.php:129
 msgid "This will hurt performance on the frontend so use this for debugging only and then turn off"
 msgstr "Detta påverkar prestandan negativt på webbsidan så använd detta endast för debugging och stäng av det efteråt"
 
-#: ../include/functions.php:109
-#: ../include/functions.php:117
+#: ../include/functions.php:137
+#: ../include/functions.php:145
 msgid "0-9.9999"
 msgstr ""
 
-#: ../include/functions.php:133
+#: ../include/functions.php:161
 msgid "New"
 msgstr "Ny"
 
-#: ../include/functions.php:173
+#: ../include/functions.php:201
 #, php-format
 msgid "%s is not writable. Please, make sure that the folder can be written to so that Wordpress can log errors"
 msgstr "%s är inte skrivbar. Se till så att mappen är skrivbar så att Wordpress kan logga fel"
 
-#: ../include/functions.php:182
+#: ../include/functions.php:210
 #, php-format
 msgid "%s should be set to %s in wp-config.php"
 msgstr "%s bör vara satt till %s i wp-config.php"

@@ -1,5 +1,26 @@
 <?php
 
+function get_user_notifications_log($arr_notifications, $notification_showed)
+{
+	global $wpdb;
+
+	$result = $wpdb->get_results($wpdb->prepare("SELECT ID, post_modified FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND post_status NOT IN ('trash', 'ignore') AND post_modified > %s", $notification_showed));
+	$rows = $wpdb->num_rows;
+
+	if($rows > 0)
+	{
+		$arr_notifications[] = array(
+			'title' => $rows > 1 ? sprintf(__("There are %d new errors in the log", 'lang_log'), $rows) : __("There is one new error in the log", 'lang_log'),
+			'tag' => 'log',
+			//'text' => "",
+			//'icon' => "",
+			'link' => admin_url('?page=mf_log/list/index.php'),
+		);
+	}
+
+	return $arr_notifications;
+}
+
 function init_log()
 {
 	$labels = array(
@@ -125,7 +146,7 @@ function get_count_log($id = 0)
 
 	$last_viewed = get_user_meta(get_current_user_id(), 'mf_log_viewed', true);
 
-	$result = $wpdb->get_results($wpdb->prepare("SELECT ID FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND post_status != 'trash' AND post_status != 'ignore' AND post_modified > %s", $last_viewed));
+	$result = $wpdb->get_results($wpdb->prepare("SELECT ID FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND post_status NOT IN ('trash', 'ignore') AND post_modified > %s", $last_viewed));
 	$rows = $wpdb->num_rows;
 
 	if($rows > 0)
