@@ -1,10 +1,10 @@
 <?php
 
-function get_user_notifications_log($arr_notifications, $notification_showed)
+function get_user_notifications_log($arr_notifications)
 {
 	global $wpdb;
 
-	$result = $wpdb->get_results($wpdb->prepare("SELECT ID, post_modified FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND post_status NOT IN ('trash', 'ignore') AND post_modified > %s", $notification_showed));
+	$result = $wpdb->get_results("SELECT ID, post_modified FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND post_status NOT IN ('trash', 'ignore') AND post_modified > DATE_SUB(NOW(), INTERVAL 2 MINUTE)");
 	$rows = $wpdb->num_rows;
 
 	if($rows > 0)
@@ -14,7 +14,7 @@ function get_user_notifications_log($arr_notifications, $notification_showed)
 			'tag' => 'log',
 			//'text' => "",
 			//'icon' => "",
-			'link' => admin_url('?page=mf_log/list/index.php'),
+			'link' => admin_url("admin.php?page=mf_log/list/index.php"),
 		);
 	}
 
