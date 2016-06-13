@@ -4,18 +4,21 @@ function get_user_notifications_log($arr_notifications)
 {
 	global $wpdb;
 
-	$result = $wpdb->get_results("SELECT ID, post_modified FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND post_status NOT IN ('trash', 'ignore') AND post_modified > DATE_SUB(NOW(), INTERVAL 2 MINUTE)");
-	$rows = $wpdb->num_rows;
-
-	if($rows > 0)
+	if(IS_ADMIN)
 	{
-		$arr_notifications[] = array(
-			'title' => $rows > 1 ? sprintf(__("There are %d new errors in the log", 'lang_log'), $rows) : __("There is one new error in the log", 'lang_log'),
-			'tag' => 'log',
-			//'text' => "",
-			//'icon' => "",
-			'link' => admin_url("admin.php?page=mf_log/list/index.php"),
-		);
+		$result = $wpdb->get_results("SELECT ID, post_modified FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND post_status NOT IN ('trash', 'ignore') AND post_modified > DATE_SUB(NOW(), INTERVAL 2 MINUTE)");
+		$rows = $wpdb->num_rows;
+
+		if($rows > 0)
+		{
+			$arr_notifications[] = array(
+				'title' => $rows > 1 ? sprintf(__("There are %d new errors in the log", 'lang_log'), $rows) : __("There is one new error in the log", 'lang_log'),
+				'tag' => 'log',
+				//'text' => "",
+				//'icon' => "",
+				'link' => admin_url("admin.php?page=mf_log/list/index.php"),
+			);
+		}
 	}
 
 	return $arr_notifications;
