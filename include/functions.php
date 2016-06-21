@@ -78,7 +78,11 @@ function cron_log()
 		}
 	}
 
-	$result = $wpdb->get_results("SELECT ID FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND post_status != 'trash' AND post_status != 'ignore' AND post_modified < DATE_SUB(NOW(), INTERVAL 1 MONTH)");
+	$result = $wpdb->get_results("SELECT ID FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND (
+		post_status != 'trash' AND post_status != 'ignore' AND post_modified < DATE_SUB(NOW(), INTERVAL 1 MONTH)
+		OR 
+		post_status = 'ignore' AND post_modified < DATE_SUB(NOW(), INTERVAL 1 YEAR)
+	)");
 
 	foreach($result as $r)
 	{
@@ -170,7 +174,10 @@ function menu_log()
 
 	$count_message = get_count_log();
 
-	add_menu_page(__("Log", 'lang_log'), __("Log", 'lang_log').$count_message, $menu_capability, $menu_start, '', 'dashicons-warning');
+	if($count_message != '')
+	{
+		add_menu_page(__("Log", 'lang_log'), __("Log", 'lang_log').$count_message, $menu_capability, $menu_start, '', 'dashicons-warning');
+	}
 }
 
 function notices_log()
