@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-17 14:53+0100\n"
+"POT-Creation-Date: 2016-06-22 11:33+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Fors\n"
 "Language-Team: \n"
@@ -64,25 +64,25 @@ msgstr ""
 msgid "Total num_query time"
 msgstr ""
 
-#: ../include/functions.php:17
+#: ../include/functions.php:15
 #, php-format
 msgid "There are %d new errors in the log"
 msgstr "Det  finns %d nya fel i loggen"
 
-#: ../include/functions.php:17
+#: ../include/functions.php:15
 msgid "There is one new error in the log"
 msgstr "Det  finns ett nytt fel i loggen"
 
-#: ../include/functions.php:34
-#: ../include/functions.php:35
-#: ../include/functions.php:36
+#: ../include/functions.php:30
+#: ../include/functions.php:31
+#: ../include/functions.php:32
 #: ../include/functions.php:121
 #: ../include/functions.php:177
 #: ../list/index.php:8
 msgid "Log"
 msgstr "Logg"
 
-#: ../include/functions.php:79
+#: ../include/functions.php:75
 msgid "debug.log was too large so it was deleted"
 msgstr "debug.log var för stor så den raderades"
 

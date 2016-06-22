@@ -174,10 +174,7 @@ function menu_log()
 
 	$count_message = get_count_log();
 
-	if($count_message != '')
-	{
-		add_menu_page(__("Log", 'lang_log'), __("Log", 'lang_log').$count_message, $menu_capability, $menu_start, '', 'dashicons-warning');
-	}
+	add_menu_page(__("Log", 'lang_log'), __("Log", 'lang_log').$count_message, $menu_capability, $menu_start, '', 'dashicons-warning');
 }
 
 function notices_log()
