@@ -172,9 +172,19 @@ function menu_log()
 	$menu_start = $menu_root.'list/index.php';
 	$menu_capability = "update_core";
 
-	$count_message = get_count_log();
+	$tbl_group = new mf_log_table();
 
-	add_menu_page(__("Log", 'lang_log'), __("Log", 'lang_log').$count_message, $menu_capability, $menu_start, '', 'dashicons-warning');
+	$tbl_group->select_data(array(
+		//'select' => "*",
+		//'debug' => true,
+	));
+
+	if(count($tbl_group->data) > 0)
+	{
+		$count_message = get_count_log();
+
+		add_menu_page(__("Log", 'lang_log'), __("Log", 'lang_log').$count_message, $menu_capability, $menu_start, '', 'dashicons-warning');
+	}
 }
 
 function notices_log()
