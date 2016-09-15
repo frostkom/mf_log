@@ -263,20 +263,20 @@ if(!class_exists('Debug_Queries'))
 
 			$query_time_limit = get_option('setting_log_query_time_limit');
 			$page_time_limit = get_option('setting_log_page_time_limit');
-			
+
 			// disabled session cache of mySQL
 			/*if(QUERY_CACHE_TYPE_OFF)
 			{
 				$wpdb->query( 'SET SESSION query_cache_type = 0;');
 			}*/
-			
+
 			$debug_queries = "";
 
 			if($wpdb->queries)
 			{
 				//$total_page_time = timer_stop(FALSE, 22);
 				$total_query_time = 0;
-				
+
 				foreach($wpdb->queries as $q)
 				{
 					$query_text = htmlentities(trim(preg_replace('/[[:space:]]+/', ' ', $q[0])));
@@ -321,7 +321,7 @@ if(!class_exists('Debug_Queries'))
 					$debug_queries .= "<li>
 						<strong>".__('Total num_query time')."</strong>: ".$total_timer_time."s (".$count_num_queries.")
 					</li>";
-					
+
 					/*if($total_query_time == 0)
 					{
 						$debug_queries .= "<li>".__('&raquo; Query time is null (0)? - please set the constant')." <code>SAVEQUERIES</code> ".__('at')." <code>TRUE</code> ".__('in your')." <code>wp-config.php</code></li>";
@@ -334,7 +334,7 @@ if(!class_exists('Debug_Queries'))
 					."</li>";*/
 				}
 			}
-			
+
 			return $debug_queries;
 		}
 
@@ -346,8 +346,8 @@ if(!class_exists('Debug_Queries'))
 			{
 				echo "<ul>".$debug_output."</ul>";
 			}*/
-		}		
-	}	
+		}
+	}
 }
 
 if(!is_admin())
