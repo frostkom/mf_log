@@ -251,7 +251,7 @@ if(!class_exists('Debug_Queries'))
 {
 	class Debug_Queries
 	{
-		function debug_queries()
+		function __construct()
 		{
 			add_action('wp_footer', array($this, 'the_queries'));
 		}
