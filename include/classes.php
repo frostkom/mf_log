@@ -204,13 +204,15 @@ class mf_log_table extends mf_list_table
 	}
 }
 
+/*
+$obj_microtime = new mf_microtime();
+echo $obj_microtime->output(__LINE__);
+*/
 class mf_microtime
 {
 	function __construct($data = array())
 	{
 		if(!isset($data['limit'])){	$data['limit'] = 0;}
-
-		echo "<strong>Init mf_microtime()</strong><br>";
 
 		$this->time_limit = $data['limit'];
 
@@ -242,7 +244,7 @@ class mf_microtime
 
 		if($time_diff >= $this->time_limit)
 		{
-			echo $string.": ".mf_format_number($time_diff, 4)." (".mf_format_number($time_diff_orig).")<br>";
+			return $string.": ".mf_format_number($time_diff, 4)." (".mf_format_number($time_diff_orig).")<br>";
 		}
 	}
 }

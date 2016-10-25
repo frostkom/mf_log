@@ -20,7 +20,3 @@ echo "<div class='wrap'>
 echo "</div>";
 
 update_user_meta(get_current_user_id(), 'mf_log_viewed', date("Y-m-d H:i:s"));
-
-/* Test */
-//$obj_microtime = new mf_microtime();
-//$obj_microtime->output(__LINE__);
