@@ -27,8 +27,8 @@ function get_user_notifications_log($arr_notifications)
 function init_log()
 {
 	$labels = array(
-		'name' => _x(__('Log', 'lang_log'), 'post type general name'),
-		'singular_name' => _x(__('Log', 'lang_log'), 'post type singular name'),
+		'name' => _x(__("Log", 'lang_log'), 'post type general name'),
+		'singular_name' => _x(__("Log", 'lang_log'), 'post type singular name'),
 		'menu_name' => __("Log", 'lang_log')
 	);
 

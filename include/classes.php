@@ -317,22 +317,22 @@ if(!class_exists('Debug_Queries'))
 					do_log(__("Debug page", 'lang_log').": ".$total_query_time."s (".$count_queries."), ".$total_timer_time."s (".$count_num_queries.")");
 
 					$debug_queries .= "<li>
-						<strong>".__('Total query time').":</strong> ".$total_query_time."s (".$count_queries.")
+						<strong>".__("Total query time", 'lang_log').":</strong> ".$total_query_time."s (".$count_queries.")
 					</li>";
 
 					$debug_queries .= "<li>
-						<strong>".__('Total num_query time')."</strong>: ".$total_timer_time."s (".$count_num_queries.")
+						<strong>".__("Total num_query time", 'lang_log')."</strong>: ".$total_timer_time."s (".$count_num_queries.")
 					</li>";
 
 					/*if($total_query_time == 0)
 					{
-						$debug_queries .= "<li>".__('&raquo; Query time is null (0)? - please set the constant')." <code>SAVEQUERIES</code> ".__('at')." <code>TRUE</code> ".__('in your')." <code>wp-config.php</code></li>";
+						$debug_queries .= "<li>&raquo; ".__("Query time is null (0)? - please set the constant", 'lang_log')." <code>SAVEQUERIES</code> ".__("at", 'lang_log')." <code>TRUE</code> ".__("in your", 'lang_log')." <code>wp-config.php</code></li>";
 					}*/
 
 					/*$debug_queries .= "<li>"
-						."<strong>".__('Page generated')."</strong>: ".$total_page_time.", "
-						.$phpper."% ".__('PHP').", "
-						.$mysqlper."% ".__('MySQL')
+						."<strong>".__("Page generated", 'lang_log')."</strong>: ".$total_page_time.", "
+						.$phpper."% ".__("PHP", 'lang_log').", "
+						.$mysqlper."% ".__("MySQL", 'lang_log')
 					."</li>";*/
 				}
 			}
