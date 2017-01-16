@@ -97,13 +97,13 @@ function settings_log()
 	add_settings_section($options_area, "", $options_area."_callback", BASE_OPTIONS_PAGE);
 
 	$arr_settings = array(
-		"setting_log_query_debug" => __("Debug DB queries", 'lang_log'),
+		'setting_log_query_debug' => __("Debug DB queries", 'lang_log'),
 	);
 
 	if(get_option('setting_log_query_debug') == 'yes')
 	{
-		$arr_settings["setting_log_query_time_limit"] = __("Query time limit", 'lang_log');
-		$arr_settings["setting_log_page_time_limit"] = __("Page time limit", 'lang_log');
+		$arr_settings['setting_log_query_time_limit'] = __("Query time limit", 'lang_log');
+		$arr_settings['setting_log_page_time_limit'] = __("Page time limit", 'lang_log');
 	}
 
 	foreach($arr_settings as $handle => $text)
