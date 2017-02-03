@@ -5,7 +5,10 @@ $obj_log->fetch_request();
 $obj_log->save_data();
 
 echo "<div class='wrap'>
-	<h2>".__("Log", 'lang_log')."</h2>"
+	<h2>"
+		.__("Log", 'lang_log')
+		."<a href='".wp_nonce_url("?page=mf_log/list/index.php&btnLogDeleteAll", 'log_delete_all')."' class='add-new-h2' rel='confirm'>".__("Trash All", 'lang_log')."</a>"
+	."</h2>"
 	.get_notification();
 
 	$tbl_group = new mf_log_table();

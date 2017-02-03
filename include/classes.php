@@ -23,6 +23,28 @@ class mf_log
 				$done_text = __("The information was deleted", 'lang_log');
 			}
 		}
+		
+		if(isset($_REQUEST['btnLogDeleteAll']) && wp_verify_nonce($_REQUEST['_wpnonce'], 'log_delete_all'))
+		{
+			$i = 0;
+
+			$result = $wpdb->get_results("SELECT ID FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND post_status = 'draft'");
+
+			foreach($result as $r)
+			{
+				wp_trash_post($r->ID);
+
+				$i++;
+
+				if($i % 100 == 0)
+				{
+					sleep(0.1);
+					set_time_limit(60);
+				}
+			}
+
+			$done_text = __("I deleted them all for you", 'lang_log');
+		}
 
 		else if(isset($_REQUEST['btnLogIgnore']) && $this->ID > 0 && wp_verify_nonce($_REQUEST['_wpnonce'], 'log_ignore'))
 		{
