@@ -3,7 +3,7 @@
 Plugin Name: MF Log
 Plugin URI: https://github.com/frostkom/mf_log
 Description: 
-Version: 3.4.0
+Version: 3.4.1
 Author: Martin Fors
 Author URI: http://frostkom.se
 Text Domain: lang_log
@@ -15,8 +15,9 @@ GitHub Plugin URI: frostkom/mf_log
 include_once("include/classes.php");
 include_once("include/functions.php");
 
+add_action('cron_base', 'cron_log', mt_rand(1, 10));
+
 add_action('init', 'init_log');
-add_action('cron_base', 'cron_log');
 
 if(is_admin())
 {
