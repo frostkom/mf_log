@@ -35,6 +35,7 @@ function init_log()
 	$args = array(
 		'labels' => $labels,
 		'public' => false,
+		'exclude_from_search' => true,
 		'supports' => array('title'),
 		'hierarchical' => true,
 		'has_archive' => false,
