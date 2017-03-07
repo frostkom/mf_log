@@ -16,7 +16,7 @@ class mf_log
 	{
 		global $wpdb, $done_text;
 
-		if(isset($_REQUEST['btnLogDelete']) && $this->ID > 0 && wp_verify_nonce($_REQUEST['_wpnonce'], 'log_delete'))
+		if(isset($_REQUEST['btnLogDelete']) && $this->ID > 0 && wp_verify_nonce($_REQUEST['_wpnonce'], 'log_delete_'.$this->ID))
 		{
 			if(wp_trash_post($this->ID))
 			{
@@ -46,7 +46,7 @@ class mf_log
 			$done_text = __("I deleted them all for you", 'lang_log');
 		}
 
-		else if(isset($_REQUEST['btnLogIgnore']) && $this->ID > 0 && wp_verify_nonce($_REQUEST['_wpnonce'], 'log_ignore'))
+		else if(isset($_REQUEST['btnLogIgnore']) && $this->ID > 0 && wp_verify_nonce($_REQUEST['_wpnonce'], 'log_ignore_'.$this->ID))
 		{
 			$wpdb->query($wpdb->prepare("UPDATE ".$wpdb->posts." SET post_status = 'ignore', post_modified = NOW() WHERE post_type = 'mf_log' AND ID = '%d'", $this->ID));
 
@@ -193,7 +193,7 @@ class mf_log_table extends mf_list_table
 				{
 					if($post_author == get_current_user_id() || IS_ADMIN)
 					{
-						$actions['delete'] = "<a href='".wp_nonce_url("?page=mf_log/list/index.php&btnLogDelete&intLogID=".$post_id, 'log_delete')."'>".__("Delete", 'lang_log')."</a>";
+						$actions['delete'] = "<a href='".wp_nonce_url("?page=mf_log/list/index.php&btnLogDelete&intLogID=".$post_id, 'log_delete_'.$post_id)."'>".__("Delete", 'lang_log')."</a>";
 					}
 				}
 
@@ -201,7 +201,7 @@ class mf_log_table extends mf_list_table
 				{
 					if($post_author == get_current_user_id() || IS_ADMIN)
 					{
-						$actions['ignore'] = "<a href='".wp_nonce_url("?page=mf_log/list/index.php&btnLogIgnore&intLogID=".$post_id, 'log_ignore')."' rel='confirm'>".__("Ignore", 'lang_log')."</a>";
+						$actions['ignore'] = "<a href='".wp_nonce_url("?page=mf_log/list/index.php&btnLogIgnore&intLogID=".$post_id, 'log_ignore_'.$post_id)."' rel='confirm'>".__("Ignore", 'lang_log')."</a>";
 					}
 				}
 
