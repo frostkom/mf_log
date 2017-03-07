@@ -189,7 +189,7 @@ function notices_log()
 		$arr_conditions = array(
 			array('constant' => "WP_DEBUG", 'check' => false, 'check_text' => "true"),
 			array('constant' => "WP_DEBUG_LOG", 'check' => false, 'check_text' => "true"),
-			array('constant' => "WP_DEBUG_DISPLAY", 'check' => true, 'check_text' => "false"),
+			array('constant' => "WP_DEBUG_DISPLAY"), //, 'check' => true, 'check_text' => "false"
 			array('file' => ABSPATH."wp-content/debug.log"),
 		);
 
@@ -208,7 +208,7 @@ function notices_log()
 				}
 			}
 
-			else if(!defined($condition['constant']) || constant($condition['constant']) == $condition['check'])
+			else if(!defined($condition['constant']) || isset($condition['check']) && constant($condition['constant']) == $condition['check'])
 			{
 				$error_text = sprintf(__("%s should be set to %s in wp-config.php", 'lang_log'), $condition['constant'], $condition['check_text'])."";
 
