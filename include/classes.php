@@ -366,7 +366,7 @@ if(!class_exists('Debug_Queries'))
 		{
 			$debug_output = $this->get_queries();
 
-			/*if($debug_output != '' && current_user_can('update_core'))
+			/*if($debug_output != '' && IS_SUPER_ADMIN)
 			{
 				echo "<ul>".$debug_output."</ul>";
 			}*/
