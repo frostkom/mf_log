@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-03 11:16+0100\n"
+"POT-Creation-Date: 2017-03-21 13:48+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Fors\n"
 "Language-Team: \n"
@@ -19,108 +19,108 @@ msgstr ""
 msgid "The information was deleted"
 msgstr "Informationen togs bort"
 
-#: ../include/classes.php:36
+#: ../include/classes.php:46
 msgid "I deleted them all for you"
 msgstr "Jag tog bort allihop åt dig"
 
-#: ../include/classes.php:45
+#: ../include/classes.php:55
 msgid "The information is now set to be ignored"
 msgstr "Informationen är satt till att ignoreras"
 
-#: ../include/classes.php:147
+#: ../include/classes.php:157
 msgid "All"
 msgstr "Alla"
 
-#: ../include/classes.php:149
-#: ../include/classes.php:194
+#: ../include/classes.php:159
+#: ../include/classes.php:204
 msgid "Ignore"
 msgstr "Ignorera"
 
-#: ../include/classes.php:150
+#: ../include/classes.php:160
 msgid "Trash"
 msgstr "Papperskorg"
 
-#: ../include/classes.php:157
+#: ../include/classes.php:167
 msgid "Name"
 msgstr "Namn"
 
-#: ../include/classes.php:158
+#: ../include/classes.php:168
 msgid "Date"
 msgstr "Datum"
 
-#: ../include/classes.php:186
+#: ../include/classes.php:196
 msgid "Delete"
 msgstr "Radera"
 
-#: ../include/classes.php:304
+#: ../include/classes.php:314
 msgid "Debug query"
 msgstr "Debugga databasfrågor"
 
-#: ../include/classes.php:329
+#: ../include/classes.php:339
 msgid "Debug page"
 msgstr "Debugga sida"
 
-#: ../include/classes.php:332
+#: ../include/classes.php:342
 msgid "Total query time"
 msgstr ""
 
-#: ../include/classes.php:336
+#: ../include/classes.php:346
 msgid "Total num_query time"
 msgstr ""
 
 #: ../include/functions.php:15
 #, php-format
 msgid "There are %d new errors in the log"
-msgstr "Det  finns %d nya fel i loggen"
+msgstr "Det finns %d nya fel i loggen"
 
 #: ../include/functions.php:15
 msgid "There is one new error in the log"
-msgstr "Det  finns ett nytt fel i loggen"
+msgstr "Det finns ett nytt fel i loggen"
 
 #: ../include/functions.php:30
 #: ../include/functions.php:31
 #: ../include/functions.php:32
-#: ../include/functions.php:121
-#: ../include/functions.php:175
+#: ../include/functions.php:122
+#: ../include/functions.php:176
 #: ../list/index.php:9
 msgid "Log"
 msgstr "Logg"
 
-#: ../include/functions.php:75
+#: ../include/functions.php:76
 msgid "debug.log was too large so it was deleted"
 msgstr "debug.log var för stor så den raderades"
 
-#: ../include/functions.php:100
+#: ../include/functions.php:101
 msgid "Debug DB queries"
 msgstr "Debugga databasfrågor"
 
-#: ../include/functions.php:105
+#: ../include/functions.php:106
 msgid "Query time limit"
 msgstr "Gränsvärde för databasfrågor"
 
-#: ../include/functions.php:106
+#: ../include/functions.php:107
 msgid "Page time limit"
 msgstr "Gränsvärde för sidvisning"
 
-#: ../include/functions.php:129
+#: ../include/functions.php:130
 msgid "This will hurt performance on the frontend so use this for debugging only and then turn off"
 msgstr "Detta påverkar prestandan negativt på webbsidan så använd detta endast för debugging och stäng av det efteråt"
 
-#: ../include/functions.php:137
-#: ../include/functions.php:145
+#: ../include/functions.php:138
+#: ../include/functions.php:146
 msgid "0-9.9999"
 msgstr ""
 
-#: ../include/functions.php:161
+#: ../include/functions.php:162
 msgid "New"
 msgstr "Ny"
 
-#: ../include/functions.php:203
+#: ../include/functions.php:204
 #, php-format
 msgid "%s is not writable. Please, make sure that the folder can be written to so that Wordpress can log errors"
 msgstr "%s är inte skrivbar. Se till så att mappen är skrivbar så att Wordpress kan logga fel"
 
-#: ../include/functions.php:212
+#: ../include/functions.php:213
 #, php-format
 msgid "%s should be set to %s in wp-config.php"
 msgstr "%s bör vara satt till %s i wp-config.php"
