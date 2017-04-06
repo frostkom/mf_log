@@ -23,7 +23,7 @@ class mf_log
 				$done_text = __("The information was deleted", 'lang_log');
 			}
 		}
-		
+
 		if(isset($_REQUEST['btnLogDeleteAll']) && wp_verify_nonce($_REQUEST['_wpnonce'], 'log_delete_all'))
 		{
 			$i = 0;
@@ -69,7 +69,7 @@ class mf_log
 		{
 			$post_md5 = md5($post_title);
 
-			if($action == "insert")
+			if($action == 'insert')
 			{
 				$result = $wpdb->get_results($wpdb->prepare("SELECT ID, post_status FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND (post_title = %s OR post_content = %s)", $post_title, $post_md5));
 
@@ -119,7 +119,7 @@ class mf_log
 				}
 			}
 
-			else if($action == "trash")
+			else if($action == 'trash')
 			{
 				$result = $wpdb->get_results("SELECT ID FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND post_status != 'trash' AND post_status != 'ignore' AND (post_title LIKE '".esc_sql($post_title)."%' OR post_content = '".esc_sql($post_md5)."')");
 
