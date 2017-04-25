@@ -155,7 +155,6 @@ class mf_log_table extends mf_list_table
 			'db_field' => 'post_status',
 			'types' => array(
 				'all' => __("All", 'lang_log'),
-				//'publish' => __("Public", 'lang_log'),
 				'ignore' => __("Ignore", 'lang_log'),
 				'trash' => __("Trash", 'lang_log'),
 			),
@@ -163,7 +162,6 @@ class mf_log_table extends mf_list_table
 
 		$this->set_columns(array(
 			'cb' => '<input type="checkbox">',
-			//'post_status' => "",
 			'post_title' => __("Name", 'lang_log'),
 			'post_modified' => __("Date", 'lang_log'),
 		));
