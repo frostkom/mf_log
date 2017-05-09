@@ -62,7 +62,10 @@ function cron_log()
 			{
 				foreach($file as $value)
 				{
-					list($date, $value) = explode("] ", $value, 2);
+					if(preg_match("/\]/", $value))
+					{
+						list($date, $value) = explode("] ", $value, 2);
+					}
 
 					do_log($value);
 				}
