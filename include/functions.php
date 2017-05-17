@@ -96,21 +96,24 @@ function cron_log()
 
 function settings_log()
 {
-	$options_area = __FUNCTION__;
-
-	add_settings_section($options_area, "", $options_area."_callback", BASE_OPTIONS_PAGE);
-
-	$arr_settings = array(
-		'setting_log_query_debug' => __("Debug DB queries", 'lang_log'),
-	);
-
-	if(get_option('setting_log_query_debug') == 'yes')
+	if(IS_SUPER_ADMIN)
 	{
-		$arr_settings['setting_log_query_time_limit'] = __("Query time limit", 'lang_log');
-		$arr_settings['setting_log_page_time_limit'] = __("Page time limit", 'lang_log');
-	}
+		$options_area = __FUNCTION__;
 
-	show_settings_fields(array('area' => $options_area, 'settings' => $arr_settings));
+		add_settings_section($options_area, "", $options_area."_callback", BASE_OPTIONS_PAGE);
+
+		$arr_settings = array(
+			'setting_log_query_debug' => __("Debug DB queries", 'lang_log'),
+		);
+
+		if(get_option('setting_log_query_debug') == 'yes')
+		{
+			$arr_settings['setting_log_query_time_limit'] = __("Query time limit", 'lang_log');
+			$arr_settings['setting_log_page_time_limit'] = __("Page time limit", 'lang_log');
+		}
+
+		show_settings_fields(array('area' => $options_area, 'settings' => $arr_settings));
+	}
 }
 
 function settings_log_callback()
