@@ -52,7 +52,7 @@ class mf_log
 
 			if($wpdb->rows_affected > 0) //wp_trash_post($this->ID)
 			{
-				$done_text = __("The information is now set to be ignored", 'lang_log');
+				$done_text = __("The information is being ignored from now on", 'lang_log');
 			}
 		}
 	}
