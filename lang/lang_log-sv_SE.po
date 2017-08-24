@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-07 08:53+0100\n"
+"POT-Creation-Date: 2017-08-24 09:57+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Fors\n"
 "Language-Team: \n"
@@ -109,7 +109,7 @@ msgstr "Detta påverkar prestandan negativt på webbsidan så använd detta enda
 #: ../include/functions.php:139
 #: ../include/functions.php:147
 msgid "0-9.9999"
-msgstr ""
+msgstr "0-9.9999"
 
 #: ../include/functions.php:163
 msgid "New"

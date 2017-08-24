@@ -3,7 +3,7 @@
 Plugin Name: MF Log
 Plugin URI: https://github.com/frostkom/mf_log
 Description: 
-Version: 3.5.2
+Version: 3.5.3
 Author: Martin Fors
 Author URI: http://frostkom.se
 Text Domain: lang_log
@@ -35,5 +35,6 @@ function uninstall_log()
 {
 	mf_uninstall_plugin(array(
 		'options' => array('setting_log_query_debug', 'setting_log_query_time_limit', 'setting_log_page_time_limit', 'mf_log_viewed'),
+		'post_types' => array('mf_log'),
 	));
 }
