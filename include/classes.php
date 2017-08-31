@@ -57,13 +57,24 @@ class mf_log
 		}
 	}
 
+	function filter($string)
+	{
+		$string = trim($string);
+
+		$arr_exclude = array(ABSPATH);
+
+		$string = str_replace($arr_exclude, "", $string);
+
+		return $string;
+	}
+
 	function create($post_title, $action = "")
 	{
 		global $wpdb;
 
 		if($action == ''){	$action = "insert";}
 
-		$post_title = trim($post_title);
+		$post_title = $this->filter($post_title);
 
 		if($post_title != '')
 		{
