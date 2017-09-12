@@ -1,29 +1,5 @@
 <?php
 
-function get_user_notifications_log($arr_notifications)
-{
-	global $wpdb;
-
-	if(IS_ADMIN)
-	{
-		$result = $wpdb->get_results("SELECT ID, post_modified FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND post_status NOT IN ('trash', 'ignore') AND post_modified > DATE_SUB(NOW(), INTERVAL 2 MINUTE)");
-		$rows = $wpdb->num_rows;
-
-		if($rows > 0)
-		{
-			$arr_notifications[] = array(
-				'title' => $rows > 1 ? sprintf(__("There are %d new errors in the log", 'lang_log'), $rows) : __("There is one new error in the log", 'lang_log'),
-				'tag' => 'log',
-				//'text' => "",
-				//'icon' => "",
-				'link' => admin_url("admin.php?page=mf_log/list/index.php"),
-			);
-		}
-	}
-
-	return $arr_notifications;
-}
-
 function init_log()
 {
 	$labels = array(
@@ -91,6 +67,46 @@ function cron_log()
 	foreach($result as $r)
 	{
 		wp_trash_post($r->ID);
+	}
+}
+
+function notices_log()
+{
+	global $wpdb, $error_text;
+
+	if(IS_ADMIN)
+	{
+		$arr_conditions = array(
+			array('constant' => "WP_DEBUG", 'check' => false, 'check_text' => "true"),
+			array('constant' => "WP_DEBUG_LOG", 'check' => false, 'check_text' => "true"),
+			array('constant' => "WP_DEBUG_DISPLAY"), //, 'check' => true, 'check_text' => "false"
+			array('file' => ABSPATH."wp-content/debug.log"),
+		);
+
+		foreach($arr_conditions as $condition)
+		{
+			if(isset($condition['file']))
+			{
+				if(!file_exists($condition['file']))
+				{
+					if(!is_writable(dirname($condition['file'])))
+					{
+						$error_text = sprintf(__("%s is not writable. Please, make sure that the folder can be written to so that Wordpress can log errors", 'lang_log'), dirname($condition['file']))."";
+
+						break;
+					}
+				}
+			}
+
+			else if(!defined($condition['constant']) || isset($condition['check']) && constant($condition['constant']) == $condition['check'])
+			{
+				$error_text = sprintf(__("%s should be set to %s in wp-config.php", 'lang_log'), $condition['constant'], $condition['check_text'])."";
+
+				break;
+			}
+		}
+
+		echo get_notification();
 	}
 }
 
@@ -181,42 +197,65 @@ function menu_log()
 	add_menu_page($menu_title, $menu_title.$count_message, $menu_capability, $menu_start, '', 'dashicons-warning');
 }
 
-function notices_log()
+function get_user_notifications_log($arr_notifications)
 {
-	global $wpdb, $error_text;
+	global $wpdb;
 
 	if(IS_ADMIN)
 	{
-		$arr_conditions = array(
-			array('constant' => "WP_DEBUG", 'check' => false, 'check_text' => "true"),
-			array('constant' => "WP_DEBUG_LOG", 'check' => false, 'check_text' => "true"),
-			array('constant' => "WP_DEBUG_DISPLAY"), //, 'check' => true, 'check_text' => "false"
-			array('file' => ABSPATH."wp-content/debug.log"),
-		);
+		$result = $wpdb->get_results("SELECT ID, post_modified FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND post_status NOT IN ('trash', 'ignore') AND post_modified > DATE_SUB(NOW(), INTERVAL 2 MINUTE)");
+		$rows = $wpdb->num_rows;
 
-		foreach($arr_conditions as $condition)
+		if($rows > 0)
 		{
-			if(isset($condition['file']))
-			{
-				if(!file_exists($condition['file']))
-				{
-					if(!is_writable(dirname($condition['file'])))
-					{
-						$error_text = sprintf(__("%s is not writable. Please, make sure that the folder can be written to so that Wordpress can log errors", 'lang_log'), dirname($condition['file']))."";
-
-						break;
-					}
-				}
-			}
-
-			else if(!defined($condition['constant']) || isset($condition['check']) && constant($condition['constant']) == $condition['check'])
-			{
-				$error_text = sprintf(__("%s should be set to %s in wp-config.php", 'lang_log'), $condition['constant'], $condition['check_text'])."";
-
-				break;
-			}
+			$arr_notifications[] = array(
+				'title' => $rows > 1 ? sprintf(__("There are %d new errors in the log", 'lang_log'), $rows) : __("There is one new error in the log", 'lang_log'),
+				'tag' => 'log',
+				//'text' => "",
+				//'icon' => "",
+				'link' => admin_url("admin.php?page=mf_log/list/index.php"),
+			);
 		}
+	}
 
-		echo get_notification();
+	return $arr_notifications;
+}
+
+function column_header_log($cols)
+{
+	unset($cols['registered']);
+
+	$cols['log'] = __("Log", 'lang_log');
+
+	return $cols;
+}
+
+function column_cell_log($col, $id)
+{
+	global $wpdb;
+
+	switch($col)
+	{
+		case 'log':
+			$original_blog_id = get_current_blog_id(); 
+
+			switch_to_blog($id); 
+
+			$tbl_group = new mf_log_table();
+
+			$tbl_group->select_data(array(
+				//'select' => "*",
+				//'debug' => true,
+			));
+
+			$count_temp = count($tbl_group->data);
+
+			if($count_temp > 0)
+			{
+				echo "<a href='".get_site_url($id)."/wp-admin/admin.php?page=mf_log/list/index.php'>".$count_temp."</a>";
+			}
+
+			switch_to_blog($original_blog_id); 
+		break;
 	}
 }

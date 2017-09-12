@@ -50,7 +50,7 @@ class mf_log
 		{
 			$wpdb->query($wpdb->prepare("UPDATE ".$wpdb->posts." SET post_status = 'ignore', post_modified = NOW() WHERE post_type = 'mf_log' AND ID = '%d'", $this->ID));
 
-			if($wpdb->rows_affected > 0) //wp_trash_post($this->ID)
+			if($wpdb->rows_affected > 0)
 			{
 				$done_text = __("The information is being ignored from now on", 'lang_log');
 			}
@@ -82,7 +82,7 @@ class mf_log
 
 			if($action == 'insert')
 			{
-				$result = $wpdb->get_results($wpdb->prepare("SELECT ID, post_status FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND (post_title = %s OR post_content = %s)", $post_title, $post_md5));
+				$result = $wpdb->get_results($wpdb->prepare("SELECT ID, post_status, menu_order FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND (post_title = %s OR post_content = %s)", $post_title, $post_md5));
 
 				if($wpdb->num_rows > 0)
 				{
@@ -92,8 +92,11 @@ class mf_log
 					{
 						$post_id = $r->ID;
 						$post_status = $r->post_status;
+						$menu_order = $r->menu_order;
 
-						if($post_status != "ignore")
+						//do_log("Checking: ".$post_id.", ".$post_status.", ".$post_title);
+
+						if($post_status != 'ignore')
 						{
 							if($i == 0)
 							{
@@ -103,6 +106,7 @@ class mf_log
 									'post_type' => 'mf_log',
 									'post_title' => $post_title,
 									'post_content' => $post_md5,
+									'menu_order' => ($menu_order == 0 ? 2 : ++$menu_order),
 								);
 
 								wp_update_post($post_data);
@@ -174,11 +178,13 @@ class mf_log_table extends mf_list_table
 		$this->set_columns(array(
 			'cb' => '<input type="checkbox">',
 			'post_title' => __("Name", 'lang_log'),
+			'menu_order' => __("Amount", 'lang_log'),
 			'post_modified' => __("Date", 'lang_log'),
 		));
 
 		$this->set_sortable_columns(array(
 			'post_title',
+			'menu_order',
 			'post_modified',
 		));
 	}
@@ -221,6 +227,10 @@ class mf_log_table extends mf_list_table
 
 				$out .= $item[$column_name]
 				.$this->row_actions($actions);
+			break;
+
+			case 'menu_order':
+				$out .= ($item[$column_name] > 1 ? $item[$column_name] : "");
 			break;
 
 			default:

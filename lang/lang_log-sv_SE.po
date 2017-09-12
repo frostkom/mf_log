@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-24 09:57+0100\n"
+"POT-Creation-Date: 2017-09-12 09:54+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Fors\n"
 "Language-Team: \n"
@@ -27,44 +27,48 @@ msgstr "Jag tog bort allihop åt dig"
 msgid "The information is being ignored from now on"
 msgstr "Informationen ignoreras from. nu"
 
-#: ../include/classes.php:157
+#: ../include/classes.php:173
 msgid "All"
 msgstr "Alla"
 
-#: ../include/classes.php:158
-#: ../include/classes.php:202
+#: ../include/classes.php:174
+#: ../include/classes.php:220
 msgid "Ignore"
 msgstr "Ignorera"
 
-#: ../include/classes.php:159
+#: ../include/classes.php:175
 msgid "Trash"
 msgstr "Papperskorg"
 
-#: ../include/classes.php:165
+#: ../include/classes.php:181
 msgid "Name"
 msgstr "Namn"
 
-#: ../include/classes.php:166
+#: ../include/classes.php:182
+msgid "Amount"
+msgstr "Antal"
+
+#: ../include/classes.php:183
 msgid "Date"
 msgstr "Datum"
 
-#: ../include/classes.php:194
+#: ../include/classes.php:212
 msgid "Delete"
 msgstr "Radera"
 
-#: ../include/classes.php:312
+#: ../include/classes.php:334
 msgid "Debug query"
 msgstr "Debugga databasfrågor"
 
-#: ../include/classes.php:337
+#: ../include/classes.php:359
 msgid "Debug page"
 msgstr "Debugga sida"
 
-#: ../include/classes.php:340
+#: ../include/classes.php:362
 msgid "Total query time"
 msgstr "Total frågetid"
 
-#: ../include/classes.php:344
+#: ../include/classes.php:366
 msgid "Total num_query time"
 msgstr "Total numerisk frågetid"
 

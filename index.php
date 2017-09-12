@@ -3,7 +3,7 @@
 Plugin Name: MF Log
 Plugin URI: https://github.com/frostkom/mf_log
 Description: 
-Version: 3.5.4
+Version: 3.5.7
 Author: Martin Fors
 Author URI: http://frostkom.se
 Text Domain: lang_log
@@ -27,6 +27,12 @@ if(is_admin())
 	//add_action('admin_init', 'settings_log');
 	add_action('admin_menu', 'menu_log');
 	add_filter('get_user_notifications', 'get_user_notifications_log', 10, 1);
+
+	if(is_multisite())
+	{
+		add_filter('manage_sites-network_columns', 'column_header_log', 5);
+		add_action('manage_sites_custom_column', 'column_cell_log', 5, 2);
+	}
 
 	load_plugin_textdomain('lang_log', false, dirname(plugin_basename(__FILE__)).'/lang/');
 }
