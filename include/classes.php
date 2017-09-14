@@ -14,7 +14,7 @@ class mf_log
 
 	function save_data()
 	{
-		global $wpdb, $done_text;
+		global $wpdb, $done_text, $error_text;
 
 		if(isset($_REQUEST['btnLogDelete']) && $this->ID > 0 && wp_verify_nonce($_REQUEST['_wpnonce'], 'log_delete_'.$this->ID))
 		{
@@ -26,6 +26,8 @@ class mf_log
 
 		if(isset($_REQUEST['btnLogDeleteAll']) && wp_verify_nonce($_REQUEST['_wpnonce'], 'log_delete_all'))
 		{
+			$obj_microtime = new mf_microtime();
+
 			$i = 0;
 
 			$result = $wpdb->get_results("SELECT ID FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND post_status = 'draft'");
@@ -38,12 +40,24 @@ class mf_log
 
 				if($i % 100 == 0)
 				{
+					$time_limit = 120;
+
+					if($obj_microtime->check_time($time_limit))
+					{
+						$error_text = sprintf(__("I could not delete all within %d seconds", 'lang_log'), $time_limit);
+
+						break;
+					}
+
 					sleep(0.1);
 					set_time_limit(60);
 				}
 			}
 
-			$done_text = __("I deleted them all for you", 'lang_log');
+			if($error_text == '')
+			{
+				$done_text = __("I deleted them all for you", 'lang_log');
+			}
 		}
 
 		else if(isset($_REQUEST['btnLogIgnore']) && $this->ID > 0 && wp_verify_nonce($_REQUEST['_wpnonce'], 'log_ignore_'.$this->ID))
@@ -242,51 +256,6 @@ class mf_log_table extends mf_list_table
 		}
 
 		return $out;
-	}
-}
-
-/*
-$obj_microtime = new mf_microtime();
-echo $obj_microtime->output(__LINE__);
-*/
-class mf_microtime
-{
-	function __construct($data = array())
-	{
-		if(!isset($data['limit'])){	$data['limit'] = 0;}
-
-		$this->time_limit = $data['limit'];
-
-		$this->check_time();
-
-		$this->time_orig = $this->now;
-	}
-
-	function check_time()
-	{
-		list($usec, $sec) = explode(" ", microtime());
-
-		$this->now = (float) $usec + (float) $sec;
-	}
-
-	function output($string, $type = "ms")
-	{
-		$time_old = $this->now;
-		$this->check_time();
-
-		$time_diff = $this->now - $time_old;
-		$time_diff_orig = $this->now - $this->time_orig;
-
-		if($type == "ms")
-		{
-			$time_diff *= 1000;
-			$time_diff_orig *= 1000;
-		}
-
-		if($time_diff >= $this->time_limit)
-		{
-			return $string.": ".mf_format_number($time_diff, 4)." (".mf_format_number($time_diff_orig).")<br>";
-		}
 	}
 }
 

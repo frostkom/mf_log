@@ -237,9 +237,9 @@ function column_cell_log($col, $id)
 	switch($col)
 	{
 		case 'log':
-			$original_blog_id = get_current_blog_id(); 
+			$original_blog_id = get_current_blog_id();
 
-			switch_to_blog($id); 
+			switch_to_blog($id);
 
 			$tbl_group = new mf_log_table();
 
@@ -255,7 +255,7 @@ function column_cell_log($col, $id)
 				echo "<a href='".get_site_url($id)."/wp-admin/admin.php?page=mf_log/list/index.php'>".$count_temp."</a>";
 			}
 
-			switch_to_blog($original_blog_id); 
+			switch_to_blog($original_blog_id);
 		break;
 	}
 }
