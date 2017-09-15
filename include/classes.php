@@ -38,13 +38,13 @@ class mf_log
 
 				$i++;
 
-				if($i % 100 == 0)
+				if($i % 20 == 0)
 				{
 					$time_limit = 120;
 
 					if($obj_microtime->check_time($time_limit))
 					{
-						$error_text = sprintf(__("I could not delete all within %d seconds", 'lang_log'), $time_limit);
+						$error_text = sprintf(__("I could only delete %d within %d seconds", 'lang_log'), $i, $time_limit);
 
 						break;
 					}
