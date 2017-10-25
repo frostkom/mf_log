@@ -197,18 +197,20 @@ function menu_log()
 	add_menu_page($menu_title, $menu_title.$count_message, $menu_capability, $menu_start, '', 'dashicons-warning');
 }
 
-function get_user_notifications_log($arr_notifications)
+function get_update_log($data = array())
 {
 	global $wpdb;
 
+	if(!isset($data['cutoff'])){	$data['cutoff'] = date("Y-m-d H:i:s", strtotime("-2 minute"));} //"DATE_SUB(NOW(), INTERVAL 2 MINUTE)"
+
 	if(IS_ADMIN)
 	{
-		$result = $wpdb->get_results("SELECT ID, post_modified FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND post_status NOT IN ('trash', 'ignore') AND post_modified > DATE_SUB(NOW(), INTERVAL 2 MINUTE)");
+		$result = $wpdb->get_results($wpdb->prepare("SELECT ID, post_modified FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND post_status NOT IN ('trash', 'ignore') AND post_modified > %s", $data['cutoff']));
 		$rows = $wpdb->num_rows;
 
 		if($rows > 0)
 		{
-			$arr_notifications[] = array(
+			return array(
 				'title' => $rows > 1 ? sprintf(__("There are %d new errors in the log", 'lang_log'), $rows) : __("There is one new error in the log", 'lang_log'),
 				'tag' => 'log',
 				//'text' => "",
@@ -217,9 +219,39 @@ function get_user_notifications_log($arr_notifications)
 			);
 		}
 	}
-
-	return $arr_notifications;
 }
+
+function get_user_notifications_log($array)
+{
+	$update_log = get_update_log();
+
+	if($update_log != '')
+	{
+		$array[] = $update_log;
+	}
+
+	return $array;
+}
+
+/*function get_user_reminders_log($array)
+{
+	$user_id = $array['user_id'];
+	$reminder_cutoff = $array['cutoff'];
+
+	do_log("get_user_reminders_log was run for ".$user_id." (".$reminder_cutoff.")");
+	
+	if(user_can($user_id, 'manage_options'))
+	{
+		$update_log = get_update_log(array('cutoff' => $reminder_cutoff));
+
+		if($update_log != '')
+		{
+			$array['reminder'][] = $update_log;
+		}
+	}
+
+	return $array;
+}*/
 
 function column_header_log($cols)
 {
