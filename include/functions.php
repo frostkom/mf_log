@@ -60,8 +60,7 @@ function cron_log()
 
 	$result = $wpdb->get_results("SELECT ID FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND (
 		post_status != 'trash' AND post_status != 'ignore' AND post_modified < DATE_SUB(NOW(), INTERVAL 1 MONTH)
-		OR 
-		post_status = 'ignore' AND post_modified < DATE_SUB(NOW(), INTERVAL 1 YEAR)
+		OR post_status = 'ignore' AND post_modified < DATE_SUB(NOW(), INTERVAL 1 YEAR)
 	)");
 
 	foreach($result as $r)
@@ -74,7 +73,7 @@ function notices_log()
 {
 	global $wpdb, $error_text;
 
-	if(IS_ADMIN)
+	if(IS_ADMIN && get_option('setting_log_activate') != 'no')
 	{
 		$arr_conditions = array(
 			array('constant' => "WP_DEBUG", 'check' => false, 'check_text' => "true"),
@@ -119,13 +118,18 @@ function settings_log()
 		add_settings_section($options_area, "", $options_area."_callback", BASE_OPTIONS_PAGE);
 
 		$arr_settings = array(
-			'setting_log_query_debug' => __("Debug DB queries", 'lang_log'),
+			'setting_log_activate' => __("Activate", 'lang_log'),
 		);
 
-		if(get_option('setting_log_query_debug') == 'yes')
+		if(get_option('setting_log_activate') != 'no')
 		{
-			$arr_settings['setting_log_query_time_limit'] = __("Query time limit", 'lang_log');
-			$arr_settings['setting_log_page_time_limit'] = __("Page time limit", 'lang_log');
+			$arr_settings['setting_log_query_debug'] = __("Debug DB Queries", 'lang_log');
+
+			if(get_option('setting_log_query_debug') == 'yes')
+			{
+				$arr_settings['setting_log_query_time_limit'] = __("Query Time Limit", 'lang_log');
+				$arr_settings['setting_log_page_time_limit'] = __("Page Time Limit", 'lang_log');
+			}
 		}
 
 		show_settings_fields(array('area' => $options_area, 'settings' => $arr_settings));
@@ -137,6 +141,42 @@ function settings_log_callback()
 	$setting_key = get_setting_key(__FUNCTION__);
 
 	echo settings_header($setting_key, __("Log", 'lang_log'));
+}
+
+function check_htaccess_log($data)
+{
+	if(basename($data['file']) == ".htaccess")
+	{
+		$content = get_file_content(array('file' => $data['file']));
+
+		if(!preg_match("/BEGIN MF Log/", $content) || !preg_match("/Deny from all/", $content))
+		{
+			$recommend_htaccess = "# BEGIN MF Log
+<Files debug.log>
+	Order Allow,Deny
+	Deny from all
+</Files>
+# END MF Log";
+
+			echo "<div class='mf_form'>"
+				."<h3 class='add_to_htacess'><i class='fa fa-warning yellow'></i> ".sprintf(__("Add this at the beginning of %s", 'lang_log'), ".htaccess")."</h3>"
+				."<p class='input'>".nl2br(htmlspecialchars($recommend_htaccess))."</p>"
+			."</div>";
+		}
+	}
+}
+
+function setting_log_activate_callback()
+{
+	$setting_key = get_setting_key(__FUNCTION__);
+	$option = get_option($setting_key, 'yes');
+
+	echo show_select(array('data' => get_yes_no_for_select(), 'name' => $setting_key, 'value' => $option));
+
+	if($option == 'yes')
+	{
+		get_file_info(array('path' => get_home_path(), 'callback' => "check_htaccess_log", 'allow_depth' => false));
+	}
 }
 
 function setting_log_query_debug_callback()
@@ -239,7 +279,7 @@ function get_user_notifications_log($array)
 	$reminder_cutoff = $array['cutoff'];
 
 	do_log("get_user_reminders_log was run for ".$user_id." (".$reminder_cutoff.")");
-	
+
 	if(user_can($user_id, 'manage_options'))
 	{
 		$update_log = get_update_log(array('cutoff' => $reminder_cutoff));
