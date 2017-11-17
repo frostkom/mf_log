@@ -75,9 +75,29 @@ class mf_log
 	{
 		$string = trim($string);
 
-		$arr_exclude = array(ABSPATH);
+		$arr_ignore = array(
+			"/^(thrown in)/",
+			"/^(\#[0-9]+\s)/"
+		);
 
-		$string = str_replace($arr_exclude, "", $string);
+		foreach($arr_ignore as $regexp)
+		{
+			if(preg_match($regexp, $string))
+			{
+				$string = '';
+
+				break;
+			}
+		}
+
+		if($string != '')
+		{
+			$arr_exclude = array(
+				ABSPATH,
+			);
+
+			$string = str_replace($arr_exclude, "", $string);
+		}
 
 		return $string;
 	}
@@ -107,8 +127,6 @@ class mf_log
 						$post_id = $r->ID;
 						$post_status = $r->post_status;
 						$menu_order = $r->menu_order;
-
-						//do_log("Checking: ".$post_id.", ".$post_status.", ".$post_title);
 
 						if($post_status != 'ignore')
 						{
