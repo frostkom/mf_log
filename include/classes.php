@@ -79,6 +79,8 @@ class mf_log
 			"/^(thrown in)/",
 			"/^(\#[0-9]+\s)/",
 			"/^(Stack trace\:)/",
+			"/^((o)*n line [0-9]+)$/",
+			"/^([0-9]+)$/",
 		);
 
 		foreach($arr_ignore as $regexp)
