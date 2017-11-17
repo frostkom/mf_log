@@ -77,7 +77,8 @@ class mf_log
 
 		$arr_ignore = array(
 			"/^(thrown in)/",
-			"/^(\#[0-9]+\s)/"
+			"/^(\#[0-9]+\s)/",
+			"/^(Stack trace\:)/",
 		);
 
 		foreach($arr_ignore as $regexp)

@@ -3,7 +3,7 @@
 Plugin Name: MF Log
 Plugin URI: https://github.com/frostkom/mf_log
 Description: 
-Version: 4.1.3
+Version: 4.1.4
 Author: Martin Fors
 Author URI: http://frostkom.se
 Text Domain: lang_log
