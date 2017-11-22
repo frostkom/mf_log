@@ -30,7 +30,7 @@ class mf_log
 
 			$i = 0;
 
-			$result = $wpdb->get_results("SELECT ID FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND post_status = 'draft'");
+			$result = $wpdb->get_results("SELECT ID FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND post_status IN ('publish', 'draft', 'auto-draft')");
 
 			foreach($result as $r)
 			{
@@ -105,11 +105,9 @@ class mf_log
 		return $string;
 	}
 
-	function create($post_title, $action = "")
+	function create($post_title, $action = 'publish')
 	{
 		global $wpdb;
-
-		if($action == ''){	$action = "insert";}
 
 		$post_title = $this->filter($post_title);
 
@@ -117,7 +115,7 @@ class mf_log
 		{
 			$post_md5 = md5($post_title);
 
-			if($action == 'insert')
+			if(in_array($action, array('publish', 'draft', 'auto-draft')))
 			{
 				$result = $wpdb->get_results($wpdb->prepare("SELECT ID, post_status, menu_order FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND (post_title = %s OR post_content = %s)", $post_title, $post_md5));
 
@@ -137,7 +135,7 @@ class mf_log
 							{
 								$post_data = array(
 									'ID' => $post_id,
-									'post_status' => 'draft',
+									'post_status' => $action,
 									'post_type' => 'mf_log',
 									'post_title' => $post_title,
 									'post_content' => $post_md5,
@@ -160,6 +158,7 @@ class mf_log
 				else
 				{
 					$post_data = array(
+						'post_status' => $action,
 						'post_type' => 'mf_log',
 						'post_title' => $post_title,
 						'post_content' => $post_md5,
@@ -193,6 +192,8 @@ class mf_log_table extends mf_list_table
 		$this->orderby_default = "post_modified";
 		$this->orderby_default_order = "desc";
 
+		$this->arr_settings['query_trash_id'] = array('trash', 'ignore', 'auto-draft');
+
 		//$this->arr_settings['has_autocomplete'] = true;
 		//$this->arr_settings['plugin_name'] = 'mf_log';
 
@@ -205,6 +206,7 @@ class mf_log_table extends mf_list_table
 			'db_field' => 'post_status',
 			'types' => array(
 				'all' => __("All", 'lang_log'),
+				'auto-draft' => __("Notice", 'lang_log'),
 				'ignore' => __("Ignore", 'lang_log'),
 				'trash' => __("Trash", 'lang_log'),
 			),

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-18 08:31+0100\n"
+"POT-Creation-Date: 2017-11-22 15:28+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Fors\n"
 "Language-Team: \n"
@@ -32,9 +32,13 @@ msgstr "Jag tog bort allihop åt dig"
 msgid "The information is being ignored from now on"
 msgstr "Informationen ignoreras from. nu"
 
-#: ../include/classes.php:207
+#: ../include/classes.php:206
 msgid "All"
 msgstr "Alla"
+
+#: ../include/classes.php:207
+msgid "Notice"
+msgstr "Notifiering"
 
 #: ../include/classes.php:208
 #: ../include/classes.php:254

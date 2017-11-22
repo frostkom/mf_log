@@ -152,6 +152,11 @@ function check_htaccess_log($data)
 		if(!preg_match("/BEGIN MF Log/", $content) || !preg_match("/Deny from all/", $content))
 		{
 			$recommend_htaccess = "# BEGIN MF Log
+<FILES .htaccess>
+	Order Allow,Deny
+	Deny from all
+</FILES>
+
 <Files debug.log>
 	Order Allow,Deny
 	Deny from all
@@ -211,7 +216,7 @@ function get_count_log($id = 0)
 
 	$last_viewed = get_user_meta(get_current_user_id(), 'mf_log_viewed', true);
 
-	$result = $wpdb->get_results($wpdb->prepare("SELECT ID FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND post_status NOT IN ('trash', 'ignore') AND post_modified > %s", $last_viewed));
+	$result = $wpdb->get_results($wpdb->prepare("SELECT ID FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND post_status = 'publish' AND post_modified > %s", $last_viewed));
 	$rows = $wpdb->num_rows;
 
 	if($rows > 0)
