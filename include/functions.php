@@ -152,19 +152,14 @@ function check_htaccess_log($data)
 		if(!preg_match("/BEGIN MF Log/", $content) || !preg_match("/Deny from all/", $content))
 		{
 			$recommend_htaccess = "# BEGIN MF Log
-<FILES .htaccess>
-	Order Allow,Deny
-	Deny from all
-</FILES>
-
-<Files debug.log>
-	Order Allow,Deny
-	Deny from all
-</Files>
-# END MF Log";
+			<Files debug.log>
+				Order Allow,Deny
+				Deny from all
+			</Files>
+			# END MF Log";
 
 			echo "<div class='mf_form'>"
-				."<h3 class='add_to_htacess'><i class='fa fa-warning yellow'></i> ".sprintf(__("Add this at the beginning of %s", 'lang_log'), ".htaccess")."</h3>"
+				."<h3 class='add_to_htacess'><i class='fa fa-warning yellow'></i> ".sprintf(__("Add this to the beginning of %s", 'lang_log'), ".htaccess")."</h3>"
 				."<p class='input'>".nl2br(htmlspecialchars($recommend_htaccess))."</p>"
 			."</div>";
 		}
