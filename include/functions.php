@@ -69,7 +69,7 @@ function cron_log()
 	}
 }
 
-function notices_log()
+/*function notices_log()
 {
 	global $wpdb, $error_text;
 
@@ -107,6 +107,29 @@ function notices_log()
 
 		echo get_notification();
 	}
+}*/
+
+function check_htaccess_log($data)
+{
+	if(basename($data['file']) == ".htaccess")
+	{
+		$content = get_file_content(array('file' => $data['file']));
+
+		if(!preg_match("/BEGIN MF Log/", $content) || !preg_match("/Deny from all/", $content))
+		{
+			$recommend_htaccess = "# BEGIN MF Log
+			<Files debug.log>
+				Order Allow,Deny
+				Deny from all
+			</Files>
+			# END MF Log";
+
+			echo "<div class='mf_form'>"
+				."<h3 class='add_to_htacess'><i class='fa fa-warning yellow'></i> ".sprintf(__("Add this to the beginning of %s", 'lang_log'), ".htaccess")."</h3>"
+				."<p class='input'>".nl2br(htmlspecialchars($recommend_htaccess))."</p>"
+			."</div>";
+		}
+	}
 }
 
 function settings_log()
@@ -143,29 +166,6 @@ function settings_log_callback()
 	echo settings_header($setting_key, __("Log", 'lang_log'));
 }
 
-function check_htaccess_log($data)
-{
-	if(basename($data['file']) == ".htaccess")
-	{
-		$content = get_file_content(array('file' => $data['file']));
-
-		if(!preg_match("/BEGIN MF Log/", $content) || !preg_match("/Deny from all/", $content))
-		{
-			$recommend_htaccess = "# BEGIN MF Log
-			<Files debug.log>
-				Order Allow,Deny
-				Deny from all
-			</Files>
-			# END MF Log";
-
-			echo "<div class='mf_form'>"
-				."<h3 class='add_to_htacess'><i class='fa fa-warning yellow'></i> ".sprintf(__("Add this to the beginning of %s", 'lang_log'), ".htaccess")."</h3>"
-				."<p class='input'>".nl2br(htmlspecialchars($recommend_htaccess))."</p>"
-			."</div>";
-		}
-	}
-}
-
 function setting_log_activate_callback()
 {
 	$setting_key = get_setting_key(__FUNCTION__);
@@ -176,6 +176,58 @@ function setting_log_activate_callback()
 	if($option == 'yes')
 	{
 		get_file_info(array('path' => get_home_path(), 'callback' => "check_htaccess_log", 'allow_depth' => false));
+
+		/*$arr_conditions = array(
+			array('constant' => "WP_DEBUG", 'check' => false, 'check_text' => "true"),
+			array('constant' => "WP_DEBUG_LOG", 'check' => false, 'check_text' => "true"),
+			array('constant' => "WP_DEBUG_DISPLAY"), //, 'check' => true, 'check_text' => "false"
+			array('file' => ABSPATH."wp-content/debug.log"),
+		);
+
+		foreach($arr_conditions as $condition)
+		{
+			if(isset($condition['file']))
+			{
+				if(!file_exists($condition['file']))
+				{
+					if(!is_writable(dirname($condition['file'])))
+					{
+						$error_text = sprintf(__("%s is not writable. Please, make sure that the folder can be written to so that Wordpress can log errors", 'lang_log'), dirname($condition['file']))."";
+
+						break;
+					}
+				}
+			}
+
+			else if(!defined($condition['constant']) || isset($condition['check']) && constant($condition['constant']) == $condition['check'])
+			{
+				$error_text = sprintf(__("%s should be set to %s in wp-config.php", 'lang_log'), $condition['constant'], $condition['check_text'])."";
+
+				break;
+			}
+		}*/
+
+		if(!defined('WP_DEBUG') || WP_DEBUG == false || !defined('WP_DEBUG_LOG') || WP_DEBUG_LOG == false || !defined('WP_DEBUG_DISPLAY'))
+		{
+			$config_file = ABSPATH."wp-content/debug.log";
+			$recommend_config = "define('WP_DEBUG', true);
+			define('WP_DEBUG_LOG', true);
+			define('WP_DEBUG_DISPLAY', false);";
+
+			echo "<div class='mf_form'>"
+				."<h3 class='add_to_config'><i class='fa fa-warning yellow'></i> ".sprintf(__("Add this to the end of %s", 'lang_log'), "wp-config.php")."</h3>";
+
+				if(!file_exists($config_file))
+				{
+					if(!is_writable(dirname($config_file)))
+					{
+						echo "<p>".sprintf(__("%s is not writable. Please, make sure that the folder can be written to so that Wordpress can log errors", 'lang_log'), dirname($config_file))."</p>";
+					}
+				}
+
+				echo "<p class='input'>".nl2br(htmlspecialchars($recommend_config))."</p>"
+			."</div>";
+		}
 	}
 }
 
@@ -324,7 +376,7 @@ function column_cell_log($col, $id)
 
 			if($count_temp > 0)
 			{
-				echo "<a href='".get_site_url($id)."/wp-admin/admin.php?page=mf_log/list/index.php'>".$count_temp."</a>";
+				echo "<a href='".admin_url("admin.php?page=mf_log/list/index.php", $id)."'>".$count_temp."</a>";
 			}
 
 			switch_to_blog($original_blog_id);

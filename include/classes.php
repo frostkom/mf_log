@@ -30,7 +30,7 @@ class mf_log
 
 			$i = 0;
 
-			$result = $wpdb->get_results("SELECT ID FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND post_status IN ('publish', 'draft', 'auto-draft')");
+			$result = $wpdb->get_results("SELECT ID FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND post_status IN ('publish', 'draft')"); //, 'auto-draft'
 
 			foreach($result as $r)
 			{
