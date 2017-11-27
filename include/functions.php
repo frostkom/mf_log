@@ -24,18 +24,20 @@ function cron_log()
 {
 	global $wpdb;
 
-	$str_path = ABSPATH."wp-content/debug.log";
+	$debug_file = ABSPATH."wp-content/debug.log";
 
-	if(file_exists($str_path))
+	if(file_exists($debug_file))
 	{
 		$error_limit = 50 * pow(1024, 2);
 
-		if(filesize($str_path) < $error_limit)
+		if(filesize($debug_file) < $error_limit)
 		{
-			$file = file($str_path);
+			$file = file($debug_file);
 
-			if($file != '')
+			if(is_array($file))
 			{
+				$file = array_unique($file);
+
 				foreach($file as $value)
 				{
 					if(preg_match("/\]/", $value))
@@ -47,14 +49,14 @@ function cron_log()
 				}
 			}
 
-			@unlink($str_path);
+			@unlink($debug_file);
 		}
 
 		else
 		{
-			do_log(__("debug.log was too large so it was deleted", 'lang_log'));
+			do_log(sprintf(__("%s was too large so it was deleted", 'lang_log'), "debug.log"));
 
-			@unlink($str_path);
+			@unlink($debug_file);
 		}
 	}
 
@@ -68,46 +70,6 @@ function cron_log()
 		wp_trash_post($r->ID);
 	}
 }
-
-/*function notices_log()
-{
-	global $wpdb, $error_text;
-
-	if(IS_ADMIN && get_option('setting_log_activate') != 'no')
-	{
-		$arr_conditions = array(
-			array('constant' => "WP_DEBUG", 'check' => false, 'check_text' => "true"),
-			array('constant' => "WP_DEBUG_LOG", 'check' => false, 'check_text' => "true"),
-			array('constant' => "WP_DEBUG_DISPLAY"), //, 'check' => true, 'check_text' => "false"
-			array('file' => ABSPATH."wp-content/debug.log"),
-		);
-
-		foreach($arr_conditions as $condition)
-		{
-			if(isset($condition['file']))
-			{
-				if(!file_exists($condition['file']))
-				{
-					if(!is_writable(dirname($condition['file'])))
-					{
-						$error_text = sprintf(__("%s is not writable. Please, make sure that the folder can be written to so that Wordpress can log errors", 'lang_log'), dirname($condition['file']))."";
-
-						break;
-					}
-				}
-			}
-
-			else if(!defined($condition['constant']) || isset($condition['check']) && constant($condition['constant']) == $condition['check'])
-			{
-				$error_text = sprintf(__("%s should be set to %s in wp-config.php", 'lang_log'), $condition['constant'], $condition['check_text'])."";
-
-				break;
-			}
-		}
-
-		echo get_notification();
-	}
-}*/
 
 function check_htaccess_log($data)
 {
@@ -177,39 +139,9 @@ function setting_log_activate_callback()
 	{
 		get_file_info(array('path' => get_home_path(), 'callback' => "check_htaccess_log", 'allow_depth' => false));
 
-		/*$arr_conditions = array(
-			array('constant' => "WP_DEBUG", 'check' => false, 'check_text' => "true"),
-			array('constant' => "WP_DEBUG_LOG", 'check' => false, 'check_text' => "true"),
-			array('constant' => "WP_DEBUG_DISPLAY"), //, 'check' => true, 'check_text' => "false"
-			array('file' => ABSPATH."wp-content/debug.log"),
-		);
-
-		foreach($arr_conditions as $condition)
-		{
-			if(isset($condition['file']))
-			{
-				if(!file_exists($condition['file']))
-				{
-					if(!is_writable(dirname($condition['file'])))
-					{
-						$error_text = sprintf(__("%s is not writable. Please, make sure that the folder can be written to so that Wordpress can log errors", 'lang_log'), dirname($condition['file']))."";
-
-						break;
-					}
-				}
-			}
-
-			else if(!defined($condition['constant']) || isset($condition['check']) && constant($condition['constant']) == $condition['check'])
-			{
-				$error_text = sprintf(__("%s should be set to %s in wp-config.php", 'lang_log'), $condition['constant'], $condition['check_text'])."";
-
-				break;
-			}
-		}*/
-
 		if(!defined('WP_DEBUG') || WP_DEBUG == false || !defined('WP_DEBUG_LOG') || WP_DEBUG_LOG == false || !defined('WP_DEBUG_DISPLAY'))
 		{
-			$config_file = ABSPATH."wp-content/debug.log";
+			$debug_file = ABSPATH."wp-content/debug.log";
 			$recommend_config = "define('WP_DEBUG', true);
 			define('WP_DEBUG_LOG', true);
 			define('WP_DEBUG_DISPLAY', false);";
@@ -217,11 +149,11 @@ function setting_log_activate_callback()
 			echo "<div class='mf_form'>"
 				."<h3 class='add_to_config'><i class='fa fa-warning yellow'></i> ".sprintf(__("Add this to the end of %s", 'lang_log'), "wp-config.php")."</h3>";
 
-				if(!file_exists($config_file))
+				if(!file_exists($debug_file))
 				{
-					if(!is_writable(dirname($config_file)))
+					if(!is_writable(dirname($debug_file)))
 					{
-						echo "<p>".sprintf(__("%s is not writable. Please, make sure that the folder can be written to so that Wordpress can log errors", 'lang_log'), dirname($config_file))."</p>";
+						echo "<p>".sprintf(__("%s is not writable. Please, make sure that the folder can be written to so that Wordpress can log errors", 'lang_log'), dirname($debug_file))."</p>";
 					}
 				}
 

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-25 09:19+0100\n"
+"POT-Creation-Date: 2017-11-27 14:54+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Fors\n"
 "Language-Team: \n"
@@ -84,67 +84,68 @@ msgstr "Total numerisk frågetid"
 #: ../include/functions.php:6
 #: ../include/functions.php:7
 #: ../include/functions.php:8
-#: ../include/functions.php:166
-#: ../include/functions.php:285
-#: ../include/functions.php:352
+#: ../include/functions.php:126
+#: ../include/functions.php:245
+#: ../include/functions.php:312
 #: ../list/index.php:9
 msgid "Log"
 msgstr "Logg"
 
 #: ../include/functions.php:55
-msgid "debug.log was too large so it was deleted"
-msgstr "debug.log var för stor så den raderades"
+#, php-format
+msgid "%s was too large so it was deleted"
+msgstr "%s var för stor så den raderades"
 
-#: ../include/functions.php:128
+#: ../include/functions.php:88
 #, php-format
 msgid "Add this to the beginning of %s"
 msgstr "Lägg till detta i början av %s"
 
-#: ../include/functions.php:144
+#: ../include/functions.php:104
 msgid "Activate"
 msgstr "Aktivera"
 
-#: ../include/functions.php:149
+#: ../include/functions.php:109
 msgid "Debug DB Queries"
 msgstr "Felsök databasfrågor"
 
-#: ../include/functions.php:153
+#: ../include/functions.php:113
 msgid "Query Time Limit"
 msgstr "Gränsvärde för databasfrågor"
 
-#: ../include/functions.php:154
+#: ../include/functions.php:114
 msgid "Page Time Limit"
 msgstr "Gränsvärde för sidvisning"
 
-#: ../include/functions.php:218
+#: ../include/functions.php:178
 #, php-format
 msgid "Add this to the end of %s"
 msgstr "Lägg till detta i slutet av %s"
 
-#: ../include/functions.php:224
+#: ../include/functions.php:184
 #, php-format
 msgid "%s is not writable. Please, make sure that the folder can be written to so that Wordpress can log errors"
 msgstr "%s är inte skrivbar. Se till så att mappen är skrivbar så att Wordpress kan logga fel"
 
-#: ../include/functions.php:239
+#: ../include/functions.php:199
 msgid "This will hurt performance on the frontend so use this for debugging only and then turn off"
 msgstr "Detta påverkar prestandan negativt på webbsidan så använd detta endast för debugging och stäng av det efteråt"
 
-#: ../include/functions.php:247
-#: ../include/functions.php:255
+#: ../include/functions.php:207
+#: ../include/functions.php:215
 msgid "0-9.9999"
 msgstr "0-9.9999"
 
-#: ../include/functions.php:271
+#: ../include/functions.php:231
 msgid "New"
 msgstr "Ny"
 
-#: ../include/functions.php:306
+#: ../include/functions.php:266
 #, php-format
 msgid "There are %d new errors in the log"
 msgstr "Det finns %d nya fel i loggen"
 
-#: ../include/functions.php:306
+#: ../include/functions.php:266
 msgid "There is one new error in the log"
 msgstr "Det finns ett nytt fel i loggen"
 

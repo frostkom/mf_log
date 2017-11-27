@@ -3,7 +3,7 @@
 Plugin Name: MF Log
 Plugin URI: https://github.com/frostkom/mf_log
 Description: 
-Version: 4.2.2
+Version: 4.2.3
 Author: Martin Fors
 Author URI: http://frostkom.se
 Text Domain: lang_log
@@ -23,7 +23,6 @@ if(is_admin())
 {
 	register_uninstall_hook(__FILE__, 'uninstall_log');
 
-	//add_action('admin_notices', 'notices_log');
 	add_action('admin_init', 'settings_log');
 	add_action('admin_menu', 'menu_log');
 
