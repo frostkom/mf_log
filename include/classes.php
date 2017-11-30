@@ -81,6 +81,7 @@ class mf_log
 			"/^(Stack trace\:)/",
 			"/^((o)*n line [0-9]+)$/",
 			"/^([0-9]+)$/",
+			"/^(maybe_log_events_response)/",
 		);
 
 		foreach($arr_ignore as $regexp)
