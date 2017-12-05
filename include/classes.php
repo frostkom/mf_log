@@ -10,6 +10,7 @@ class mf_log
 	function fetch_request()
 	{
 		$this->ID = check_var('intLogID');
+		$this->post_status = check_var('post_status', 'char');
 	}
 
 	function save_data()
@@ -30,7 +31,7 @@ class mf_log
 
 			$i = 0;
 
-			$result = $wpdb->get_results("SELECT ID FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND post_status IN ('publish', 'draft')"); //, 'auto-draft'
+			$result = $wpdb->get_results("SELECT ID FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND post_status".($this->post_status != '' ? " = '".esc_sql($this->post_status)."'" : " IN ('publish', 'draft')")." ORDER BY post_date ASC");
 
 			foreach($result as $r)
 			{
