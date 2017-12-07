@@ -119,7 +119,7 @@ class mf_log
 
 			if(in_array($action, array('publish', 'draft', 'auto-draft')))
 			{
-				$result = $wpdb->get_results($wpdb->prepare("SELECT ID, post_status, menu_order FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND (post_title = %s OR post_content = %s)", $post_title, $post_md5));
+				$result = $wpdb->get_results($wpdb->prepare("SELECT ID, post_status, menu_order, post_modified FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND (post_title = %s OR post_content = %s)", $post_title, $post_md5));
 
 				if($wpdb->num_rows > 0)
 				{
@@ -130,8 +130,9 @@ class mf_log
 						$post_id = $r->ID;
 						$post_status = $r->post_status;
 						$menu_order = $r->menu_order;
+						$post_modified = $r->post_modified;
 
-						if($post_status != 'ignore')
+						if($post_status != 'ignore' && $post_modified < date("Y-m-d H:i:s", strtotime("-60 minute")))
 						{
 							if($i == 0)
 							{
