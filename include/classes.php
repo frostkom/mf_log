@@ -291,7 +291,7 @@ if(!class_exists('Debug_Queries'))
 	{
 		function __construct()
 		{
-			add_action('wp_footer', array($this, 'the_queries'));
+			add_action('shutdown', array($this, 'the_queries'));
 		}
 
 		// core
@@ -299,20 +299,29 @@ if(!class_exists('Debug_Queries'))
 		{
 			global $wpdb;
 
-			$query_time_limit = get_option('setting_log_query_time_limit');
-			$page_time_limit = get_option('setting_log_page_time_limit');
-
-			// disabled session cache of mySQL
-			/*if(QUERY_CACHE_TYPE_OFF)
-			{
-				$wpdb->query( 'SET SESSION query_cache_type = 0;');
-			}*/
-
 			$debug_queries = "";
+			$count_queries = count($wpdb->queries);
 
-			if($wpdb->queries)
+			if($count_queries > 0)
 			{
-				//$total_page_time = timer_stop(FALSE, 22);
+				$check_duplicates = true;
+				$check_source = false;
+
+				$query_time_limit = get_option('setting_log_query_time_limit');
+				$page_time_limit = get_option('setting_log_page_time_limit');
+
+				$arr_duplicates = array();
+				$arr_sources = array(
+					'total_time' => 0,
+					'core' => array(
+						'time' => 0,
+						'percent' => 100 //This should be calculated afterwards since that is the only way to make it accurate
+					),
+					'plugins' => array(),
+					'themes' => array(),
+				);
+				//do_log("All queries: ".var_export($wpdb->queries, true));
+
 				$total_query_time = 0;
 
 				foreach($wpdb->queries as $q)
@@ -323,53 +332,136 @@ if(!class_exists('Debug_Queries'))
 
 					$total_query_time += $query_time;
 
-					if($query_time_limit != '' && $query_time > $query_time_limit && substr($query_text, 0, 6) == "SELECT")
+					if($query_time_limit > 0)
 					{
-						do_log(__("Debug query", 'lang_log').": ".$query_time."s, ".$query_text." (".$query_called.")");
+						if($query_time > $query_time_limit && substr($query_text, 0, 6) == "SELECT")
+						{
+							do_log(__("Debug Query", 'lang_log').": ".$query_time."s, ".$query_text." (".$query_called.")");
+						}
 
-						$debug_queries .= "<li>
-							<strong>".$query_time.": </strong>".$query_text
-						."</li>";
+						if($check_duplicates)
+						{
+							$md5_temp = md5($query_text);
+
+							if(isset($arr_duplicates[$md5_temp]))
+							{
+								$arr_duplicates[$md5_temp]['count']++;
+								$arr_duplicates[$md5_temp]['total_time'] = $arr_duplicates[$md5_temp]['count'] * $arr_duplicates[$md5_temp]['time'];
+							}
+
+							else
+							{
+								$arr_duplicates[$md5_temp] = array('query' => $query_text, 'time' => $query_time, 'count' => 1, 'total_time' => $query_time);
+							}
+						}
+
+						if($check_source)
+						{
+							$arr_sources['total_time'] += $query_time;
+
+							$plugin_name = get_match("/plugins\/(.*?)\//is", $query_called, false);
+
+							if($plugin_name != '')
+							{
+								if(isset($arr_sources['plugins'][$plugin_name]))
+								{
+									$arr_sources['plugins'][$plugin_name]['time'] += $query_time;
+									$arr_sources['plugins'][$plugin_name]['percent'] = round($arr_sources['plugins'][$plugin_name]['time'] / $arr_sources['total_time'] * 100);
+								}
+
+								else
+								{
+									$arr_sources['plugins'][$plugin_name] = array(
+										'time' => $query_time,
+										'percent' => round(($query_time / $arr_sources['total_time']) * 100)
+									);
+								}
+							}
+
+							else
+							{
+								$theme_name = get_match("/themes\/(.*?)\//is", $query_called, false);
+
+								if($theme_name != '')
+								{
+									if(isset($arr_sources['themes'][$theme_name]))
+									{
+										$arr_sources['themes'][$theme_name]['time'] += $query_time;
+										$arr_sources['themes'][$theme_name]['percent'] = round($arr_sources['themes'][$theme_name]['time'] / $arr_sources['total_time'] * 100);
+									}
+
+									else
+									{
+										$arr_sources['themes'][$theme_name] = array(
+											'time' => $query_time,
+											'percent' => round(($query_time / $arr_sources['total_time']) * 100)
+										);
+									}
+								}
+
+								else
+								{
+									$arr_sources['core']['time'] += $query_time;
+									$arr_sources['core']['percent'] = round(($arr_sources['core']['time'] / $arr_sources['total_time']) * 100);
+								}
+							}
+						}
 					}
 				}
-			}
 
-			if($page_time_limit != '')
-			{
-				//$php_time = $total_page_time - $total_query_time;
-
-				//$mysqlper = $total_page_time > 0 ? mf_format_number($total_query_time / $total_page_time * 100, 2) : 0;
-				//$phpper = $total_page_time > 0 ? mf_format_number($php_time / $total_page_time * 100, 2) : 0;
-
-				$count_queries = count($wpdb->queries);
-				$count_num_queries = get_num_queries();
-
-				$total_query_time = mf_format_number($total_query_time, 5);
-				//$total_page_time = mf_format_number($total_page_time, 5);
-				$total_timer_time = timer_stop();
-
-				if($total_query_time > $page_time_limit || $total_timer_time > $page_time_limit)
+				if($query_time_limit > 0)
 				{
-					do_log(__("Debug page", 'lang_log').": ".$total_query_time."s (".$count_queries."), ".$total_timer_time."s (".$count_num_queries.")");
-
-					$debug_queries .= "<li>
-						<strong>".__("Total query time", 'lang_log').":</strong> ".$total_query_time."s (".$count_queries.")
-					</li>";
-
-					$debug_queries .= "<li>
-						<strong>".__("Total num_query time", 'lang_log')."</strong>: ".$total_timer_time."s (".$count_num_queries.")
-					</li>";
-
-					/*if($total_query_time == 0)
+					if($check_duplicates)
 					{
-						$debug_queries .= "<li>&raquo; ".__("Query time is null (0)? - please set the constant", 'lang_log')." <code>SAVEQUERIES</code> ".__("at", 'lang_log')." <code>TRUE</code> ".__("in your", 'lang_log')." <code>wp-config.php</code></li>";
-					}*/
+						$arr_duplicates = array_sort(array('array' => $arr_duplicates, 'on' => 'total_time', 'order' => 'desc'));
 
-					/*$debug_queries .= "<li>"
-						."<strong>".__("Page generated", 'lang_log')."</strong>: ".$total_page_time.", "
-						.$phpper."% ".__("PHP", 'lang_log').", "
-						.$mysqlper."% ".__("MySQL", 'lang_log')
-					."</li>";*/
+						//do_log("Duplicates: ".var_export($arr_duplicates, true));
+
+						$count_temp = count($arr_duplicates);
+
+						$i = 0;
+
+						while($i < $count_temp && $i < 5)
+						{
+							if($arr_duplicates[$i]['count'] > 1 && $arr_duplicates[$i]['total_time'] > $query_time_limit)
+							{
+								do_log(__("Duplicate Query", 'lang_log').": ".$arr_duplicates[$i]['count']." x ".$arr_duplicates[$i]['time']."s (".$arr_duplicates[$i]['query'].")");
+							}
+
+							$i++;
+						}
+					}
+
+					if($check_source)
+					{
+						do_log("By Source: ".var_export($arr_sources, true));
+					}
+				}
+
+				if($page_time_limit > 0)
+				{
+					//$php_time = $total_page_time - $total_query_time;
+
+					//$mysqlper = $total_page_time > 0 ? mf_format_number($total_query_time / $total_page_time * 100, 2) : 0;
+					//$phpper = $total_page_time > 0 ? mf_format_number($php_time / $total_page_time * 100, 2) : 0;
+
+					$total_timer_time = timer_stop();
+
+					if($total_query_time > $page_time_limit || $total_timer_time > $page_time_limit)
+					{
+						do_log(__("Debug Page", 'lang_log').": ".mf_format_number($total_query_time)."s (".__("MySQL", 'lang_log')." - ".$count_queries."), ".$total_timer_time."s (".__("Total", 'lang_log')." - ".$_SERVER['REQUEST_URI'].")"); // (".get_num_queries().")
+
+						/*if($total_query_time == 0)
+						{
+							$debug_queries .= "<li>&raquo; ".__("Query time is null (0)? - please set the constant", 'lang_log')." <code>SAVEQUERIES</code> ".__("at", 'lang_log')." <code>TRUE</code> ".__("in your", 'lang_log')." <code>wp-config.php</code></li>";
+						}*/
+
+						/*$debug_queries .= "<li>"
+							."<strong>".__("Page generated", 'lang_log')."</strong>: ".mf_format_number($total_page_time, 5).", "
+							.$phpper."% ".__("PHP", 'lang_log').", "
+							.$mysqlper."% ".__("MySQL", 'lang_log')
+						."</li>";*/
+					}
 				}
 			}
 
@@ -385,26 +477,5 @@ if(!class_exists('Debug_Queries'))
 				echo "<ul>".$debug_output."</ul>";
 			}*/
 		}
-	}
-}
-
-if(!is_admin())
-{
-	$log_query_debug = get_option('setting_log_query_debug', 'no');
-
-	if($log_query_debug == 'yes')
-	{
-		// disable mySQL Session Cache
-		/*if(!defined('QUERY_CACHE_TYPE_OFF'))
-		{
-			define('QUERY_CACHE_TYPE_OFF', TRUE);
-		}*/
-
-		if(!defined('SAVEQUERIES'))
-		{
-			define('SAVEQUERIES', TRUE);
-		}
-
-		$debug_queries = new Debug_Queries();
 	}
 }

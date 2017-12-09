@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-05 08:23+0100\n"
+"POT-Creation-Date: 2017-12-09 13:47+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Fors\n"
 "Language-Team: \n"
@@ -32,61 +32,65 @@ msgstr "Jag tog bort allihop åt dig"
 msgid "The information is being ignored from now on"
 msgstr "Informationen ignoreras from. nu"
 
-#: ../include/classes.php:210
+#: ../include/classes.php:211
 msgid "All"
 msgstr "Alla"
 
-#: ../include/classes.php:211
+#: ../include/classes.php:212
 msgid "Notice"
 msgstr "Notifiering"
 
-#: ../include/classes.php:212
-#: ../include/classes.php:258
+#: ../include/classes.php:213
+#: ../include/classes.php:259
 msgid "Ignore"
 msgstr "Ignorera"
 
-#: ../include/classes.php:213
+#: ../include/classes.php:214
 msgid "Trash"
 msgstr "Papperskorg"
 
-#: ../include/classes.php:219
+#: ../include/classes.php:220
 msgid "Name"
 msgstr "Namn"
 
-#: ../include/classes.php:220
+#: ../include/classes.php:221
 msgid "Amount"
 msgstr "Antal"
 
-#: ../include/classes.php:221
+#: ../include/classes.php:222
 msgid "Date"
 msgstr "Datum"
 
-#: ../include/classes.php:250
+#: ../include/classes.php:251
 msgid "Delete"
 msgstr "Radera"
 
-#: ../include/classes.php:327
-msgid "Debug query"
+#: ../include/classes.php:330
+msgid "Debug Query"
 msgstr "Debugga databasfrågor"
 
-#: ../include/classes.php:352
-msgid "Debug page"
+#: ../include/classes.php:365
+msgid "Duplicate Query"
+msgstr "Dubbel fråga"
+
+#: ../include/classes.php:383
+msgid "Debug Page"
 msgstr "Debugga sida"
 
-#: ../include/classes.php:355
-msgid "Total query time"
-msgstr "Total frågetid"
+#: ../include/classes.php:383
+msgid "MySQL"
+msgstr ""
 
-#: ../include/classes.php:359
-msgid "Total num_query time"
-msgstr "Total numerisk frågetid"
+#: ../include/classes.php:383
+msgid "Total"
+msgstr "Total"
 
 #: ../include/functions.php:6
 #: ../include/functions.php:7
 #: ../include/functions.php:8
 #: ../include/functions.php:129
-#: ../include/functions.php:218
-#: ../include/functions.php:285
+#: ../include/functions.php:239
+#: ../include/functions.php:306
 #: ../list/index.php:9
 msgid "Log"
 msgstr "Logg"
@@ -118,6 +122,7 @@ msgid "Page Time Limit"
 msgstr "Gränsvärde för sidvisning"
 
 #: ../include/functions.php:151
+#: ../include/functions.php:181
 #, php-format
 msgid "Add this to the end of %s"
 msgstr "Lägg till detta i slutet av %s"
@@ -131,27 +136,47 @@ msgstr "%s är inte skrivbar. Se till så att mappen är skrivbar så att Wordpr
 msgid "This will hurt performance on the frontend so use this for debugging only and then turn off"
 msgstr "Detta påverkar prestandan negativt på webbsidan så använd detta endast för debugging och stäng av det efteråt"
 
-#: ../include/functions.php:180
-#: ../include/functions.php:188
-msgid "0-9.9999"
-msgstr "0-9.9999"
+#: ../include/functions.php:191
+#, php-format
+msgid "Remove %s from %s"
+msgstr "Ta bort %s från %s"
 
-#: ../include/functions.php:204
+#: ../include/functions.php:201
+#: ../include/functions.php:209
+msgid "s"
+msgstr "s"
+
+#: ../include/functions.php:225
 msgid "New"
 msgstr "Ny"
 
-#: ../include/functions.php:239
+#: ../include/functions.php:260
 #, php-format
 msgid "There are %d new errors in the log"
 msgstr "Det finns %d nya fel i loggen"
 
-#: ../include/functions.php:239
+#: ../include/functions.php:260
 msgid "There is one new error in the log"
 msgstr "Det finns ett nytt fel i loggen"
 
 #: ../list/index.php:10
 msgid "Delete All"
 msgstr "Radera alla"
+
+#~ msgid "Total Query Time"
+#~ msgstr "Total frågetid"
+
+#~ msgid "Total Page Time"
+#~ msgstr "Total sidtid"
+
+#~ msgid "For some reason %s is not set to %s"
+#~ msgstr "Av någon anledning är %s inte %s"
+
+#~ msgid "Total num_query time"
+#~ msgstr "Total numerisk frågetid"
+
+#~ msgid "0-9.9999"
+#~ msgstr "0-9.9999"
 
 #~ msgid "Trash All"
 #~ msgstr "Radera alla"

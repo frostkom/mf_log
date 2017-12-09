@@ -138,6 +138,26 @@ function setting_log_activate_callback()
 
 	if($option == 'yes')
 	{
+		/*require($globals['folder'].'include/class_cpu.php');
+
+		$cpuload = new CPULoad();
+		$cpuload->get_load();
+
+		$cpu = mf_format_number($cpuload->load['cpu']);*/
+
+		$load = sys_getloadavg();
+
+		echo "<p><i class='fa ".($load[0] < 1 ? "fa-check green" : "fa-close red")."'></i> ".__("Load", 'lang_base')." &lt; 1 ".__("min", 'lang_base').": ".$load[0]."</p>";
+		echo "<p><i class='fa ".($load[1] < 1 ? "fa-check green" : "fa-close red")."'></i> ".__("Load", 'lang_base')." &lt; 5 ".__("min", 'lang_base').": ".$load[1]."</p>";
+		echo "<p><i class='fa ".($load[2] < 1 ? "fa-check green" : "fa-close red")."'></i> ".__("Load", 'lang_base')." &lt; 15 ".__("min", 'lang_base').": ".$load[2]."</p>";
+
+		/*$memory_used = memory_get_usage();
+		$memory_allocated = memory_get_usage(true);
+		$memory_peak_used = memory_get_peak_usage();
+		$memory_peak_allocated = memory_get_peak_usage(false);
+
+		echo "<p><i class='fa ".($memory_used < ($memory_total * .8) ? "fa-check green" : "fa-close red")."'></i> ".__("Memory", 'lang_base').": ".mf_format_number(($memory_used / $memory_total) * 100)."% (".$memory_used." / ".$memory_total.")</p>";*/
+
 		get_file_info(array('path' => get_home_path(), 'callback' => "check_htaccess_log", 'allow_depth' => false));
 
 		if(!defined('WP_DEBUG') || WP_DEBUG == false || !defined('WP_DEBUG_LOG') || WP_DEBUG_LOG == false || !defined('WP_DEBUG_DISPLAY'))
@@ -170,6 +190,27 @@ function setting_log_query_debug_callback()
 	$option = get_option($setting_key, 'no');
 
 	echo show_select(array('data' => get_yes_no_for_select(), 'name' => $setting_key, 'value' => $option, 'suffix' => __("This will hurt performance on the frontend so use this for debugging only and then turn off", 'lang_log')));
+
+	if($option == 'yes')
+	{
+		if(!defined('SAVEQUERIES') || SAVEQUERIES != true)
+		{
+			$recommend_config = "define('SAVEQUERIES', true);";
+
+			echo "<div class='mf_form'>"
+				."<h3 class='add_to_config'><i class='fa fa-warning yellow'></i> ".sprintf(__("Add this to the end of %s", 'lang_log'), "wp-config.php")."</h3>
+				<p class='input'>".nl2br(htmlspecialchars($recommend_config))."</p>"
+			."</div>";
+		}
+	}
+
+	else
+	{
+		if(defined('SAVEQUERIES') && SAVEQUERIES == true)
+		{
+			echo "<p><i class='fa fa-warning yellow'></i>".sprintf(__("Remove %s from %s", 'lang_log'), "'SAVEQUERIES'", "wp-config.php")."</p>";
+		}
+	}
 }
 
 function setting_log_query_time_limit_callback()
@@ -177,7 +218,7 @@ function setting_log_query_time_limit_callback()
 	$setting_key = get_setting_key(__FUNCTION__);
 	$option = get_option($setting_key);
 
-	echo show_textfield(array('name' => $setting_key, 'value' => $option, 'placeholder' => __("0-9.9999", 'lang_log'), 'pattern' => "\d{1}(\.\d{0,4})?"));
+	echo show_textfield(array('type' => 'number', 'name' => $setting_key, 'value' => $option, 'placeholder' => "0-10", 'xtra' => "min='0' max='10' step='0.1'", 'suffix' => __("s", 'lang_log'))); //, 'pattern' => "\d{1}(\.\d{0,4})?"
 }
 
 function setting_log_page_time_limit_callback()
@@ -185,7 +226,7 @@ function setting_log_page_time_limit_callback()
 	$setting_key = get_setting_key(__FUNCTION__);
 	$option = get_option($setting_key);
 
-	echo show_textfield(array('name' => $setting_key, 'value' => $option, 'placeholder' => __("0-9.9999", 'lang_log'), 'pattern' => "\d{1}(\.\d{0,4})?"));
+	echo show_textfield(array('type' => 'number', 'name' => $setting_key, 'value' => $option, 'placeholder' => "0-10", 'xtra' => "min='0' max='10' step='0.1'", 'suffix' => __("s", 'lang_log'))); //, 'pattern' => "\d{1}(\.\d{0,4})?"
 }
 
 function get_count_log($id = 0)
