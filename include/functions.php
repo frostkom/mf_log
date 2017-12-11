@@ -126,7 +126,7 @@ function settings_log_callback()
 {
 	$setting_key = get_setting_key(__FUNCTION__);
 
-	echo settings_header($setting_key, __("Log", 'lang_log'));
+	echo settings_header($setting_key, __("Log & Debug", 'lang_log'));
 }
 
 function setting_log_activate_callback()
@@ -138,12 +138,17 @@ function setting_log_activate_callback()
 
 	if($option == 'yes')
 	{
-		/*require($globals['folder'].'include/class_cpu.php');
+		/*require_once("class_cpu.php");
 
 		$cpuload = new CPULoad();
 		$cpuload->get_load();
 
-		$cpu = mf_format_number($cpuload->load['cpu']);*/
+		$cpu = mf_format_number($cpuload->load['cpu']);
+
+		if($cpu > 0)
+		{
+			echo "<p><i class='fa ".($cpu < 20 ? "fa-check green" : "fa-close red")."'></i> ".__("CPU", 'lang_base').": ".$cpu."%</p>";
+		}*/
 
 		$load = sys_getloadavg();
 

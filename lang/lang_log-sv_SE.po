@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-09 13:47+0100\n"
+"POT-Creation-Date: 2017-12-11 10:03+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Fors\n"
 "Language-Team: \n"
@@ -65,32 +65,31 @@ msgstr "Datum"
 msgid "Delete"
 msgstr "Radera"
 
-#: ../include/classes.php:330
+#: ../include/classes.php:339
 msgid "Debug Query"
 msgstr "Debugga databasfrågor"
 
-#: ../include/classes.php:365
+#: ../include/classes.php:428
 msgid "Duplicate Query"
 msgstr "Dubbel fråga"
 
-#: ../include/classes.php:383
+#: ../include/classes.php:452
 msgid "Debug Page"
 msgstr "Debugga sida"
 
-#: ../include/classes.php:383
+#: ../include/classes.php:452
 msgid "MySQL"
 msgstr ""
 
-#: ../include/classes.php:383
+#: ../include/classes.php:452
 msgid "Total"
 msgstr "Total"
 
 #: ../include/functions.php:6
 #: ../include/functions.php:7
 #: ../include/functions.php:8
-#: ../include/functions.php:129
-#: ../include/functions.php:239
-#: ../include/functions.php:306
+#: ../include/functions.php:264
+#: ../include/functions.php:331
 #: ../list/index.php:9
 msgid "Log"
 msgstr "Logg"
@@ -121,41 +120,57 @@ msgstr "Gränsvärde för databasfrågor"
 msgid "Page Time Limit"
 msgstr "Gränsvärde för sidvisning"
 
-#: ../include/functions.php:151
-#: ../include/functions.php:181
+#: ../include/functions.php:129
+msgid "Log & Debug"
+msgstr "Logg & debug"
+
+#: ../include/functions.php:155
+#: ../include/functions.php:156
+#: ../include/functions.php:157
+msgid "Load"
+msgstr "Belastning"
+
+#: ../include/functions.php:155
+#: ../include/functions.php:156
+#: ../include/functions.php:157
+msgid "min"
+msgstr "min"
+
+#: ../include/functions.php:176
+#: ../include/functions.php:206
 #, php-format
 msgid "Add this to the end of %s"
 msgstr "Lägg till detta i slutet av %s"
 
-#: ../include/functions.php:157
+#: ../include/functions.php:182
 #, php-format
 msgid "%s is not writable. Please, make sure that the folder can be written to so that Wordpress can log errors"
 msgstr "%s är inte skrivbar. Se till så att mappen är skrivbar så att Wordpress kan logga fel"
 
-#: ../include/functions.php:172
+#: ../include/functions.php:197
 msgid "This will hurt performance on the frontend so use this for debugging only and then turn off"
 msgstr "Detta påverkar prestandan negativt på webbsidan så använd detta endast för debugging och stäng av det efteråt"
 
-#: ../include/functions.php:191
+#: ../include/functions.php:216
 #, php-format
 msgid "Remove %s from %s"
 msgstr "Ta bort %s från %s"
 
-#: ../include/functions.php:201
-#: ../include/functions.php:209
+#: ../include/functions.php:226
+#: ../include/functions.php:234
 msgid "s"
 msgstr "s"
 
-#: ../include/functions.php:225
+#: ../include/functions.php:250
 msgid "New"
 msgstr "Ny"
 
-#: ../include/functions.php:260
+#: ../include/functions.php:285
 #, php-format
 msgid "There are %d new errors in the log"
 msgstr "Det finns %d nya fel i loggen"
 
-#: ../include/functions.php:260
+#: ../include/functions.php:285
 msgid "There is one new error in the log"
 msgstr "Det finns ett nytt fel i loggen"
 

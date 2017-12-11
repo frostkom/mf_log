@@ -1,9 +1,9 @@
 <?php
 /*
-Plugin Name: MF Log
+Plugin Name: MF Log & Debug
 Plugin URI: https://github.com/frostkom/mf_log
 Description: 
-Version: 4.3.1
+Version: 4.3.2
 Author: Martin Fors
 Author URI: http://frostkom.se
 Text Domain: lang_log
