@@ -72,29 +72,6 @@ function cron_log()
 	}
 }
 
-function check_htaccess_log($data)
-{
-	if(basename($data['file']) == ".htaccess")
-	{
-		$content = get_file_content(array('file' => $data['file']));
-
-		if(!preg_match("/BEGIN MF Log/", $content) || !preg_match("/Deny from all/", $content))
-		{
-			$recommend_htaccess = "# BEGIN MF Log
-			<Files debug.log>
-				Order Allow,Deny
-				Deny from all
-			</Files>
-			# END MF Log";
-
-			echo "<div class='mf_form'>"
-				."<h3 class='add_to_htacess'><i class='fa fa-warning yellow'></i> ".sprintf(__("Add this to the beginning of %s", 'lang_log'), ".htaccess")."</h3>"
-				."<p class='input'>".nl2br(htmlspecialchars($recommend_htaccess))."</p>"
-			."</div>";
-		}
-	}
-}
-
 function settings_log()
 {
 	if(IS_SUPER_ADMIN)
@@ -162,8 +139,6 @@ function setting_log_activate_callback()
 		$memory_peak_allocated = memory_get_peak_usage(false);
 
 		echo "<p><i class='fa ".($memory_used < ($memory_total * .8) ? "fa-check green" : "fa-close red")."'></i> ".__("Memory", 'lang_base').": ".mf_format_number(($memory_used / $memory_total) * 100)."% (".$memory_used." / ".$memory_total.")</p>";*/
-
-		get_file_info(array('path' => get_home_path(), 'callback' => "check_htaccess_log", 'allow_depth' => false));
 
 		if(!defined('WP_DEBUG') || WP_DEBUG == false || !defined('WP_DEBUG_LOG') || WP_DEBUG_LOG == false || !defined('WP_DEBUG_DISPLAY'))
 		{
