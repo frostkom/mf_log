@@ -4,7 +4,7 @@
 // Copyright 2001-2002, Steve Blinch
 // http://code.blitzaffe.com
 
-define("TEMP_PATH", WP_CONTENT_DIR);
+define("TEMP_PATH", WP_CONTENT_DIR."/");
 
 class CPULoad
 {
