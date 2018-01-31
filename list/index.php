@@ -22,4 +22,4 @@ echo "<div class='wrap'>
 
 echo "</div>";
 
-update_user_meta(get_current_user_id(), 'mf_log_viewed', date("Y-m-d H:i:s"));
+update_user_meta(get_current_user_id(), 'meta_log_viewed', date("Y-m-d H:i:s"));

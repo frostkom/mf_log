@@ -215,7 +215,7 @@ function get_count_log($id = 0)
 
 	$count_message = "";
 
-	$last_viewed = get_user_meta(get_current_user_id(), 'mf_log_viewed', true);
+	$last_viewed = get_user_meta(get_current_user_id(), 'meta_log_viewed', true);
 
 	$result = $wpdb->get_results($wpdb->prepare("SELECT ID FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND post_status = 'publish' AND post_modified > %s", $last_viewed));
 	$rows = $wpdb->num_rows;

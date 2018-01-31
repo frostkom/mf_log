@@ -3,13 +3,14 @@
 Plugin Name: MF Log & Debug
 Plugin URI: https://github.com/frostkom/mf_log
 Description: 
-Version: 4.3.7
+Version: 4.3.9
 Licence: GPLv2 or later
 Author: Martin Fors
 Author URI: http://frostkom.se
 Text Domain: lang_log
 Domain Path: /lang
 
+Depends: MF Base
 GitHub Plugin URI: frostkom/mf_log
 */
 
@@ -34,12 +35,14 @@ if(1 == 1) //!is_admin()
 	}
 }
 
+add_action('cron_base', 'activate_log', mt_rand(1, 10));
 add_action('cron_base', 'cron_log', mt_rand(1, 10));
 
 add_action('init', 'init_log');
 
 if(is_admin())
 {
+	register_activation_hook(__FILE__, 'activate_log');
 	register_uninstall_hook(__FILE__, 'uninstall_log');
 
 	add_action('admin_init', 'settings_log');
@@ -57,10 +60,16 @@ if(is_admin())
 	load_plugin_textdomain('lang_log', false, dirname(plugin_basename(__FILE__)).'/lang/');
 }
 
+function activate_log()
+{
+	replace_user_meta(array('old' => 'mf_log_viewed', 'new' => 'meta_log_viewed'));
+}
+
 function uninstall_log()
 {
 	mf_uninstall_plugin(array(
-		'options' => array('setting_log_query_debug', 'setting_log_query_time_limit', 'setting_log_page_time_limit', 'mf_log_viewed'),
+		'options' => array('setting_log_query_debug', 'setting_log_query_time_limit', 'setting_log_page_time_limit'),
+		'meta' => array('meta_log_viewed'),
 		'post_types' => array('mf_log'),
 	));
 }
