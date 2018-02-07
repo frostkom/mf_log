@@ -320,7 +320,7 @@ function column_cell_log($col, $id)
 			$tbl_group = new mf_log_table();
 
 			$tbl_group->select_data(array(
-				//'select' => "*",
+				'select' => "ID",
 				//'debug' => true,
 			));
 
