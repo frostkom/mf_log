@@ -148,7 +148,7 @@ function setting_log_activate_callback()
 			define('WP_DEBUG_DISPLAY', false);";
 
 			echo "<div class='mf_form'>"
-				."<h3 class='add_to_config'><i class='fa fa-warning yellow'></i> ".sprintf(__("Add this to the end of %s", 'lang_log'), "wp-config.php")."</h3>";
+				."<h3 class='display_warning'><i class='fa fa-warning yellow'></i> ".sprintf(__("Add this to the end of %s", 'lang_log'), "wp-config.php")."</h3>";
 
 				if(!file_exists($debug_file))
 				{
@@ -178,7 +178,7 @@ function setting_log_query_debug_callback()
 			$recommend_config = "define('SAVEQUERIES', true);";
 
 			echo "<div class='mf_form'>"
-				."<h3 class='add_to_config'><i class='fa fa-warning yellow'></i> ".sprintf(__("Add this to the end of %s", 'lang_log'), "wp-config.php")."</h3>
+				."<h3 class='display_warning'><i class='fa fa-warning yellow'></i> ".sprintf(__("Add this to the end of %s", 'lang_log'), "wp-config.php")."</h3>
 				<p class='input'>".nl2br(htmlspecialchars($recommend_config))."</p>"
 			."</div>";
 		}
