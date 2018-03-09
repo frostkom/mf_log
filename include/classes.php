@@ -83,6 +83,7 @@ class mf_log
 			"/^((o)*n line [0-9]+)$/",
 			"/^([0-9]+)$/",
 			"/^(maybe_log_events_response)/",
+			"/^(spam \= \'0\' AND deleted \= \'0\')/",
 		);
 
 		foreach($arr_ignore as $regexp)
