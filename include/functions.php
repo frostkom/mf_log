@@ -124,21 +124,21 @@ function setting_log_activate_callback()
 
 		if($cpu > 0)
 		{
-			echo "<p><i class='fa ".($cpu < 20 ? "fa-check green" : "fa-close red")."'></i> ".__("CPU", 'lang_base').": ".$cpu."%</p>";
+			echo "<p><i class='fa ".($cpu < 20 ? "fa-check green" : "fa-close red")."'></i> ".__("CPU", 'lang_log').": ".$cpu."%</p>";
 		}*/
 
 		$load = sys_getloadavg();
 
-		echo "<p><i class='fa ".($load[0] < 1 ? "fa-check green" : "fa-close red")."'></i> ".__("Load", 'lang_base')." &lt; 1 ".__("min", 'lang_base').": ".mf_format_number($load[0])."</p>";
-		echo "<p><i class='fa ".($load[1] < 1 ? "fa-check green" : "fa-close red")."'></i> ".__("Load", 'lang_base')." &lt; 5 ".__("min", 'lang_base').": ".mf_format_number($load[1])."</p>";
-		echo "<p><i class='fa ".($load[2] < 1 ? "fa-check green" : "fa-close red")."'></i> ".__("Load", 'lang_base')." &lt; 15 ".__("min", 'lang_base').": ".mf_format_number($load[2])."</p>";
+		echo "<p><i class='fa ".($load[0] < 1 ? "fa-check green" : "fa-close red")."'></i> ".__("Load", 'lang_log')." &lt; 1 ".__("min", 'lang_log').": ".mf_format_number($load[0])."</p>";
+		echo "<p><i class='fa ".($load[1] < 1 ? "fa-check green" : "fa-close red")."'></i> ".__("Load", 'lang_log')." &lt; 5 ".__("min", 'lang_log').": ".mf_format_number($load[1])."</p>";
+		echo "<p><i class='fa ".($load[2] < 1 ? "fa-check green" : "fa-close red")."'></i> ".__("Load", 'lang_log')." &lt; 15 ".__("min", 'lang_log').": ".mf_format_number($load[2])."</p>";
 
 		/*$memory_used = memory_get_usage();
 		$memory_allocated = memory_get_usage(true);
 		$memory_peak_used = memory_get_peak_usage();
 		$memory_peak_allocated = memory_get_peak_usage(false);
 
-		echo "<p><i class='fa ".($memory_used < ($memory_total * .8) ? "fa-check green" : "fa-close red")."'></i> ".__("Memory", 'lang_base').": ".mf_format_number(($memory_used / $memory_total) * 100)."% (".$memory_used." / ".$memory_total.")</p>";*/
+		echo "<p><i class='fa ".($memory_used < ($memory_total * .8) ? "fa-check green" : "fa-close red")."'></i> ".__("Memory", 'lang_log').": ".mf_format_number(($memory_used / $memory_total) * 100)."% (".$memory_used." / ".$memory_total.")</p>";*/
 
 		if(!defined('WP_DEBUG') || WP_DEBUG == false || !defined('WP_DEBUG_LOG') || WP_DEBUG_LOG == false || !defined('WP_DEBUG_DISPLAY'))
 		{
