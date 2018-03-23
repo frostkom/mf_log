@@ -3,7 +3,7 @@
 Plugin Name: MF Log & Debug
 Plugin URI: https://github.com/frostkom/mf_log
 Description: 
-Version: 4.4.1
+Version: 4.4.2
 Licence: GPLv2 or later
 Author: Martin Fors
 Author URI: http://frostkom.se
@@ -17,21 +17,18 @@ GitHub Plugin URI: frostkom/mf_log
 include_once("include/classes.php");
 include_once("include/functions.php");
 
-if(1 == 1) //!is_admin()
+$log_query_debug = get_option('setting_log_query_debug');
+
+if($log_query_debug == 'yes')
 {
-	$log_query_debug = get_option('setting_log_query_debug');
-
-	if($log_query_debug == 'yes')
+	/*if(!defined('SAVEQUERIES'))
 	{
-		/*if(!defined('SAVEQUERIES'))
-		{
-			define('SAVEQUERIES', true);
-		}*/
+		define('SAVEQUERIES', true);
+	}*/
 
-		if(defined('SAVEQUERIES') && SAVEQUERIES == true && class_exists('Debug_Queries'))
-		{
-			$debug_queries = new Debug_Queries();
-		}
+	if(defined('SAVEQUERIES') && SAVEQUERIES == true && class_exists('Debug_Queries'))
+	{
+		$debug_queries = new Debug_Queries();
 	}
 }
 
