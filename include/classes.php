@@ -348,21 +348,20 @@ if(!class_exists('Debug_Queries'))
 			if($count_queries > 0)
 			{
 				$check_duplicates = true;
-				$check_source = false;
+				$check_source = true;
 
-				$query_time_limit = get_option('setting_log_query_time_limit');
-				$page_time_limit = get_option('setting_log_page_time_limit');
+				$query_time_limit = get_option('setting_log_query_time_limit', .5);
+				$page_time_limit = get_option('setting_log_page_time_limit', 8);
+				$source_percent_limit = get_option('setting_log_source_percent_limit', 25);
 
 				$arr_duplicates = array();
 				$arr_sources = array(
 					'total_time' => 0,
-					'core' => array(
-						'time' => 0,
-						'percent' => 100 //This should be calculated afterwards since that is the only way to make it accurate
-					),
+					'core' => 0,
 					'plugins' => array(),
 					'themes' => array(),
 				);
+				
 				//do_log("All queries: ".var_export($wpdb->queries, true));
 
 				$total_query_time = 0;
@@ -379,7 +378,7 @@ if(!class_exists('Debug_Queries'))
 					{
 						if($query_time > $query_time_limit && substr($query_text, 0, 6) == "SELECT")
 						{
-							do_log(__("Debug Query", 'lang_log').": ".$query_time."s, ".$query_text." (".$query_called.")");
+							do_log(__("Debug Query", 'lang_log').": ".$query_time.__("s", 'lang_log').", ".$query_text." (".$query_called.")");
 						}
 
 						if($check_duplicates)
@@ -408,16 +407,12 @@ if(!class_exists('Debug_Queries'))
 							{
 								if(isset($arr_sources['plugins'][$plugin_name]))
 								{
-									$arr_sources['plugins'][$plugin_name]['time'] += $query_time;
-									$arr_sources['plugins'][$plugin_name]['percent'] = round($arr_sources['plugins'][$plugin_name]['time'] / $arr_sources['total_time'] * 100);
+									$arr_sources['plugins'][$plugin_name] += $query_time;
 								}
 
 								else
 								{
-									$arr_sources['plugins'][$plugin_name] = array(
-										'time' => $query_time,
-										'percent' => round(($query_time / $arr_sources['total_time']) * 100)
-									);
+									$arr_sources['plugins'][$plugin_name] = $query_time;
 								}
 							}
 
@@ -429,23 +424,18 @@ if(!class_exists('Debug_Queries'))
 								{
 									if(isset($arr_sources['themes'][$theme_name]))
 									{
-										$arr_sources['themes'][$theme_name]['time'] += $query_time;
-										$arr_sources['themes'][$theme_name]['percent'] = round($arr_sources['themes'][$theme_name]['time'] / $arr_sources['total_time'] * 100);
+										$arr_sources['themes'][$theme_name] += $query_time;
 									}
 
 									else
 									{
-										$arr_sources['themes'][$theme_name] = array(
-											'time' => $query_time,
-											'percent' => round(($query_time / $arr_sources['total_time']) * 100)
-										);
+										$arr_sources['themes'][$theme_name] = $query_time;
 									}
 								}
 
 								else
 								{
-									$arr_sources['core']['time'] += $query_time;
-									$arr_sources['core']['percent'] = round(($arr_sources['core']['time'] / $arr_sources['total_time']) * 100);
+									$arr_sources['core'] += $query_time;
 								}
 							}
 						}
@@ -468,7 +458,7 @@ if(!class_exists('Debug_Queries'))
 						{
 							if($arr_duplicates[$i]['count'] > 1 && $arr_duplicates[$i]['total_time'] > $query_time_limit)
 							{
-								do_log(__("Duplicate Query", 'lang_log').": ".$arr_duplicates[$i]['count']." x ".$arr_duplicates[$i]['time']."s (".$arr_duplicates[$i]['query'].")");
+								do_log(__("Duplicate Query", 'lang_log').": ".$arr_duplicates[$i]['count']." x ".$arr_duplicates[$i]['time'].__("s", 'lang_log')." (".$arr_duplicates[$i]['query'].")");
 							}
 
 							$i++;
@@ -477,7 +467,42 @@ if(!class_exists('Debug_Queries'))
 
 					if($check_source)
 					{
-						do_log("By Source: ".var_export($arr_sources, true));
+						foreach($arr_sources as $key => $source)
+						{
+							switch($key)
+							{
+								case 'total_time':
+									$total_time = $source;
+								break;
+
+								case 'core':
+									/*$percent = round(($source / $total_time) * 100);
+
+									if($percent > $source_percent_limit)
+									{
+										do_log(__("Slow Part", 'lang_log')." - ".$key.": ".$percent."% of ".mf_format_number($total_time).__("s", 'lang_log'));
+									}*/
+								break;
+
+								case 'plugins':
+								case 'themes':
+									foreach($source as $folder => $time)
+									{
+										if(!in_array($folder, array('mf_log'))) // This will naturally be a performance drain when activated to debug
+										{
+											$percent = round(($time / $total_time) * 100);
+
+											if($percent > $source_percent_limit)
+											{
+												do_log(__("Slow Part", 'lang_log')." - ".$key." - ".$folder.": ".$percent."% of ".mf_format_number($total_time).__("s", 'lang_log'));
+											}
+										}
+									}
+								break;
+							}
+						}
+
+						//do_log("By Source: ".var_export($arr_sources, true));
 					}
 				}
 
@@ -492,7 +517,7 @@ if(!class_exists('Debug_Queries'))
 
 					if($total_query_time > $page_time_limit || $total_timer_time > $page_time_limit)
 					{
-						do_log(__("Debug Page", 'lang_log').": ".mf_format_number($total_query_time)."s (".__("MySQL", 'lang_log')." - ".$count_queries."), ".$total_timer_time."s (".__("Total", 'lang_log')." - ".$_SERVER['REQUEST_URI'].")"); // (".get_num_queries().")
+						do_log(__("Debug Page", 'lang_log').": ".mf_format_number($total_query_time).__("s", 'lang_log')." (".__("MySQL", 'lang_log')." - ".$count_queries."), ".$total_timer_time.__("s", 'lang_log')." (".__("Total", 'lang_log')." - ".$_SERVER['REQUEST_URI'].")"); // (".get_num_queries().")
 
 						/*if($total_query_time == 0)
 						{

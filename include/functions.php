@@ -92,6 +92,7 @@ function settings_log()
 			{
 				$arr_settings['setting_log_query_time_limit'] = __("Query Time Limit", 'lang_log');
 				$arr_settings['setting_log_page_time_limit'] = __("Page Time Limit", 'lang_log');
+				$arr_settings['setting_log_source_percent_limit'] = __("Slow Part Percent Limit", 'lang_log');
 			}
 		}
 
@@ -196,7 +197,7 @@ function setting_log_query_debug_callback()
 function setting_log_query_time_limit_callback()
 {
 	$setting_key = get_setting_key(__FUNCTION__);
-	$option = get_option($setting_key);
+	$option = get_option($setting_key, .5);
 
 	echo show_textfield(array('type' => 'number', 'name' => $setting_key, 'value' => $option, 'placeholder' => "0-10", 'xtra' => "min='0' max='10' step='0.1'", 'suffix' => __("s", 'lang_log'))); //, 'pattern' => "\d{1}(\.\d{0,4})?"
 }
@@ -204,9 +205,17 @@ function setting_log_query_time_limit_callback()
 function setting_log_page_time_limit_callback()
 {
 	$setting_key = get_setting_key(__FUNCTION__);
-	$option = get_option($setting_key);
+	$option = get_option($setting_key, 8);
 
 	echo show_textfield(array('type' => 'number', 'name' => $setting_key, 'value' => $option, 'placeholder' => "0-10", 'xtra' => "min='0' max='10' step='0.1'", 'suffix' => __("s", 'lang_log'))); //, 'pattern' => "\d{1}(\.\d{0,4})?"
+}
+
+function setting_log_source_percent_limit_callback()
+{
+	$setting_key = get_setting_key(__FUNCTION__);
+	$option = get_option($setting_key, 25);
+
+	echo show_textfield(array('type' => 'number', 'name' => $setting_key, 'value' => $option, 'placeholder' => "10-100", 'xtra' => "min='10' max='100'", 'suffix' => "%"));
 }
 
 function get_count_log($id = 0)

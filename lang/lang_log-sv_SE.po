@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-11 10:03+0100\n"
+"POT-Creation-Date: 2018-04-12 09:12+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Fors\n"
 "Language-Team: \n"
@@ -32,64 +32,79 @@ msgstr "Jag tog bort allihop åt dig"
 msgid "The information is being ignored from now on"
 msgstr "Informationen ignoreras from. nu"
 
-#: ../include/classes.php:211
+#: ../include/classes.php:212
 msgid "All"
 msgstr "Alla"
 
-#: ../include/classes.php:212
+#: ../include/classes.php:213
 msgid "Notice"
 msgstr "Notifiering"
 
-#: ../include/classes.php:213
-#: ../include/classes.php:259
+#: ../include/classes.php:214
+#: ../include/classes.php:260
+#: ../include/classes.php:295
 msgid "Ignore"
 msgstr "Ignorera"
 
-#: ../include/classes.php:214
+#: ../include/classes.php:215
 msgid "Trash"
 msgstr "Papperskorg"
 
-#: ../include/classes.php:220
+#: ../include/classes.php:221
 msgid "Name"
 msgstr "Namn"
 
-#: ../include/classes.php:221
+#: ../include/classes.php:222
 msgid "Amount"
 msgstr "Antal"
 
-#: ../include/classes.php:222
+#: ../include/classes.php:223
 msgid "Date"
 msgstr "Datum"
 
-#: ../include/classes.php:251
+#: ../include/classes.php:252
+#: ../include/classes.php:294
 msgid "Delete"
 msgstr "Radera"
 
-#: ../include/classes.php:339
+#: ../include/classes.php:381
 msgid "Debug Query"
 msgstr "Debugga databasfrågor"
 
-#: ../include/classes.php:428
+#: ../include/classes.php:381
+#: ../include/classes.php:461
+#: ../include/classes.php:497
+#: ../include/classes.php:520
+#: ../include/functions.php:202
+#: ../include/functions.php:210
+msgid "s"
+msgstr "s"
+
+#: ../include/classes.php:461
 msgid "Duplicate Query"
 msgstr "Dubbel fråga"
 
-#: ../include/classes.php:452
+#: ../include/classes.php:497
+msgid "Slow Part"
+msgstr "Långsam del"
+
+#: ../include/classes.php:520
 msgid "Debug Page"
 msgstr "Debugga sida"
 
-#: ../include/classes.php:452
+#: ../include/classes.php:520
 msgid "MySQL"
 msgstr ""
 
-#: ../include/classes.php:452
+#: ../include/classes.php:520
 msgid "Total"
 msgstr "Total"
 
 #: ../include/functions.php:6
 #: ../include/functions.php:7
 #: ../include/functions.php:8
-#: ../include/functions.php:264
-#: ../include/functions.php:331
+#: ../include/functions.php:248
+#: ../include/functions.php:315
 #: ../list/index.php:9
 msgid "Log"
 msgstr "Logg"
@@ -99,78 +114,72 @@ msgstr "Logg"
 msgid "%s was too large so it was deleted"
 msgstr "%s var för stor så den raderades"
 
-#: ../include/functions.php:91
-#, php-format
-msgid "Add this to the beginning of %s"
-msgstr "Lägg till detta i början av %s"
-
-#: ../include/functions.php:107
+#: ../include/functions.php:84
 msgid "Activate"
 msgstr "Aktivera"
 
-#: ../include/functions.php:112
+#: ../include/functions.php:89
 msgid "Debug DB Queries"
 msgstr "Felsök databasfrågor"
 
-#: ../include/functions.php:116
+#: ../include/functions.php:93
 msgid "Query Time Limit"
 msgstr "Gränsvärde för databasfrågor"
 
-#: ../include/functions.php:117
+#: ../include/functions.php:94
 msgid "Page Time Limit"
 msgstr "Gränsvärde för sidvisning"
 
-#: ../include/functions.php:129
+#: ../include/functions.php:95
+msgid "Slow Part Percent Limit"
+msgstr "Gränsvärde för långsam del"
+
+#: ../include/functions.php:107
 msgid "Log & Debug"
 msgstr "Logg & debug"
 
-#: ../include/functions.php:155
-#: ../include/functions.php:156
-#: ../include/functions.php:157
+#: ../include/functions.php:133
+#: ../include/functions.php:134
+#: ../include/functions.php:135
 msgid "Load"
 msgstr "Belastning"
 
-#: ../include/functions.php:155
-#: ../include/functions.php:156
-#: ../include/functions.php:157
+#: ../include/functions.php:133
+#: ../include/functions.php:134
+#: ../include/functions.php:135
 msgid "min"
 msgstr "min"
 
-#: ../include/functions.php:176
-#: ../include/functions.php:206
+#: ../include/functions.php:152
+#: ../include/functions.php:182
 #, php-format
 msgid "Add this to the end of %s"
 msgstr "Lägg till detta i slutet av %s"
 
-#: ../include/functions.php:182
+#: ../include/functions.php:158
 #, php-format
 msgid "%s is not writable. Please, make sure that the folder can be written to so that Wordpress can log errors"
 msgstr "%s är inte skrivbar. Se till så att mappen är skrivbar så att Wordpress kan logga fel"
 
-#: ../include/functions.php:197
+#: ../include/functions.php:173
 msgid "This will hurt performance on the frontend so use this for debugging only and then turn off"
 msgstr "Detta påverkar prestandan negativt på webbsidan så använd detta endast för debugging och stäng av det efteråt"
 
-#: ../include/functions.php:216
+#: ../include/functions.php:192
 #, php-format
 msgid "Remove %s from %s"
 msgstr "Ta bort %s från %s"
 
-#: ../include/functions.php:226
 #: ../include/functions.php:234
-msgid "s"
-msgstr "s"
-
-#: ../include/functions.php:250
 msgid "New"
 msgstr "Ny"
 
-#: ../include/functions.php:285
+#: ../include/functions.php:269
 #, php-format
 msgid "There are %d new errors in the log"
 msgstr "Det finns %d nya fel i loggen"
 
-#: ../include/functions.php:285
+#: ../include/functions.php:269
 msgid "There is one new error in the log"
 msgstr "Det finns ett nytt fel i loggen"
 
@@ -178,23 +187,3 @@ msgstr "Det finns ett nytt fel i loggen"
 msgid "Delete All"
 msgstr "Radera alla"
 
-#~ msgid "Total Query Time"
-#~ msgstr "Total frågetid"
-
-#~ msgid "Total Page Time"
-#~ msgstr "Total sidtid"
-
-#~ msgid "For some reason %s is not set to %s"
-#~ msgstr "Av någon anledning är %s inte %s"
-
-#~ msgid "Total num_query time"
-#~ msgstr "Total numerisk frågetid"
-
-#~ msgid "0-9.9999"
-#~ msgstr "0-9.9999"
-
-#~ msgid "Trash All"
-#~ msgstr "Radera alla"
-
-#~ msgid "%s should be set to %s in wp-config.php"
-#~ msgstr "%s bör vara satt till %s i wp-config.php"
