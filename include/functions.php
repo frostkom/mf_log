@@ -249,7 +249,7 @@ function menu_log()
 
 	$count_message = get_count_log();
 
-	add_menu_page($menu_title, $menu_title.$count_message, $menu_capability, $menu_start, '', 'dashicons-warning');
+	add_menu_page($menu_title, $menu_title.$count_message, $menu_capability, $menu_start, '', 'dashicons-warning', 100);
 }
 
 function get_update_log($data = array())
