@@ -249,7 +249,7 @@ class mf_log_table extends mf_list_table
 				{
 					if($post_author == get_current_user_id() || IS_ADMIN)
 					{
-						$actions['delete'] = "<a href='".wp_nonce_url("?page=mf_log/list/index.php&btnLogDelete&intLogID=".$post_id, 'log_delete_'.$post_id)."'>".__("Delete", 'lang_log')."</a>";
+						$actions['delete'] = "<a href='".wp_nonce_url(admin_url("admin.php?page=mf_log/list/index.php&btnLogDelete&intLogID=".$post_id), 'log_delete_'.$post_id)."'>".__("Delete", 'lang_log')."</a>";
 					}
 				}
 
@@ -257,13 +257,13 @@ class mf_log_table extends mf_list_table
 				{
 					if($post_author == get_current_user_id() || IS_ADMIN)
 					{
-						$actions['ignore'] = "<a href='".wp_nonce_url("?page=mf_log/list/index.php&btnLogIgnore&intLogID=".$post_id, 'log_ignore_'.$post_id)."' rel='confirm'>".__("Ignore", 'lang_log')."</a>";
+						$actions['ignore'] = "<a href='".wp_nonce_url(admin_url("admin.php?page=mf_log/list/index.php&btnLogIgnore&intLogID=".$post_id), 'log_ignore_'.$post_id)."' rel='confirm'>".__("Ignore", 'lang_log')."</a>";
 					}
 				}
 
 				/*else
 				{
-					$actions['recover'] = "<a href='?page=mf_log/list/index.php&intLogID=".$post_id."&recover'>".__("Recover", 'lang_log')."</a>";
+					$actions['recover'] = "<a href='admin_url("admin.php?page=mf_log/list/index.php&intLogID=".$post_id."&recover)."'>".__("Recover", 'lang_log')."</a>";
 				}*/
 
 				$out .= $item[$column_name]

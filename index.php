@@ -3,7 +3,7 @@
 Plugin Name: MF Log & Debug
 Plugin URI: https://github.com/frostkom/mf_log
 Description: 
-Version: 4.5.1
+Version: 4.5.2
 Licence: GPLv2 or later
 Author: Martin Fors
 Author URI: http://frostkom.se
