@@ -86,7 +86,8 @@ function settings_log()
 
 		if(get_option('setting_log_activate') != 'no')
 		{
-			$arr_settings['setting_log_query_debug'] = __("Debug DB Queries", 'lang_log');
+			$arr_settings['setting_log_js_debug'] = __("Debug Javascript", 'lang_log');
+			$arr_settings['setting_log_query_debug'] = __("Debug Database Queries", 'lang_log');
 
 			if(get_option('setting_log_query_debug') == 'yes')
 			{
@@ -163,6 +164,14 @@ function setting_log_activate_callback()
 			."</div>";
 		}
 	}
+}
+
+function setting_log_js_debug_callback()
+{
+	$setting_key = get_setting_key(__FUNCTION__);
+	$option = get_option($setting_key, 'no');
+
+	echo show_select(array('data' => get_yes_no_for_select(), 'name' => $setting_key, 'value' => $option));
 }
 
 function setting_log_query_debug_callback()

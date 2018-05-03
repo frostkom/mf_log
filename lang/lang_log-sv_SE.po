@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-12 09:12+0100\n"
+"POT-Creation-Date: 2018-05-03 10:22+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Fors\n"
 "Language-Team: \n"
@@ -15,96 +15,142 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../include/classes.php:24
+#: ../include/classes.php:45
+#, php-format
+msgid "JS Error: %s in %s on line %d:%d"
+msgstr ""
+
+#: ../include/classes.php:56
+msgid "How to use Google Auth code"
+msgstr ""
+
+#: ../include/classes.php:57
+msgid "To use Google Auth to login you need to do the following:"
+msgstr ""
+
+#: ../include/classes.php:59
+msgid "Install Google Auth to your phone or tablet"
+msgstr ""
+
+#: ../include/classes.php:60
+msgid "Open the app"
+msgstr ""
+
+#: ../include/classes.php:61
+#, php-format
+msgid "Add the secret (%s) and description (%s) to the app"
+msgstr ""
+
+#: ../include/classes.php:62
+msgid "Now that you can see the code in the app, enter this into the text field on the login page and you can login securely every time"
+msgstr ""
+
+#: ../include/classes.php:64
+msgid "Tip: If you let me remember you when logging in, you won't need to open the app and enter a new code every time you log in"
+msgstr ""
+
+#: ../include/classes.php:71
+msgid "I successfully sent the message to your email. Follow the instructions in it, and you will be logged in before you know it"
+msgstr ""
+
+#: ../include/classes.php:76
+msgid "I could not send the email"
+msgstr "Jag kunde inte skicka meddelandet"
+
+#: ../include/classes.php:82
+msgid "I could not find an email corresponding to the username you entered"
+msgstr ""
+
+#: ../include/classes.php:104
 msgid "The information was deleted"
 msgstr "Informationen togs bort"
 
-#: ../include/classes.php:48
+#: ../include/classes.php:128
 #, php-format
 msgid "I could only delete %d within %d seconds"
 msgstr "Jag kunde endast radera %s inom %d sekunder"
 
-#: ../include/classes.php:60
+#: ../include/classes.php:140
 msgid "I deleted them all for you"
 msgstr "Jag tog bort allihop åt dig"
 
-#: ../include/classes.php:70
+#: ../include/classes.php:150
 msgid "The information is being ignored from now on"
 msgstr "Informationen ignoreras from. nu"
 
-#: ../include/classes.php:212
+#: ../include/classes.php:292
 msgid "All"
 msgstr "Alla"
 
-#: ../include/classes.php:213
+#: ../include/classes.php:293
 msgid "Notice"
 msgstr "Notifiering"
 
-#: ../include/classes.php:214
-#: ../include/classes.php:260
-#: ../include/classes.php:295
+#: ../include/classes.php:294
+#: ../include/classes.php:340
+#: ../include/classes.php:375
 msgid "Ignore"
 msgstr "Ignorera"
 
-#: ../include/classes.php:215
+#: ../include/classes.php:295
 msgid "Trash"
 msgstr "Papperskorg"
 
-#: ../include/classes.php:221
+#: ../include/classes.php:301
 msgid "Name"
 msgstr "Namn"
 
-#: ../include/classes.php:222
+#: ../include/classes.php:302
 msgid "Amount"
 msgstr "Antal"
 
-#: ../include/classes.php:223
+#: ../include/classes.php:303
 msgid "Date"
 msgstr "Datum"
 
-#: ../include/classes.php:252
-#: ../include/classes.php:294
+#: ../include/classes.php:332
+#: ../include/classes.php:374
 msgid "Delete"
 msgstr "Radera"
 
-#: ../include/classes.php:381
+#: ../include/classes.php:461
 msgid "Debug Query"
 msgstr "Debugga databasfrågor"
 
-#: ../include/classes.php:381
 #: ../include/classes.php:461
-#: ../include/classes.php:497
-#: ../include/classes.php:520
-#: ../include/functions.php:202
-#: ../include/functions.php:210
+#: ../include/classes.php:541
+#: ../include/classes.php:577
+#: ../include/classes.php:600
+#: ../include/functions.php:211
+#: ../include/functions.php:219
 msgid "s"
 msgstr "s"
 
-#: ../include/classes.php:461
+#: ../include/classes.php:541
 msgid "Duplicate Query"
 msgstr "Dubbel fråga"
 
-#: ../include/classes.php:497
+#: ../include/classes.php:577
 msgid "Slow Part"
 msgstr "Långsam del"
 
-#: ../include/classes.php:520
+#: ../include/classes.php:600
 msgid "Debug Page"
 msgstr "Debugga sida"
 
-#: ../include/classes.php:520
+#: ../include/classes.php:600
 msgid "MySQL"
 msgstr ""
 
-#: ../include/classes.php:520
+#: ../include/classes.php:600
 msgid "Total"
 msgstr "Total"
 
 #: ../include/functions.php:6
 #: ../include/functions.php:7
 #: ../include/functions.php:8
-#: ../include/functions.php:248
-#: ../include/functions.php:315
+#: ../include/functions.php:257
+#: ../include/functions.php:324
 #: ../list/index.php:9
 msgid "Log"
 msgstr "Logg"
@@ -119,67 +165,71 @@ msgid "Activate"
 msgstr "Aktivera"
 
 #: ../include/functions.php:89
-msgid "Debug DB Queries"
+msgid "Debug Javascript"
+msgstr "Felsök Javascript"
+
+#: ../include/functions.php:90
+msgid "Debug Database Queries"
 msgstr "Felsök databasfrågor"
 
-#: ../include/functions.php:93
+#: ../include/functions.php:94
 msgid "Query Time Limit"
 msgstr "Gränsvärde för databasfrågor"
 
-#: ../include/functions.php:94
+#: ../include/functions.php:95
 msgid "Page Time Limit"
 msgstr "Gränsvärde för sidvisning"
 
-#: ../include/functions.php:95
+#: ../include/functions.php:96
 msgid "Slow Part Percent Limit"
 msgstr "Gränsvärde för långsam del"
 
-#: ../include/functions.php:107
+#: ../include/functions.php:108
 msgid "Log & Debug"
 msgstr "Logg & debug"
 
-#: ../include/functions.php:133
 #: ../include/functions.php:134
 #: ../include/functions.php:135
+#: ../include/functions.php:136
 msgid "Load"
 msgstr "Belastning"
 
-#: ../include/functions.php:133
 #: ../include/functions.php:134
 #: ../include/functions.php:135
+#: ../include/functions.php:136
 msgid "min"
 msgstr "min"
 
-#: ../include/functions.php:152
-#: ../include/functions.php:182
+#: ../include/functions.php:153
+#: ../include/functions.php:191
 #, php-format
 msgid "Add this to the end of %s"
 msgstr "Lägg till detta i slutet av %s"
 
-#: ../include/functions.php:158
+#: ../include/functions.php:159
 #, php-format
 msgid "%s is not writable. Please, make sure that the folder can be written to so that Wordpress can log errors"
 msgstr "%s är inte skrivbar. Se till så att mappen är skrivbar så att Wordpress kan logga fel"
 
-#: ../include/functions.php:173
+#: ../include/functions.php:182
 msgid "This will hurt performance on the frontend so use this for debugging only and then turn off"
 msgstr "Detta påverkar prestandan negativt på webbsidan så använd detta endast för debugging och stäng av det efteråt"
 
-#: ../include/functions.php:192
+#: ../include/functions.php:201
 #, php-format
 msgid "Remove %s from %s"
 msgstr "Ta bort %s från %s"
 
-#: ../include/functions.php:234
+#: ../include/functions.php:243
 msgid "New"
 msgstr "Ny"
 
-#: ../include/functions.php:269
+#: ../include/functions.php:278
 #, php-format
 msgid "There are %d new errors in the log"
 msgstr "Det finns %d nya fel i loggen"
 
-#: ../include/functions.php:269
+#: ../include/functions.php:278
 msgid "There is one new error in the log"
 msgstr "Det finns ett nytt fel i loggen"
 

@@ -3,7 +3,7 @@
 Plugin Name: MF Log & Debug
 Plugin URI: https://github.com/frostkom/mf_log
 Description: 
-Version: 4.5.2
+Version: 4.5.3
 Licence: GPLv2 or later
 Author: Martin Fors
 Author URI: http://frostkom.se
@@ -16,6 +16,8 @@ GitHub Plugin URI: frostkom/mf_log
 
 include_once("include/classes.php");
 include_once("include/functions.php");
+
+$obj_log = new mf_log();
 
 $log_query_debug = get_option('setting_log_query_debug');
 
@@ -42,6 +44,8 @@ if(is_admin())
 	register_activation_hook(__FILE__, 'activate_log');
 	register_uninstall_hook(__FILE__, 'uninstall_log');
 
+	add_action('admin_init', array($obj_log, 'admin_init'), 0);
+
 	add_action('admin_init', 'settings_log');
 	add_action('admin_menu', 'menu_log');
 
@@ -57,6 +61,15 @@ if(is_admin())
 	load_plugin_textdomain('lang_log', false, dirname(plugin_basename(__FILE__)).'/lang/');
 }
 
+else
+{
+	add_action('wp_head', array($obj_log, 'wp_head'), 0);
+	add_action('login_init', array($obj_log, 'login_init'), 0);
+}
+
+add_action('wp_ajax_send_js_debug', array($obj_log, 'send_js_debug'));
+add_action('wp_ajax_nopriv_send_js_debug', array($obj_log, 'send_js_debug'));
+
 function activate_log()
 {
 	replace_user_meta(array('old' => 'mf_log_viewed', 'new' => 'meta_log_viewed'));
@@ -65,7 +78,7 @@ function activate_log()
 function uninstall_log()
 {
 	mf_uninstall_plugin(array(
-		'options' => array('setting_log_query_debug', 'setting_log_query_time_limit', 'setting_log_page_time_limit', 'setting_log_source_percent_limit'),
+		'options' => array('setting_log_query_debug', 'setting_log_js_debug', 'setting_log_query_time_limit', 'setting_log_page_time_limit', 'setting_log_source_percent_limit'),
 		'meta' => array('meta_log_viewed'),
 		'post_types' => array('mf_log'),
 	));

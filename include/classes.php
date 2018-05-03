@@ -7,6 +7,56 @@ class mf_log
 
 	}
 
+	function combined_head($load_replacement = false)
+	{
+		if(get_option('setting_log_js_debug') == 'yes')
+		{
+			$plugin_include_url = plugin_dir_url(__FILE__);
+			$plugin_version = get_plugin_version(__FILE__);
+
+			mf_enqueue_script('script_log', $plugin_include_url."script.js", array('ajax_url' => admin_url('admin-ajax.php')), $plugin_version, false);
+		}
+	}
+
+	function admin_init()
+	{
+		$this->combined_head();
+	}
+
+	function login_init()
+	{
+		$this->combined_head();
+	}
+
+	function wp_head()
+	{
+		$this->combined_head();
+	}
+
+	function send_js_debug()
+	{
+		$url = check_var('url');
+		$msg = check_var('msg');
+		$lineNo = check_var('lineNo');
+		$columnNo = check_var('columnNo');
+
+		if($url != '')
+		{
+			do_log(sprintf(__("%s in %s on line %d:%d", 'lang_log'), $msg, $url, $lineNo, $columnNo));
+
+			$result['success'] = true;
+		}
+
+		else
+		{
+			$result['success'] = false;
+		}
+
+		header('Content-Type: application/json');
+		echo json_encode($result);
+		die();
+	}
+
 	function fetch_request()
 	{
 		$this->ID = check_var('intLogID');
