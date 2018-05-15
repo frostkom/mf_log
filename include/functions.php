@@ -114,6 +114,8 @@ function setting_log_activate_callback()
 	$option = get_option($setting_key, 'yes');
 
 	echo show_select(array('data' => get_yes_no_for_select(), 'name' => $setting_key, 'value' => $option));
+	
+	$debug_file = ABSPATH."wp-content/debug.log";
 
 	if($option == 'yes')
 	{
@@ -144,7 +146,6 @@ function setting_log_activate_callback()
 
 		if(!defined('WP_DEBUG') || WP_DEBUG == false || !defined('WP_DEBUG_LOG') || WP_DEBUG_LOG == false || !defined('WP_DEBUG_DISPLAY'))
 		{
-			$debug_file = ABSPATH."wp-content/debug.log";
 			$recommend_config = "define('WP_DEBUG', true);
 			define('WP_DEBUG_LOG', true);
 			define('WP_DEBUG_DISPLAY', false);";
@@ -161,6 +162,17 @@ function setting_log_activate_callback()
 				}
 
 				echo "<p class='input'>".nl2br(htmlspecialchars($recommend_config))."</p>"
+			."</div>";
+		}
+	}
+
+	else
+	{
+		if(defined('WP_DEBUG_LOG') && WP_DEBUG_LOG == true)
+		{
+			echo "<div class='mf_form'>"
+				."<h3 class='display_warning'><i class='fa fa-warning yellow'></i> ".sprintf(__("Change settings in %s", 'lang_log'), "wp-config.php")."</h3>
+				<p>".sprintf(__("Change %s to %s in %s or else you have to handle the content in %s so that it doesn't grow in size", 'lang_log'), "WP_DEBUG_LOG", "false", "wp-config.php", $debug_file)."</p>"
 			."</div>";
 		}
 	}
@@ -250,15 +262,18 @@ function get_count_log($id = 0)
 
 function menu_log()
 {
-	$menu_root = 'mf_log/';
-	$menu_start = $menu_root.'list/index.php';
-	$menu_capability = "update_core";
+	if(get_option('setting_log_activate') == 'yes')
+	{
+		$menu_root = 'mf_log/';
+		$menu_start = $menu_root.'list/index.php';
+		$menu_capability = "update_core";
 
-	$menu_title = __("Log", 'lang_log');
+		$menu_title = __("Log", 'lang_log');
 
-	$count_message = get_count_log();
+		$count_message = get_count_log();
 
-	add_menu_page($menu_title, $menu_title.$count_message, $menu_capability, $menu_start, '', 'dashicons-warning', 100);
+		add_menu_page($menu_title, $menu_title.$count_message, $menu_capability, $menu_start, '', 'dashicons-warning', 100);
+	}
 }
 
 function get_update_log($data = array())
