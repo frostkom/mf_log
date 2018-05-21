@@ -411,7 +411,7 @@ if(!class_exists('Debug_Queries'))
 					'plugins' => array(),
 					'themes' => array(),
 				);
-				
+
 				//do_log("All queries: ".var_export($wpdb->queries, true));
 
 				$total_query_time = 0;
@@ -528,7 +528,7 @@ if(!class_exists('Debug_Queries'))
 								case 'core':
 									/*$percent = round(($source / $total_time) * 100);
 
-									if($percent > $source_percent_limit)
+									if($percent > $source_percent_limit && $total_time > $query_time_limit)
 									{
 										do_log(__("Slow Part", 'lang_log')." - ".$key.": ".$percent."% of ".mf_format_number($total_time).__("s", 'lang_log'));
 									}*/
@@ -542,9 +542,9 @@ if(!class_exists('Debug_Queries'))
 										{
 											$percent = round(($time / $total_time) * 100);
 
-											if($percent > $source_percent_limit)
+											if($percent > $source_percent_limit && $total_time > $query_time_limit)
 											{
-												do_log(__("Slow Part", 'lang_log')." - ".$key." - ".$folder.": ".$percent."% of ".mf_format_number($total_time).__("s", 'lang_log'));
+												do_log(__("Slow Part", 'lang_log')." - ".$key." - ".$folder.": ".$percent."% of ".mf_format_number($total_time).__("s", 'lang_log')); //." (".var_export($wpdb->queries, true).")"
 											}
 										}
 									}

@@ -114,7 +114,7 @@ function setting_log_activate_callback()
 	$option = get_option($setting_key, 'yes');
 
 	echo show_select(array('data' => get_yes_no_for_select(), 'name' => $setting_key, 'value' => $option));
-	
+
 	$debug_file = ABSPATH."wp-content/debug.log";
 
 	if($option == 'yes')

@@ -16,15 +16,8 @@ window.onerror = function(msg, url, lineNo, columnNo, error)
 		dataType: 'json',
 		success: function(data)
 		{
-			if(data.success)
-			{
-				
-			}
-
-			else if(data.error)
-			{
-				
-			}
+			if(data.success){}
+			else if(data.error){}
 		}
 	});
 
