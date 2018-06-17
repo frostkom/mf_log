@@ -7,7 +7,7 @@ $obj_log->save_data();
 echo "<div class='wrap'>
 	<h2>"
 		.__("Log", 'lang_log')
-		."<a href='".wp_nonce_url(admin_url("admin.php?page=mf_log/list/index.php&btnLogDeleteAll".($obj_log->post_status != '' && $obj_log->post_status != 'all' ? "&post_status=".$obj_log->post_status : '')), 'log_delete_all')."' class='add-new-h2' rel='confirm'>".__("Delete All", 'lang_log')."</a>"
+		."<a href='".wp_nonce_url(admin_url("admin.php?page=mf_log/list/index.php&btnLogDeleteAll".($obj_log->post_status != '' && $obj_log->post_status != 'all' ? "&post_status=".$obj_log->post_status : '')), 'log_delete_all', '_wpnonce_log_delete_all')."' class='add-new-h2' rel='confirm'>".__("Delete All", 'lang_log')."</a>"
 	."</h2>"
 	.get_notification();
 
