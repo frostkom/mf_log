@@ -1,7 +1,5 @@
 window.onerror = function(msg, url, lineNo, columnNo, error)
 {
-	/*console.log(url, msg, lineNo, columnNo);*/
-
 	jQuery.ajax(
 	{
 		url: script_log.ajax_url,

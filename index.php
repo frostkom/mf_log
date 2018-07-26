@@ -3,10 +3,10 @@
 Plugin Name: MF Log & Debug
 Plugin URI: https://github.com/frostkom/mf_log
 Description: 
-Version: 4.5.8
+Version: 4.5.9
 Licence: GPLv2 or later
 Author: Martin Fors
-Author URI: http://frostkom.se
+Author URI: https://frostkom.se
 Text Domain: lang_log
 Domain Path: /lang
 
@@ -15,7 +15,6 @@ GitHub Plugin URI: frostkom/mf_log
 */
 
 include_once("include/classes.php");
-include_once("include/functions.php");
 
 $obj_log = new mf_log();
 
@@ -25,9 +24,9 @@ if(defined('SAVEQUERIES') && SAVEQUERIES == true && class_exists('Debug_Queries'
 }
 
 add_action('cron_base', 'activate_log', mt_rand(1, 10));
-add_action('cron_base', 'cron_log', mt_rand(1, 10));
+add_action('cron_base', array($obj_log, 'run_cron'), mt_rand(1, 10));
 
-add_action('init', 'init_log');
+add_action('init', array($obj_log, 'init'));
 
 if(is_admin())
 {
@@ -36,16 +35,16 @@ if(is_admin())
 
 	add_action('admin_init', array($obj_log, 'admin_init'), 0);
 
-	add_action('admin_init', 'settings_log');
-	add_action('admin_menu', 'menu_log');
+	add_action('admin_init', array($obj_log, 'settings_log'));
+	add_action('admin_menu', array($obj_log, 'admin_menu'));
 
-	add_filter('get_user_notifications', 'get_user_notifications_log', 10, 1);
-	//add_filter('get_user_reminders', 'get_user_reminders_log', 10, 1);
+	add_filter('get_user_notifications', array($obj_log, 'get_user_notifications'), 10, 1);
+	//add_filter('get_user_reminders', array($obj_log, 'get_user_reminders'), 10, 1);
 
 	if(is_multisite())
 	{
-		add_filter('manage_sites-network_columns', 'column_header_log', 5);
-		add_action('manage_sites_custom_column', 'column_cell_log', 5, 2);
+		add_filter('manage_sites-network_columns', array($obj_log, 'column_header'), 5);
+		add_action('manage_sites_custom_column', array($obj_log, 'column_cell'), 5, 2);
 	}
 
 	load_plugin_textdomain('lang_log', false, dirname(plugin_basename(__FILE__)).'/lang/');
