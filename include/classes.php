@@ -291,8 +291,8 @@ class mf_log
 			$menu_start = $menu_root.'list/index.php';
 			$menu_capability = override_capability(array('page' => $menu_start, 'default' => 'update_core'));
 
-			$menu_title = __("Log", 'lang_log').$this->get_count_log();
-			add_menu_page($menu_title, $menu_title, $menu_capability, $menu_start, '', 'dashicons-warning', 100);
+			$menu_title = __("Log", 'lang_log');
+			add_menu_page($menu_title, $menu_title.$this->get_count_log(), $menu_capability, $menu_start, '', 'dashicons-warning', 100);
 		}
 	}
 
