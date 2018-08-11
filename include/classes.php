@@ -381,7 +381,7 @@ class mf_log
 
 				if($count_temp > 0)
 				{
-					echo "<a href='".admin_url("admin.php?page=mf_log/list/index.php", $id)."'>".$count_temp."</a>";
+					echo "<a href='".get_home_url($id, '/')."wp-admin/admin.php?page=mf_log/list/index.php'>".$count_temp."</a>";
 				}
 
 				restore_current_blog();
