@@ -48,7 +48,7 @@ class mf_log
 		}
 
 		$result = $wpdb->get_results("SELECT ID FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND (
-			post_status = 'auto-draft' AND post_modified < DATE_SUB(NOW(), INTERVAL 1 WEEK)
+			post_status = 'auto-draft' AND post_modified < DATE_SUB(NOW(), INTERVAL 6 MONTH)
 			OR post_status NOT IN ('trash', 'ignore') AND post_modified < DATE_SUB(NOW(), INTERVAL 1 MONTH)
 			OR post_status = 'ignore' AND post_modified < DATE_SUB(NOW(), INTERVAL 1 YEAR)
 		)");
