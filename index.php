@@ -3,7 +3,7 @@
 Plugin Name: MF Log & Debug
 Plugin URI: https://github.com/frostkom/mf_log
 Description: 
-Version: 4.5.12
+Version: 4.5.13
 Licence: GPLv2 or later
 Author: Martin Fors
 Author URI: https://frostkom.se
@@ -34,7 +34,6 @@ if(is_admin())
 	register_uninstall_hook(__FILE__, 'uninstall_log');
 
 	add_action('admin_init', array($obj_log, 'admin_init'), 0);
-
 	add_action('admin_init', array($obj_log, 'settings_log'));
 	add_action('admin_menu', array($obj_log, 'admin_menu'));
 

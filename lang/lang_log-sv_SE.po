@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-15 10:07+0100\n"
+"POT-Creation-Date: 2018-08-28 10:26+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Fors\n"
 "Language-Team: \n"
@@ -15,196 +15,182 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../include/classes.php:45
-#, php-format
-msgid "%s in %s on line %d:%d"
-msgstr "%s i %s på rad %d:%d"
-
-#: ../include/classes.php:74
-msgid "The information was deleted"
-msgstr "Informationen togs bort"
-
-#: ../include/classes.php:98
-#, php-format
-msgid "I could only delete %d within %d seconds"
-msgstr "Jag kunde endast radera %s inom %d sekunder"
-
-#: ../include/classes.php:110
-msgid "I deleted them all for you"
-msgstr "Jag tog bort allihop åt dig"
-
-#: ../include/classes.php:120
-msgid "The information is being ignored from now on"
-msgstr "Informationen ignoreras from. nu"
-
-#: ../include/classes.php:262
-msgid "All"
-msgstr "Alla"
-
-#: ../include/classes.php:263
-msgid "Notice"
-msgstr "Notifiering"
-
-#: ../include/classes.php:264
-#: ../include/classes.php:310
-#: ../include/classes.php:345
-msgid "Ignore"
-msgstr "Ignorera"
-
-#: ../include/classes.php:265
-msgid "Trash"
-msgstr "Papperskorg"
-
-#: ../include/classes.php:271
-msgid "Name"
-msgstr "Namn"
-
-#: ../include/classes.php:272
-msgid "Amount"
-msgstr "Antal"
-
-#: ../include/classes.php:273
-msgid "Date"
-msgstr "Datum"
-
-#: ../include/classes.php:302
-#: ../include/classes.php:344
-msgid "Delete"
-msgstr "Radera"
-
-#: ../include/classes.php:431
-msgid "Debug Query"
-msgstr "Debugga databasfrågor"
-
-#: ../include/classes.php:431
-#: ../include/classes.php:511
-#: ../include/classes.php:547
-#: ../include/classes.php:570
-#: ../include/functions.php:223
-#: ../include/functions.php:231
-msgid "s"
-msgstr "s"
-
-#: ../include/classes.php:511
-msgid "Duplicate Query"
-msgstr "Dubbel fråga"
-
-#: ../include/classes.php:547
-msgid "Slow Part"
-msgstr "Långsam del"
-
-#: ../include/classes.php:570
-msgid "Debug Page"
-msgstr "Debugga sida"
-
-#: ../include/classes.php:570
-msgid "MySQL"
-msgstr "MySQL"
-
-#: ../include/classes.php:570
-msgid "Total"
-msgstr "Total"
-
-#: ../include/functions.php:6
-#: ../include/functions.php:7
-#: ../include/functions.php:8
-#: ../include/functions.php:271
-#: ../include/functions.php:339
-#: ../list/index.php:9
-msgid "Log"
-msgstr "Logg"
-
-#: ../include/functions.php:57
+#: ../include/classes.php:44
 #, php-format
 msgid "%s was too large so it was deleted"
 msgstr "%s var för stor så den raderades"
 
-#: ../include/functions.php:84
+#: ../include/classes.php:65
+#: ../include/classes.php:66
+#: ../include/classes.php:67
+#: ../include/classes.php:269
+#: ../include/classes.php:334
+#: ../list/index.php:9
+msgid "Log"
+msgstr "Logg"
+
+#: ../include/classes.php:107
 msgid "Activate"
 msgstr "Aktivera"
 
-#: ../include/functions.php:89
+#: ../include/classes.php:112
 msgid "Debug Javascript"
 msgstr "Felsök Javascript"
 
-#: ../include/functions.php:90
+#: ../include/classes.php:113
 msgid "Debug Database Queries"
 msgstr "Felsök databasfrågor"
 
-#: ../include/functions.php:94
+#: ../include/classes.php:117
 msgid "Query Time Limit"
 msgstr "Gränsvärde för databasfrågor"
 
-#: ../include/functions.php:95
+#: ../include/classes.php:118
 msgid "Page Time Limit"
 msgstr "Gränsvärde för sidvisning"
 
-#: ../include/functions.php:96
+#: ../include/classes.php:119
 msgid "Slow Part Percent Limit"
 msgstr "Gränsvärde för långsam del"
 
-#: ../include/functions.php:108
+#: ../include/classes.php:131
 msgid "Log & Debug"
 msgstr "Logg & debug"
 
-#: ../include/functions.php:136
-#: ../include/functions.php:137
-#: ../include/functions.php:138
-msgid "Load"
-msgstr "Belastning"
-
-#: ../include/functions.php:136
-#: ../include/functions.php:137
-#: ../include/functions.php:138
-msgid "min"
-msgstr "min"
-
-#: ../include/functions.php:154
-#: ../include/functions.php:203
+#: ../include/classes.php:152
+#: ../include/classes.php:201
 #, php-format
 msgid "Add this to the end of %s"
 msgstr "Lägg till detta i slutet av %s"
 
-#: ../include/functions.php:160
+#: ../include/classes.php:158
 #, php-format
 msgid "%s is not writable. Please, make sure that the folder can be written to so that Wordpress can log errors"
 msgstr "%s är inte skrivbar. Se till så att mappen är skrivbar så att Wordpress kan logga fel"
 
-#: ../include/functions.php:174
+#: ../include/classes.php:172
 #, php-format
 msgid "Change settings in %s"
 msgstr "Ändra inställningar i %s"
 
-#: ../include/functions.php:175
+#: ../include/classes.php:173
 #, php-format
 msgid "Change %s to %s in %s or else you have to handle the content in %s so that it doesn't grow in size"
 msgstr "Ändra %s till %s i %s för annars måste du ta hand om innehållet i %s för att den inte ska fortsätta att växa i storlek"
 
-#: ../include/functions.php:194
+#: ../include/classes.php:192
 msgid "This will hurt performance on the frontend so use this for debugging only and then turn off"
 msgstr "Detta påverkar prestandan negativt på webbsidan så använd detta endast för debugging och stäng av det efteråt"
 
-#: ../include/functions.php:213
+#: ../include/classes.php:211
 #, php-format
 msgid "Remove %s from %s"
 msgstr "Ta bort %s från %s"
 
-#: ../include/functions.php:255
+#: ../include/classes.php:221
+#: ../include/classes.php:229
+#: ../include/classes.php:772
+#: ../include/classes.php:852
+#: ../include/classes.php:888
+#: ../include/classes.php:911
+msgid "s"
+msgstr "s"
+
+#: ../include/classes.php:253
 msgid "New"
 msgstr "Ny"
 
-#: ../include/functions.php:293
+#: ../include/classes.php:288
 #, php-format
 msgid "There are %d new errors in the log"
 msgstr "Det finns %d nya fel i loggen"
 
-#: ../include/functions.php:293
+#: ../include/classes.php:288
 msgid "There is one new error in the log"
 msgstr "Det finns ett nytt fel i loggen"
+
+#: ../include/classes.php:386
+#, php-format
+msgid "%s in %s on line %d:%d"
+msgstr "%s i %s på rad %d:%d"
+
+#: ../include/classes.php:415
+msgid "The information was deleted"
+msgstr "Informationen togs bort"
+
+#: ../include/classes.php:439
+#, php-format
+msgid "I could only delete %d within %d seconds"
+msgstr "Jag kunde endast radera %s inom %d sekunder"
+
+#: ../include/classes.php:451
+msgid "I deleted them all for you"
+msgstr "Jag tog bort allihop åt dig"
+
+#: ../include/classes.php:461
+msgid "The information is being ignored from now on"
+msgstr "Informationen ignoreras from. nu"
+
+#: ../include/classes.php:603
+msgid "All"
+msgstr "Alla"
+
+#: ../include/classes.php:604
+msgid "Notice"
+msgstr "Notifiering"
+
+#: ../include/classes.php:605
+#: ../include/classes.php:651
+#: ../include/classes.php:686
+msgid "Ignore"
+msgstr "Ignorera"
+
+#: ../include/classes.php:606
+msgid "Trash"
+msgstr "Papperskorg"
+
+#: ../include/classes.php:612
+msgid "Name"
+msgstr "Namn"
+
+#: ../include/classes.php:613
+msgid "Amount"
+msgstr "Antal"
+
+#: ../include/classes.php:614
+msgid "Date"
+msgstr "Datum"
+
+#: ../include/classes.php:643
+#: ../include/classes.php:685
+msgid "Delete"
+msgstr "Radera"
+
+#: ../include/classes.php:772
+msgid "Debug Query"
+msgstr "Debugga databasfrågor"
+
+#: ../include/classes.php:852
+msgid "Duplicate Query"
+msgstr "Dubbel fråga"
+
+#: ../include/classes.php:888
+msgid "Slow Part"
+msgstr "Långsam del"
+
+#: ../include/classes.php:911
+msgid "Debug Page"
+msgstr "Debugga sida"
+
+#: ../include/classes.php:911
+msgid "MySQL"
+msgstr "MySQL"
+
+#: ../include/classes.php:911
+msgid "Total"
+msgstr "Total"
 
 #: ../list/index.php:10
 msgid "Delete All"
 msgstr "Radera alla"
 
-#~ msgid "I could not send the email"
-#~ msgstr "Jag kunde inte skicka meddelandet"
