@@ -343,23 +343,26 @@ class mf_log
 		switch($col)
 		{
 			case 'log':
-				switch_to_blog($id);
-
-				$tbl_group = new mf_log_table();
-
-				$tbl_group->select_data(array(
-					'select' => "ID",
-					//'debug' => true,
-				));
-
-				$count_temp = count($tbl_group->data);
-
-				if($count_temp > 0)
+				if(get_blog_status($id, 'deleted') == 0)
 				{
-					echo "<a href='".get_home_url($id, '/')."wp-admin/admin.php?page=mf_log/list/index.php'>".$count_temp."</a>";
-				}
+					switch_to_blog($id);
 
-				restore_current_blog();
+					$tbl_group = new mf_log_table();
+
+					$tbl_group->select_data(array(
+						'select' => "ID",
+						//'debug' => true,
+					));
+
+					$count_temp = count($tbl_group->data);
+
+					if($count_temp > 0)
+					{
+						echo "<a href='".get_home_url($id, '/')."wp-admin/admin.php?page=mf_log/list/index.php'>".$count_temp."</a>";
+					}
+
+					restore_current_blog();
+				}
 			break;
 		}
 	}
