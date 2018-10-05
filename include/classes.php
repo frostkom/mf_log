@@ -79,7 +79,7 @@ class mf_log
 		register_post_type('mf_log', $args);
 	}
 
-	function combined_head($load_replacement = false)
+	function combined_head()
 	{
 		if(get_option('setting_log_js_debug') == 'yes')
 		{
