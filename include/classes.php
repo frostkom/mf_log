@@ -2,12 +2,9 @@
 
 class mf_log
 {
-	function __contruct()
-	{
+	function __contruct(){}
 
-	}
-
-	function run_cron()
+	function cron_base()
 	{
 		global $wpdb;
 
