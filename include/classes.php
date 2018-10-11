@@ -697,6 +697,8 @@ class mf_log_table extends mf_list_table
 		{
 			foreach($_GET[$this->post_type] as $id)
 			{
+				$id = check_var($id, 'int', false);
+
 				$wpdb->query($wpdb->prepare("UPDATE ".$wpdb->posts." SET post_status = 'ignore', post_modified = NOW() WHERE post_type = 'mf_log' AND ID = '%d'", $id));
 			}
 		}
