@@ -621,6 +621,58 @@ class mf_log_table extends mf_list_table
 		));
 	}
 
+	function get_bulk_actions()
+	{
+		$actions = array();
+
+		if(isset($this->columns['cb']))
+		{
+			if(!isset($_GET['post_status']) || $_GET['post_status'] != 'trash')
+			{
+				$actions['delete'] = __("Delete", 'lang_log');
+			}
+
+			if(!isset($_GET['post_status']) || $_GET['post_status'] != 'ignore')
+			{
+				$actions['ignore'] = __("Ignore", 'lang_log');
+			}
+		}
+
+		return $actions;
+	}
+
+	function process_bulk_action()
+	{
+		if(isset($_GET['_wpnonce']) && !empty($_GET['_wpnonce']))
+		{
+			switch($this->current_action())
+			{
+				case 'delete':
+					$this->bulk_delete();
+				break;
+
+				case 'ignore':
+					$this->bulk_ignore();
+				break;
+			}
+		}
+	}
+
+	function bulk_ignore()
+	{
+		global $wpdb;
+
+		if(isset($_GET[$this->post_type]))
+		{
+			foreach($_GET[$this->post_type] as $id)
+			{
+				$id = check_var($id, 'int', false);
+
+				$wpdb->query($wpdb->prepare("UPDATE ".$wpdb->posts." SET post_status = 'ignore', post_modified = NOW() WHERE post_type = 'mf_log' AND ID = '%d'", $id));
+			}
+		}
+	}
+
 	function column_default($item, $column_name)
 	{
 		global $wpdb;
@@ -674,50 +726,6 @@ class mf_log_table extends mf_list_table
 		}
 
 		return $out;
-	}
-
-	function get_bulk_actions()
-	{
-		$actions = array();
-
-		if(isset($this->columns['cb']))
-		{
-			$actions['delete'] = __("Delete", 'lang_log');
-			$actions['ignore'] = __("Ignore", 'lang_log');
-		}
-
-		return $actions;
-	}
-
-	function bulk_ignore()
-	{
-		global $wpdb;
-
-		if(isset($_GET[$this->post_type]))
-		{
-			foreach($_GET[$this->post_type] as $id)
-			{
-				$id = check_var($id, 'int', false);
-
-				$wpdb->query($wpdb->prepare("UPDATE ".$wpdb->posts." SET post_status = 'ignore', post_modified = NOW() WHERE post_type = 'mf_log' AND ID = '%d'", $id));
-			}
-		}
-	}
-
-	function process_bulk_action()
-	{
-		if(isset($_GET['_wpnonce']) && !empty($_GET['_wpnonce']))
-		{
-			if('delete' === $this->current_action())
-			{
-				$this->bulk_delete();
-			}
-
-			else if('ignore' === $this->current_action())
-			{
-				$this->bulk_ignore();
-			}
-		}
 	}
 }
 
