@@ -404,17 +404,75 @@ class mf_log
 		$this->post_status = check_var('post_status', 'char');
 	}
 
-	function save_data()
+	function row_affect($data)
 	{
 		global $wpdb, $done_text, $error_text;
 
-		if(isset($_REQUEST['btnLogDelete']) && $this->ID > 0 && wp_verify_nonce($_REQUEST['_wpnonce_log_delete'], 'log_delete_'.$this->ID))
+		$data['id'] = check_var($data['id'], 'int', false);
+
+		if($data['id'] > 0)
 		{
-			if(wp_trash_post($this->ID))
+			switch($data['type'])
 			{
-				$done_text = __("The information was deleted", 'lang_log');
+				case 'delete':
+					if(wp_trash_post($data['id']))
+					{
+						$done_text = __("The information was deleted", 'lang_log');
+					}
+				break;
+
+				case 'ignore':
+					$wpdb->query($wpdb->prepare("UPDATE ".$wpdb->posts." SET post_status = %s, post_modified = NOW() WHERE post_type = %s AND ID = '%d'", 'ignore', 'mf_log', $data['id']));
+
+					if($wpdb->rows_affected > 0)
+					{
+						$done_text = __("The information is being ignored from now on", 'lang_log');
+					}
+				break;
+			}
+
+			if(IS_SUPER_ADMIN && is_multisite())
+			{
+				$this->multisite_affect($data);
 			}
 		}
+	}
+
+	function multisite_affect($data)
+	{
+		global $wpdb;
+
+		$post_content = mf_get_post_content($data['id']);
+
+		if($post_content != '')
+		{
+			$result = get_sites(array('site__not_in' => array($wpdb->blogid)));
+
+			foreach($result as $r)
+			{
+				switch_to_blog($r->blog_id);
+
+				$post_id = $wpdb->get_var($wpdb->prepare("SELECT ID FROM ".$wpdb->posts." WHERE post_type = %s AND post_content = %s", 'mf_log', $post_content));
+
+				switch($data['type'])
+				{
+					case 'delete':
+						wp_trash_post($post_id);
+					break;
+
+					case 'ignore':
+						$wpdb->query($wpdb->prepare("UPDATE ".$wpdb->posts." SET post_status = %s, post_modified = NOW() WHERE post_type = %s AND ID = '%d'", 'ignore', 'mf_log', $post_id));
+					break;
+				}
+
+				restore_current_blog();
+			}
+		}
+	}
+
+	function save_data()
+	{
+		global $wpdb, $done_text, $error_text;
 
 		if(isset($_REQUEST['btnLogDeleteAll']) && wp_verify_nonce($_REQUEST['_wpnonce_log_delete_all'], 'log_delete_all'))
 		{
@@ -452,14 +510,14 @@ class mf_log
 			}
 		}
 
+		else if(isset($_REQUEST['btnLogDelete']) && $this->ID > 0 && wp_verify_nonce($_REQUEST['_wpnonce_log_delete'], 'log_delete_'.$this->ID))
+		{
+			$this->row_affect(array('type' => 'delete', 'id' => $this->ID));
+		}
+
 		else if(isset($_REQUEST['btnLogIgnore']) && $this->ID > 0 && wp_verify_nonce($_REQUEST['_wpnonce_log_ignore'], 'log_ignore_'.$this->ID))
 		{
-			$wpdb->query($wpdb->prepare("UPDATE ".$wpdb->posts." SET post_status = 'ignore', post_modified = NOW() WHERE post_type = 'mf_log' AND ID = '%d'", $this->ID));
-
-			if($wpdb->rows_affected > 0)
-			{
-				$done_text = __("The information is being ignored from now on", 'lang_log');
-			}
+			$this->row_affect(array('type' => 'ignore', 'id' => $this->ID));
 		}
 	}
 
@@ -658,17 +716,34 @@ class mf_log_table extends mf_list_table
 		}
 	}
 
+	function bulk_delete()
+	{
+		if(isset($_GET[$this->post_type]))
+		{
+			$obj_log = new mf_log();
+
+			foreach($_GET[$this->post_type] as $post_id)
+			{
+				//$post_id = check_var($post_id, 'int', false);
+				//wp_trash_post($post_id);
+				$obj_log->row_affect(array('type' => 'delete', 'id' => $post_id));
+			}
+		}
+	}
+
 	function bulk_ignore()
 	{
 		global $wpdb;
 
 		if(isset($_GET[$this->post_type]))
 		{
-			foreach($_GET[$this->post_type] as $id)
-			{
-				$id = check_var($id, 'int', false);
+			$obj_log = new mf_log();
 
-				$wpdb->query($wpdb->prepare("UPDATE ".$wpdb->posts." SET post_status = 'ignore', post_modified = NOW() WHERE post_type = 'mf_log' AND ID = '%d'", $id));
+			foreach($_GET[$this->post_type] as $post_id)
+			{
+				//$post_id = check_var($post_id, 'int', false);
+				//$wpdb->query($wpdb->prepare("UPDATE ".$wpdb->posts." SET post_status = 'ignore', post_modified = NOW() WHERE post_type = 'mf_log' AND ID = '%d'", $id));
+				$obj_log->row_affect(array('type' => 'delete', 'id' => $post_id));
 			}
 		}
 	}
