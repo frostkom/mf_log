@@ -104,8 +104,9 @@ class mf_log
 				'setting_log_activate' => __("Activate", 'lang_log'),
 			);
 
-			if(get_option('setting_log_activate') != 'no')
+			if(get_option('setting_log_activate') == 'yes')
 			{
+				$arr_settings['setting_log_curl_debug'] = __("Debug cURL", 'lang_log');
 				$arr_settings['setting_log_js_debug'] = __("Debug Javascript", 'lang_log');
 				$arr_settings['setting_log_query_debug'] = __("Debug Database Queries", 'lang_log');
 
@@ -171,6 +172,14 @@ class mf_log
 				."</div>";
 			}
 		}
+	}
+
+	function setting_log_curl_debug_callback()
+	{
+		$setting_key = get_setting_key(__FUNCTION__);
+		$option = get_option($setting_key, 'no');
+
+		echo show_select(array('data' => get_yes_no_for_select(), 'name' => $setting_key, 'value' => $option));
 	}
 
 	function setting_log_js_debug_callback()

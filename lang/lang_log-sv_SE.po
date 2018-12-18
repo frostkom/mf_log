@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-28 10:26+0100\n"
+"POT-Creation-Date: 2018-12-18 09:55+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Fors\n"
 "Language-Team: \n"
@@ -15,178 +15,182 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../include/classes.php:44
+#: ../include/classes.php:41
 #, php-format
 msgid "%s was too large so it was deleted"
 msgstr "%s var för stor så den raderades"
 
-#: ../include/classes.php:65
-#: ../include/classes.php:66
-#: ../include/classes.php:67
-#: ../include/classes.php:269
-#: ../include/classes.php:334
+#: ../include/classes.php:62
+#: ../include/classes.php:63
+#: ../include/classes.php:64
+#: ../include/classes.php:275
+#: ../include/classes.php:340
 #: ../list/index.php:9
 msgid "Log"
 msgstr "Logg"
 
-#: ../include/classes.php:107
+#: ../include/classes.php:104
 msgid "Activate"
 msgstr "Aktivera"
 
-#: ../include/classes.php:112
+#: ../include/classes.php:109
+msgid "Debug cURL"
+msgstr "Felsök cURL"
+
+#: ../include/classes.php:110
 msgid "Debug Javascript"
 msgstr "Felsök Javascript"
 
-#: ../include/classes.php:113
+#: ../include/classes.php:111
 msgid "Debug Database Queries"
 msgstr "Felsök databasfrågor"
 
-#: ../include/classes.php:117
+#: ../include/classes.php:115
 msgid "Query Time Limit"
 msgstr "Gränsvärde för databasfrågor"
 
-#: ../include/classes.php:118
+#: ../include/classes.php:116
 msgid "Page Time Limit"
 msgstr "Gränsvärde för sidvisning"
 
-#: ../include/classes.php:119
+#: ../include/classes.php:117
 msgid "Slow Part Percent Limit"
 msgstr "Gränsvärde för långsam del"
 
-#: ../include/classes.php:131
+#: ../include/classes.php:129
 msgid "Log & Debug"
 msgstr "Logg & debug"
 
-#: ../include/classes.php:152
-#: ../include/classes.php:201
+#: ../include/classes.php:150
+#: ../include/classes.php:207
 #, php-format
 msgid "Add this to the end of %s"
 msgstr "Lägg till detta i slutet av %s"
 
-#: ../include/classes.php:158
+#: ../include/classes.php:156
 #, php-format
 msgid "%s is not writable. Please, make sure that the folder can be written to so that Wordpress can log errors"
 msgstr "%s är inte skrivbar. Se till så att mappen är skrivbar så att Wordpress kan logga fel"
 
-#: ../include/classes.php:172
+#: ../include/classes.php:170
 #, php-format
 msgid "Change settings in %s"
 msgstr "Ändra inställningar i %s"
 
-#: ../include/classes.php:173
+#: ../include/classes.php:171
 #, php-format
 msgid "Change %s to %s in %s or else you have to handle the content in %s so that it doesn't grow in size"
 msgstr "Ändra %s till %s i %s för annars måste du ta hand om innehållet i %s för att den inte ska fortsätta att växa i storlek"
 
-#: ../include/classes.php:192
+#: ../include/classes.php:198
 msgid "This will hurt performance on the frontend so use this for debugging only and then turn off"
 msgstr "Detta påverkar prestandan negativt på webbsidan så använd detta endast för debugging och stäng av det efteråt"
 
-#: ../include/classes.php:211
+#: ../include/classes.php:217
 #, php-format
 msgid "Remove %s from %s"
 msgstr "Ta bort %s från %s"
 
-#: ../include/classes.php:221
-#: ../include/classes.php:229
-#: ../include/classes.php:772
-#: ../include/classes.php:852
-#: ../include/classes.php:888
-#: ../include/classes.php:911
+#: ../include/classes.php:227
+#: ../include/classes.php:235
+#: ../include/classes.php:866
+#: ../include/classes.php:946
+#: ../include/classes.php:982
+#: ../include/classes.php:1005
 msgid "s"
 msgstr "s"
 
-#: ../include/classes.php:253
+#: ../include/classes.php:259
 msgid "New"
 msgstr "Ny"
 
-#: ../include/classes.php:288
+#: ../include/classes.php:294
 #, php-format
 msgid "There are %d new errors in the log"
 msgstr "Det finns %d nya fel i loggen"
 
-#: ../include/classes.php:288
+#: ../include/classes.php:294
 msgid "There is one new error in the log"
 msgstr "Det finns ett nytt fel i loggen"
 
-#: ../include/classes.php:386
+#: ../include/classes.php:395
 #, php-format
 msgid "%s in %s on line %d:%d"
 msgstr "%s i %s på rad %d:%d"
 
-#: ../include/classes.php:415
+#: ../include/classes.php:429
 msgid "The information was deleted"
 msgstr "Informationen togs bort"
 
-#: ../include/classes.php:439
+#: ../include/classes.php:438
+msgid "The information is being ignored from now on"
+msgstr "Informationen ignoreras from. nu"
+
+#: ../include/classes.php:506
 #, php-format
 msgid "I could only delete %d within %d seconds"
 msgstr "Jag kunde endast radera %s inom %d sekunder"
 
-#: ../include/classes.php:451
+#: ../include/classes.php:518
 msgid "I deleted them all for you"
 msgstr "Jag tog bort allihop åt dig"
 
-#: ../include/classes.php:461
-msgid "The information is being ignored from now on"
-msgstr "Informationen ignoreras from. nu"
-
-#: ../include/classes.php:603
+#: ../include/classes.php:670
 msgid "All"
 msgstr "Alla"
 
-#: ../include/classes.php:604
+#: ../include/classes.php:671
 msgid "Notice"
 msgstr "Notifiering"
 
-#: ../include/classes.php:605
-#: ../include/classes.php:651
-#: ../include/classes.php:686
+#: ../include/classes.php:672
+#: ../include/classes.php:704
+#: ../include/classes.php:787
 msgid "Ignore"
 msgstr "Ignorera"
 
-#: ../include/classes.php:606
+#: ../include/classes.php:673
 msgid "Trash"
 msgstr "Papperskorg"
 
-#: ../include/classes.php:612
+#: ../include/classes.php:679
 msgid "Name"
 msgstr "Namn"
 
-#: ../include/classes.php:613
+#: ../include/classes.php:680
 msgid "Amount"
 msgstr "Antal"
 
-#: ../include/classes.php:614
+#: ../include/classes.php:681
 msgid "Date"
 msgstr "Datum"
 
-#: ../include/classes.php:643
-#: ../include/classes.php:685
+#: ../include/classes.php:699
+#: ../include/classes.php:779
 msgid "Delete"
 msgstr "Radera"
 
-#: ../include/classes.php:772
+#: ../include/classes.php:866
 msgid "Debug Query"
 msgstr "Debugga databasfrågor"
 
-#: ../include/classes.php:852
+#: ../include/classes.php:946
 msgid "Duplicate Query"
 msgstr "Dubbel fråga"
 
-#: ../include/classes.php:888
+#: ../include/classes.php:982
 msgid "Slow Part"
 msgstr "Långsam del"
 
-#: ../include/classes.php:911
+#: ../include/classes.php:1005
 msgid "Debug Page"
 msgstr "Debugga sida"
 
-#: ../include/classes.php:911
+#: ../include/classes.php:1005
 msgid "MySQL"
 msgstr "MySQL"
 
-#: ../include/classes.php:911
+#: ../include/classes.php:1005
 msgid "Total"
 msgstr "Total"
 
