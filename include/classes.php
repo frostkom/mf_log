@@ -45,8 +45,8 @@ class mf_log
 		}
 
 		$result = $wpdb->get_results("SELECT ID FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND (
-			post_status = 'auto-draft' AND post_modified < DATE_SUB(NOW(), INTERVAL 6 MONTH)
-			OR post_status NOT IN ('trash', 'ignore') AND post_modified < DATE_SUB(NOW(), INTERVAL 1 MONTH)
+			post_status = 'notification' AND post_modified < DATE_SUB(NOW(), INTERVAL 6 MONTH)
+			OR post_status NOT IN ('trash', 'ignore', 'notification') AND post_modified < DATE_SUB(NOW(), INTERVAL 1 MONTH)
 			OR post_status = 'ignore' AND post_modified < DATE_SUB(NOW(), INTERVAL 1 YEAR)
 		)");
 
@@ -576,7 +576,7 @@ class mf_log
 		{
 			$post_md5 = md5($post_title);
 
-			if(in_array($action, array('publish', 'draft', 'auto-draft')))
+			if(in_array($action, array('publish', 'draft', 'notification')))
 			{
 				$result = $wpdb->get_results($wpdb->prepare("SELECT ID, post_status, menu_order, post_modified FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND (post_title = %s OR post_content = %s)", $post_title, $post_md5));
 
@@ -654,7 +654,7 @@ class mf_log_table extends mf_list_table
 		$this->orderby_default = "post_modified";
 		$this->orderby_default_order = "DESC";
 
-		$this->arr_settings['query_trash_id'] = array('trash', 'ignore', 'auto-draft');
+		$this->arr_settings['query_trash_id'] = array('trash', 'ignore', 'notification');
 
 		//$this->arr_settings['has_autocomplete'] = true;
 		//$this->arr_settings['plugin_name'] = 'mf_log';
@@ -668,7 +668,7 @@ class mf_log_table extends mf_list_table
 			'db_field' => 'post_status',
 			'types' => array(
 				'all' => __("All", 'lang_log'),
-				'auto-draft' => __("Notice", 'lang_log'),
+				'notification' => __("Notice", 'lang_log'),
 				'ignore' => __("Ignore", 'lang_log'),
 				'trash' => __("Trash", 'lang_log'),
 			),
