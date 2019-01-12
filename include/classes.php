@@ -455,7 +455,7 @@ class mf_log
 
 		if($post_content != '')
 		{
-			$result = get_sites(array('site__not_in' => array($wpdb->blogid)));
+			$result = get_sites(array('site__not_in' => array($wpdb->blogid), 'deleted' => 0));
 
 			foreach($result as $r)
 			{
