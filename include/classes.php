@@ -733,8 +733,6 @@ class mf_log_table extends mf_list_table
 
 			foreach($_GET[$this->post_type] as $post_id)
 			{
-				//$post_id = check_var($post_id, 'int', false);
-				//wp_trash_post($post_id);
 				$obj_log->row_affect(array('type' => 'delete', 'id' => $post_id));
 			}
 		}
@@ -750,9 +748,7 @@ class mf_log_table extends mf_list_table
 
 			foreach($_GET[$this->post_type] as $post_id)
 			{
-				//$post_id = check_var($post_id, 'int', false);
-				//$wpdb->query($wpdb->prepare("UPDATE ".$wpdb->posts." SET post_status = 'ignore', post_modified = NOW() WHERE post_type = 'mf_log' AND ID = '%d'", $id));
-				$obj_log->row_affect(array('type' => 'delete', 'id' => $post_id));
+				$obj_log->row_affect(array('type' => 'ignore', 'id' => $post_id));
 			}
 		}
 	}
