@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-18 09:55+0100\n"
+"POT-Creation-Date: 2019-01-31 09:16+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Fors\n"
 "Language-Team: \n"
@@ -93,12 +93,12 @@ msgstr "Ta bort %s från %s"
 
 #: ../include/classes.php:227
 #: ../include/classes.php:235
-#: ../include/classes.php:866
-#: ../include/classes.php:946
-#: ../include/classes.php:982
-#: ../include/classes.php:1005
+#: ../include/classes.php:856
+#: ../include/classes.php:936
+#: ../include/classes.php:972
+#: ../include/classes.php:995
 msgid "s"
-msgstr "s"
+msgstr ""
 
 #: ../include/classes.php:259
 msgid "New"
@@ -113,88 +113,88 @@ msgstr "Det finns %d nya fel i loggen"
 msgid "There is one new error in the log"
 msgstr "Det finns ett nytt fel i loggen"
 
-#: ../include/classes.php:395
+#: ../include/classes.php:393
 #, php-format
 msgid "%s in %s on line %d:%d"
 msgstr "%s i %s på rad %d:%d"
 
-#: ../include/classes.php:429
+#: ../include/classes.php:427
 msgid "The information was deleted"
 msgstr "Informationen togs bort"
 
-#: ../include/classes.php:438
+#: ../include/classes.php:436
 msgid "The information is being ignored from now on"
 msgstr "Informationen ignoreras from. nu"
 
-#: ../include/classes.php:506
+#: ../include/classes.php:504
 #, php-format
 msgid "I could only delete %d within %d seconds"
 msgstr "Jag kunde endast radera %s inom %d sekunder"
 
-#: ../include/classes.php:518
+#: ../include/classes.php:516
 msgid "I deleted them all for you"
 msgstr "Jag tog bort allihop åt dig"
 
-#: ../include/classes.php:670
+#: ../include/classes.php:668
 msgid "All"
 msgstr "Alla"
 
-#: ../include/classes.php:671
+#: ../include/classes.php:669
 msgid "Notice"
 msgstr "Notifiering"
 
-#: ../include/classes.php:672
-#: ../include/classes.php:704
-#: ../include/classes.php:787
+#: ../include/classes.php:670
+#: ../include/classes.php:702
+#: ../include/classes.php:777
 msgid "Ignore"
 msgstr "Ignorera"
 
-#: ../include/classes.php:673
+#: ../include/classes.php:671
 msgid "Trash"
 msgstr "Papperskorg"
 
-#: ../include/classes.php:679
+#: ../include/classes.php:677
 msgid "Name"
 msgstr "Namn"
 
-#: ../include/classes.php:680
+#: ../include/classes.php:678
 msgid "Amount"
 msgstr "Antal"
 
-#: ../include/classes.php:681
+#: ../include/classes.php:679
 msgid "Date"
 msgstr "Datum"
 
-#: ../include/classes.php:699
-#: ../include/classes.php:779
+#: ../include/classes.php:697
+#: ../include/classes.php:769
 msgid "Delete"
 msgstr "Radera"
 
-#: ../include/classes.php:866
+#: ../include/classes.php:856
 msgid "Debug Query"
 msgstr "Debugga databasfrågor"
 
-#: ../include/classes.php:946
+#: ../include/classes.php:936
 msgid "Duplicate Query"
 msgstr "Dubbel fråga"
 
-#: ../include/classes.php:982
+#: ../include/classes.php:972
 msgid "Slow Part"
 msgstr "Långsam del"
 
-#: ../include/classes.php:1005
+#: ../include/classes.php:995
 msgid "Debug Page"
 msgstr "Debugga sida"
 
-#: ../include/classes.php:1005
+#: ../include/classes.php:995
 msgid "MySQL"
-msgstr "MySQL"
+msgstr ""
 
-#: ../include/classes.php:1005
+#: ../include/classes.php:995
 msgid "Total"
-msgstr "Total"
+msgstr "Totalt"
 
-#: ../list/index.php:10
+#: ../list/index.php:13
 msgid "Delete All"
 msgstr "Radera alla"
 

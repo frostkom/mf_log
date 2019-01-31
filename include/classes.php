@@ -344,8 +344,6 @@ class mf_log
 
 	function column_cell($col, $id)
 	{
-		global $wpdb;
-
 		switch($col)
 		{
 			case 'log':
@@ -740,8 +738,6 @@ class mf_log_table extends mf_list_table
 
 	function bulk_ignore()
 	{
-		global $wpdb;
-
 		if(isset($_GET[$this->post_type]))
 		{
 			$obj_log = new mf_log();
@@ -755,8 +751,6 @@ class mf_log_table extends mf_list_table
 
 	function column_default($item, $column_name)
 	{
-		global $wpdb;
-
 		$out = "";
 
 		switch($column_name)
@@ -783,11 +777,6 @@ class mf_log_table extends mf_list_table
 						$actions['ignore'] = "<a href='".wp_nonce_url(admin_url("admin.php?page=mf_log/list/index.php&btnLogIgnore&intLogID=".$post_id), 'log_ignore_'.$post_id, '_wpnonce_log_ignore')."' rel='confirm'>".__("Ignore", 'lang_log')."</a>";
 					}
 				}
-
-				/*else
-				{
-					$actions['recover'] = "<a href='admin_url("admin.php?page=mf_log/list/index.php&intLogID=".$post_id."&recover)."'>".__("Recover", 'lang_log')."</a>";
-				}*/
 
 				$out .= $item[$column_name]
 				.$this->row_actions($actions);
@@ -982,8 +971,6 @@ if(!class_exists('Debug_Queries'))
 								break;
 							}
 						}
-
-						//do_log("By Source: ".var_export($arr_sources, true));
 					}
 				}
 
@@ -998,18 +985,7 @@ if(!class_exists('Debug_Queries'))
 
 					if($total_query_time > $page_time_limit || $total_timer_time > $page_time_limit)
 					{
-						do_log(__("Debug Page", 'lang_log').": ".mf_format_number($total_query_time).__("s", 'lang_log')." (".__("MySQL", 'lang_log')." - ".$count_queries."), ".$total_timer_time.__("s", 'lang_log')." (".__("Total", 'lang_log')." - ".$_SERVER['REQUEST_URI'].")"); // (".get_num_queries().")
-
-						/*if($total_query_time == 0)
-						{
-							$debug_queries .= "<li>&raquo; ".__("Query time is null (0)? - please set the constant", 'lang_log')." <code>SAVEQUERIES</code> ".__("at", 'lang_log')." <code>TRUE</code> ".__("in your", 'lang_log')." <code>wp-config.php</code></li>";
-						}*/
-
-						/*$debug_queries .= "<li>"
-							."<strong>".__("Page generated", 'lang_log')."</strong>: ".mf_format_number($total_page_time, 5).", "
-							.$phpper."% ".__("PHP", 'lang_log').", "
-							.$mysqlper."% ".__("MySQL", 'lang_log')
-						."</li>";*/
+						do_log(__("Debug Page", 'lang_log').": ".mf_format_number($total_query_time).__("s", 'lang_log')." (".__("MySQL", 'lang_log')." - ".$count_queries."), ".$total_timer_time.__("s", 'lang_log')." (".__("Total", 'lang_log')." - ".$_SERVER['REQUEST_URI'].")");
 					}
 				}
 			}
@@ -1020,11 +996,6 @@ if(!class_exists('Debug_Queries'))
 		function the_queries()
 		{
 			$debug_output = $this->get_queries();
-
-			/*if($debug_output != '' && IS_SUPER_ADMIN)
-			{
-				echo "<ul>".$debug_output."</ul>";
-			}*/
 		}
 	}
 }
