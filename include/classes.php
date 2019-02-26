@@ -243,7 +243,7 @@ class mf_log
 		echo show_textfield(array('type' => 'number', 'name' => $setting_key, 'value' => $option, 'placeholder' => "10-100", 'xtra' => "min='10' max='100'", 'suffix' => "%"));
 	}
 
-	function get_count_log($id = 0)
+	function get_count_message($id = 0)
 	{
 		global $wpdb;
 
@@ -272,8 +272,22 @@ class mf_log
 			$menu_start = $menu_root.'list/index.php';
 			$menu_capability = override_capability(array('page' => $menu_start, 'default' => 'update_core'));
 
+			$count_message = $this->get_count_message();
+
 			$menu_title = __("Log", 'lang_log');
-			add_menu_page($menu_title, $menu_title.$this->get_count_log(), $menu_capability, $menu_start, '', 'dashicons-warning', 100);
+			//add_menu_page($menu_title, $menu_title.$count_message, $menu_capability, $menu_start, '', 'dashicons-warning', 100);
+
+			if($count_message != '')
+			{
+				global $menu;
+
+				if(!preg_match("/update-plugins/i", $menu[75][0]))
+				{
+					$menu[75][0] .= $count_message; // tools.php
+				}
+			}
+
+			add_submenu_page("tools.php", $menu_title, $menu_title.$count_message, $menu_capability, $menu_start);
 		}
 	}
 
@@ -355,7 +369,7 @@ class mf_log
 
 					$tbl_group->select_data(array(
 						'select' => "ID",
-						//'debug' => true,
+						'debug' => ($_SERVER['REMOTE_ADDR'] == ""),
 					));
 
 					$count_temp = count($tbl_group->data);
