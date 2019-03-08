@@ -38,7 +38,7 @@ class mf_log
 
 			else
 			{
-				do_log(sprintf(__("%s was too large so it was deleted", 'lang_log'), "debug.log"));
+				do_log(sprintf("%s was too large so it was deleted", "debug.log"));
 
 				@unlink($debug_file);
 			}
@@ -404,7 +404,7 @@ class mf_log
 
 		if($url != '')
 		{
-			do_log(sprintf(__("%s in %s on line %d:%d", 'lang_log'), $msg, $url, $lineNo, $columnNo));
+			do_log(sprintf("%s in %s on line %d:%d", $msg, $url, $lineNo, $columnNo));
 
 			$result['success'] = true;
 		}
@@ -862,7 +862,7 @@ if(!class_exists('Debug_Queries'))
 					{
 						if($query_time > $query_time_limit && substr($query_text, 0, 6) == "SELECT")
 						{
-							do_log(__("Debug Query", 'lang_log').": ".$query_time.__("s", 'lang_log').", ".$query_text." (".$query_called.")");
+							do_log("Debug Query: ".$query_time."s, ".$query_text." (".$query_called.")");
 						}
 
 						if($check_duplicates)
@@ -942,7 +942,7 @@ if(!class_exists('Debug_Queries'))
 						{
 							if($arr_duplicates[$i]['count'] > 1 && $arr_duplicates[$i]['total_time'] > $query_time_limit)
 							{
-								do_log(__("Duplicate Query", 'lang_log').": ".$arr_duplicates[$i]['count']." x ".$arr_duplicates[$i]['time'].__("s", 'lang_log')." (".$arr_duplicates[$i]['query'].")");
+								do_log("Duplicate Query: ".$arr_duplicates[$i]['count']." x ".$arr_duplicates[$i]['time']."s (".$arr_duplicates[$i]['query'].")");
 							}
 
 							$i++;
@@ -964,7 +964,7 @@ if(!class_exists('Debug_Queries'))
 
 									if($percent > $source_percent_limit && $total_time > $query_time_limit)
 									{
-										do_log(__("Slow Part", 'lang_log')." - ".$key.": ".$percent."% of ".mf_format_number($total_time).__("s", 'lang_log'));
+										do_log("Slow Part - ".$key.": ".$percent."% of ".mf_format_number($total_time)."s");
 									}*/
 								break;
 
@@ -978,7 +978,7 @@ if(!class_exists('Debug_Queries'))
 
 											if($percent > $source_percent_limit && $total_time > $query_time_limit)
 											{
-												do_log(__("Slow Part", 'lang_log')." - ".$key." - ".$folder.": ".$percent."% of ".mf_format_number($total_time).__("s", 'lang_log')); //." (".var_export($wpdb->queries, true).")"
+												do_log("Slow Part - ".$key." - ".$folder.": ".$percent."% of ".mf_format_number($total_time)."s"); //." (".var_export($wpdb->queries, true).")"
 											}
 										}
 									}
@@ -999,7 +999,7 @@ if(!class_exists('Debug_Queries'))
 
 					if($total_query_time > $page_time_limit || $total_timer_time > $page_time_limit)
 					{
-						do_log(__("Debug Page", 'lang_log').": ".mf_format_number($total_query_time).__("s", 'lang_log')." (".__("MySQL", 'lang_log')." - ".$count_queries."), ".$total_timer_time.__("s", 'lang_log')." (".__("Total", 'lang_log')." - ".$_SERVER['REQUEST_URI'].")");
+						do_log("Debug Page: ".mf_format_number($total_query_time)."s (MySQL - ".$count_queries."), ".$total_timer_time."s (Total - ".$_SERVER['REQUEST_URI'].")");
 					}
 				}
 			}
