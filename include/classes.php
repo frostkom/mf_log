@@ -106,8 +106,8 @@ class mf_log
 
 			if(get_option('setting_log_activate') == 'yes')
 			{
-				$arr_settings['setting_log_curl_debug'] = __("Debug cURL", 'lang_log');
-				$arr_settings['setting_log_js_debug'] = __("Debug Javascript", 'lang_log');
+				$arr_settings['setting_log_curl_debug'] = sprintf(__("Debug %s", 'lang_log'), "cURL");
+				$arr_settings['setting_log_js_debug'] = sprintf(__("Debug %s", 'lang_log'), "Javascript");
 				$arr_settings['setting_log_query_debug'] = __("Debug Database Queries", 'lang_log');
 
 				if(get_option('setting_log_query_debug') == 'yes')

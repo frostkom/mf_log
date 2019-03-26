@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-02 05:11+0100\n"
+"POT-Creation-Date: 2019-03-22 09:52+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Fors\n"
 "Language-Team: \n"
@@ -15,11 +15,41 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ..\n"
 
+msgid "Log"
+msgstr "Logg"
+
 msgid "Activate"
 msgstr "Aktiver"
 
+msgid "Log & Debug"
+msgstr "Logg & Debug"
+
+msgid "Add this to the end of %s"
+msgstr "Legg dette til slutten av %s"
+
+msgid "Change settings in %s"
+msgstr "Endre innstillinger i %s"
+
+msgid "New"
+msgstr "Ny"
+
+msgid "There are %d new errors in the log"
+msgstr "Det er %d nye feil i loggen"
+
+msgid "There is one new error in the log"
+msgstr "Det er en ny feil i loggen"
+
+msgid "The information was deleted"
+msgstr "Informasjon ble slettet"
+
+msgid "I deleted them all for you"
+msgstr "Jeg slettet dem alle for deg"
+
 msgid "All"
 msgstr "Alle"
+
+msgid "Ignore"
+msgstr "Ignorere"
 
 msgid "Name"
 msgstr "Navn"
@@ -30,9 +60,6 @@ msgstr "Dato"
 msgid "Delete"
 msgstr "Slett"
 
-msgid "MySQL"
-msgstr "MySQL"
-
-msgid "PHP"
-msgstr "PHP"
+msgid "Delete All"
+msgstr "Slette Alle"
 
