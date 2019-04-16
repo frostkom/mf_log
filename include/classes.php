@@ -792,12 +792,12 @@ class mf_log_table extends mf_list_table
 					}
 				}
 
-				$out .= $item[$column_name]
+				$out .= $item['post_title']
 				.$this->row_actions($actions);
 			break;
 
 			case 'menu_order':
-				$out .= ($item[$column_name] > 1 ? $item[$column_name] : "");
+				$out .= ($item['menu_order'] > 1 ? $item['menu_order'] : "");
 			break;
 
 			default:
