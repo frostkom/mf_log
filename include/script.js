@@ -4,6 +4,7 @@ window.onerror = function(msg, url, lineNo, columnNo, error)
 	{
 		url: script_log.ajax_url,
 		type: 'post',
+		dataType: 'json',
 		data: {
 			action: 'send_js_debug',
 			url: url,
@@ -11,7 +12,6 @@ window.onerror = function(msg, url, lineNo, columnNo, error)
 			lineNo: lineNo,
 			columnNo: columnNo,
 		},
-		dataType: 'json',
 		success: function(data)
 		{
 			if(data.success){}

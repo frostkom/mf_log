@@ -2,7 +2,10 @@
 
 class mf_log
 {
-	function __contruct(){}
+	function __contruct()
+	{
+		//$this->post_type = 'mf_log';
+	}
 
 	function cron_base()
 	{
@@ -44,11 +47,11 @@ class mf_log
 			}
 		}
 
-		$result = $wpdb->get_results("SELECT ID FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND (
-			post_status = 'notification' AND post_modified < DATE_SUB(NOW(), INTERVAL 6 MONTH)
-			OR post_status NOT IN ('trash', 'ignore', 'notification') AND post_modified < DATE_SUB(NOW(), INTERVAL 1 MONTH)
-			OR post_status = 'ignore' AND post_modified < DATE_SUB(NOW(), INTERVAL 1 YEAR)
-		)");
+		$result = $wpdb->get_results($wpdb->prepare("SELECT ID FROM ".$wpdb->posts." WHERE post_type = %s AND (
+			post_status = %s AND post_modified < DATE_SUB(NOW(), INTERVAL 1 MONTH)
+			OR post_status = %s AND post_modified < DATE_SUB(NOW(), INTERVAL 6 MONTH)
+			OR post_status = %s AND post_modified < DATE_SUB(NOW(), INTERVAL 1 YEAR)
+		)", 'mf_log', 'publish', 'notification', 'ignore'));
 
 		foreach($result as $r)
 		{
@@ -251,7 +254,7 @@ class mf_log
 
 		$last_viewed = get_user_meta(get_current_user_id(), 'meta_log_viewed', true);
 
-		$result = $wpdb->get_results($wpdb->prepare("SELECT ID FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND post_status = 'publish' AND post_modified > %s", $last_viewed));
+		$result = $wpdb->get_results($wpdb->prepare("SELECT ID FROM ".$wpdb->posts." WHERE post_type = %s AND post_status = %s AND post_modified > %s", 'mf_log', 'publish', $last_viewed));
 		$rows = $wpdb->num_rows;
 
 		if($rows > 0)
@@ -299,7 +302,7 @@ class mf_log
 
 		if(IS_ADMIN)
 		{
-			$result = $wpdb->get_results($wpdb->prepare("SELECT ID, post_modified FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND post_status NOT IN ('trash', 'ignore') AND post_modified > %s", $data['cutoff']));
+			$result = $wpdb->get_results($wpdb->prepare("SELECT ID, post_modified FROM ".$wpdb->posts." WHERE post_type = %s AND post_status = %s AND post_modified > %s", 'mf_log', 'publish', $data['cutoff']));
 			$rows = $wpdb->num_rows;
 
 			if($rows > 0)
@@ -501,7 +504,7 @@ class mf_log
 
 			$i = 0;
 
-			$result = $wpdb->get_results("SELECT ID FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND post_status".($this->post_status != '' ? " = '".esc_sql($this->post_status)."'" : " IN ('publish', 'draft')")." ORDER BY post_date ASC");
+			$result = $wpdb->get_results($wpdb->prepare("SELECT ID FROM ".$wpdb->posts." WHERE post_type = %s AND post_status".($this->post_status != '' ? " = '".esc_sql($this->post_status)."'" : " IN ('publish', 'draft')")." ORDER BY post_date ASC", 'mf_log'));
 
 			foreach($result as $r)
 			{
@@ -588,70 +591,73 @@ class mf_log
 		{
 			$post_md5 = md5($post_title);
 
-			if(in_array($action, array('publish', 'draft', 'notification')))
+			switch($action)
 			{
-				$result = $wpdb->get_results($wpdb->prepare("SELECT ID, post_status, menu_order, post_modified FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND (post_title = %s OR post_content = %s)", $post_title, $post_md5));
+				case 'draft':
+				case 'notification':
+				case 'publish':
+					$result = $wpdb->get_results($wpdb->prepare("SELECT ID, post_status, menu_order, post_modified FROM ".$wpdb->posts." WHERE post_type = %s AND (post_title = %s OR post_content = %s)", 'mf_log', $post_title, $post_md5));
 
-				if($wpdb->num_rows > 0)
-				{
-					$i = 0;
+					if($wpdb->num_rows > 0)
+					{
+						$i = 0;
+
+						foreach($result as $r)
+						{
+							$post_id = $r->ID;
+							$post_status = $r->post_status;
+							$menu_order = $r->menu_order;
+							$post_modified = $r->post_modified;
+
+							if($post_status != 'ignore' && $post_modified < date("Y-m-d H:i:s", strtotime("-60 minute")))
+							{
+								if($i == 0)
+								{
+									$post_data = array(
+										'ID' => $post_id,
+										'post_status' => $action,
+										'post_type' => 'mf_log',
+										'post_title' => $post_title,
+										'post_content' => $post_md5,
+										'menu_order' => ($menu_order == 0 ? 2 : ++$menu_order),
+									);
+
+									wp_update_post($post_data);
+								}
+
+								else
+								{
+									wp_trash_post($post_id);
+								}
+							}
+
+							$i++;
+						}
+					}
+
+					else
+					{
+						$post_data = array(
+							'post_status' => $action,
+							'post_type' => 'mf_log',
+							'post_title' => $post_title,
+							'post_content' => $post_md5,
+						);
+
+						wp_insert_post($post_data);
+					}
+				break;
+
+				case 'trash':
+					$result = $wpdb->get_results($wpdb->prepare("SELECT ID FROM ".$wpdb->posts." WHERE post_type = %s AND post_status NOT IN ('trash', 'ignore') AND (post_title LIKE %s OR post_content = %s)", 'mf_log', $post_title."%", $post_md5));
 
 					foreach($result as $r)
 					{
 						$post_id = $r->ID;
-						$post_status = $r->post_status;
-						$menu_order = $r->menu_order;
-						$post_modified = $r->post_modified;
 
-						if($post_status != 'ignore' && $post_modified < date("Y-m-d H:i:s", strtotime("-60 minute")))
-						{
-							if($i == 0)
-							{
-								$post_data = array(
-									'ID' => $post_id,
-									'post_status' => $action,
-									'post_type' => 'mf_log',
-									'post_title' => $post_title,
-									'post_content' => $post_md5,
-									'menu_order' => ($menu_order == 0 ? 2 : ++$menu_order),
-								);
-
-								wp_update_post($post_data);
-							}
-
-							else
-							{
-								wp_trash_post($post_id);
-							}
-						}
-
-						$i++;
+						wp_trash_post($post_id);
 					}
-				}
-
-				else
-				{
-					$post_data = array(
-						'post_status' => $action,
-						'post_type' => 'mf_log',
-						'post_title' => $post_title,
-						'post_content' => $post_md5,
-					);
-
-					wp_insert_post($post_data);
-				}
-			}
-
-			else if($action == 'trash')
-			{
-				$result = $wpdb->get_results("SELECT ID FROM ".$wpdb->posts." WHERE post_type = 'mf_log' AND post_status != 'trash' AND post_status != 'ignore' AND (post_title LIKE '".esc_sql($post_title)."%' OR post_content = '".esc_sql($post_md5)."')");
-
-				foreach($result as $r)
-				{
-					$post_id = $r->ID;
-
-					wp_trash_post($post_id);
-				}
+				break;
 			}
 		}
 	}
@@ -661,15 +667,12 @@ class mf_log_table extends mf_list_table
 {
 	function set_default()
 	{
-		$this->post_type = "mf_log";
+		$this->post_type = 'mf_log';
 
 		$this->orderby_default = "post_modified";
 		$this->orderby_default_order = "DESC";
 
 		$this->arr_settings['query_trash_id'] = array('trash', 'ignore', 'notification');
-
-		//$this->arr_settings['has_autocomplete'] = true;
-		//$this->arr_settings['plugin_name'] = 'mf_log';
 
 		if($this->search != '')
 		{
