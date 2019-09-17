@@ -129,7 +129,7 @@ class mf_log
 	{
 		$setting_key = get_setting_key(__FUNCTION__);
 
-		echo settings_header($setting_key, __("Log & Debug", 'lang_log'));
+		echo settings_header($setting_key, __("Log and Debug", 'lang_log'));
 	}
 
 	function setting_log_activate_callback()
@@ -171,7 +171,7 @@ class mf_log
 			{
 				echo "<div class='mf_form'>"
 					."<h3 class='display_warning'><i class='fa fa-exclamation-triangle yellow'></i> ".sprintf(__("Change settings in %s", 'lang_log'), "wp-config.php")."</h3>
-					<p>".sprintf(__("Change %s to %s in %s or else you have to handle the content in %s so that it doesn't grow in size", 'lang_log'), "WP_DEBUG_LOG", "false", "wp-config.php", $debug_file)."</p>"
+					<p>".sprintf(__("Change %s to %s in %s or else you have to handle the content in %s so that it does not grow in size", 'lang_log'), "WP_DEBUG_LOG", "false", "wp-config.php", $debug_file)."</p>"
 				."</div>";
 			}
 		}
@@ -673,6 +673,11 @@ class mf_log_table extends mf_list_table
 		$this->orderby_default_order = "DESC";
 
 		$this->arr_settings['query_trash_id'] = array('trash', 'ignore', 'notification');
+	}
+
+	function init_fetch()
+	{
+		global $wpdb;
 
 		if($this->search != '')
 		{
