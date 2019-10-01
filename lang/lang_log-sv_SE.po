@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-23 11:14+0100\n"
+"POT-Creation-Date: 2019-09-20 10:40+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Fors\n"
 "Language-Team: \n"
@@ -17,6 +17,9 @@ msgstr ""
 
 msgid "Log"
 msgstr "Logg"
+
+msgid "Delete All"
+msgstr "Radera alla"
 
 msgid "Activate"
 msgstr "Aktivera"
@@ -36,8 +39,8 @@ msgstr "Gränsvärde för sidvisning"
 msgid "Slow Part Percent Limit"
 msgstr "Gränsvärde för långsam del"
 
-msgid "Log & Debug"
-msgstr "Logg & debug"
+msgid "Log and Debug"
+msgstr "Log och debug"
 
 msgid "Add this to the end of %s"
 msgstr "Lägg till detta i slutet av %s"
@@ -48,8 +51,8 @@ msgstr "%s är inte skrivbar. Se till så att mappen är skrivbar så att Wordpr
 msgid "Change settings in %s"
 msgstr "Ändra inställningar i %s"
 
-msgid "Change %s to %s in %s or else you have to handle the content in %s so that it doesn't grow in size"
-msgstr "Ändra %s till %s i %s för annars måste du ta hand om innehållet i %s för att den inte ska fortsätta att växa i storlek"
+msgid "Change %s to %s in %s or else you have to handle the content in %s so that it does not grow in size"
+msgstr "Ändra %s till %s i %s, eller så måste du hantera innehållet i %s för att det inte ska växa i storlek"
 
 msgid "This will hurt performance on the frontend so use this for debugging only and then turn off"
 msgstr "Detta påverkar prestandan negativt på webbsidan så använd detta endast för debugging och stäng av det efteråt"
@@ -101,7 +104,4 @@ msgstr "Datum"
 
 msgid "Delete"
 msgstr "Radera"
-
-msgid "Delete All"
-msgstr "Radera alla"
 
