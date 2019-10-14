@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 09:52+0100\n"
+"POT-Creation-Date: 2019-10-10 08:45+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Fors\n"
 "Language-Team: \n"
@@ -21,14 +21,32 @@ msgstr "Logg"
 msgid "Activate"
 msgstr "Aktiver"
 
-msgid "Log & Debug"
-msgstr "Logg & Debug"
+msgid "Debug Database Queries"
+msgstr "Debug Database Spørringer"
+
+msgid "Query Time Limit"
+msgstr "Søket Frist"
+
+msgid "Page Time Limit"
+msgstr "Siden Fristen"
+
+msgid "Slow Part Percent Limit"
+msgstr "Sakte Del Prosent Grense"
 
 msgid "Add this to the end of %s"
 msgstr "Legg dette til slutten av %s"
 
+msgid "%s is not writable. Please, make sure that the folder can be written to so that Wordpress can log errors"
+msgstr "%s er ikke skrivbar. Vær så snill, må du kontrollere at mappen kan være skrevet slik at Wordpress kan logge feil"
+
 msgid "Change settings in %s"
 msgstr "Endre innstillinger i %s"
+
+msgid "This will hurt performance on the frontend so use this for debugging only and then turn off"
+msgstr "Dette vil skade ytelse på frontend-så bruk denne for feilsøking og deretter slå av"
+
+msgid "Remove %s from %s"
+msgstr "Fjern %s fra %s"
 
 msgid "New"
 msgstr "Ny"
@@ -42,17 +60,32 @@ msgstr "Det er en ny feil i loggen"
 msgid "The information was deleted"
 msgstr "Informasjon ble slettet"
 
+msgid "The information is being ignored from now on"
+msgstr "Informasjonen blir ignorert fra nå av"
+
+msgid "I could only delete %d within %d seconds"
+msgstr "Jeg kan bare slette %d i %d sekunder"
+
 msgid "I deleted them all for you"
 msgstr "Jeg slettet dem alle for deg"
 
 msgid "All"
 msgstr "Alle"
 
+msgid "Notice"
+msgstr "Merke"
+
 msgid "Ignore"
 msgstr "Ignorere"
 
+msgid "Trash"
+msgstr "Søppel"
+
 msgid "Name"
 msgstr "Navn"
+
+msgid "Amount"
+msgstr "Beløp"
 
 msgid "Date"
 msgstr "Dato"
