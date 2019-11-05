@@ -3,7 +3,7 @@
 Plugin Name: MF Log & Debug
 Plugin URI: https://github.com/frostkom/mf_log
 Description: 
-Version: 4.7.4
+Version: 4.7.5
 Licence: GPLv2 or later
 Author: Martin Fors
 Author URI: https://frostkom.se
@@ -61,8 +61,6 @@ add_action('wp_ajax_nopriv_send_js_debug', array($obj_log, 'send_js_debug'));
 function activate_log()
 {
 	global $wpdb;
-
-	replace_user_meta(array('old' => 'mf_log_viewed', 'new' => 'meta_log_viewed'));
 
 	$wpdb->query("UPDATE ".$wpdb->posts." SET post_status = 'notification' WHERE post_type = 'mf_log' AND post_status = 'auto-draft'");
 }
