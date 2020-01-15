@@ -60,15 +60,15 @@ add_action('wp_ajax_nopriv_send_js_debug', array($obj_log, 'send_js_debug'));
 
 function activate_log()
 {
-	global $wpdb;
-
-	$wpdb->query("UPDATE ".$wpdb->posts." SET post_status = 'notification' WHERE post_type = 'mf_log' AND post_status = 'auto-draft'");
+	mf_uninstall_plugin(array(
+		'options' => array('setting_log_save_notifications', 'setting_log_curl_debug'),
+	));
 }
 
 function uninstall_log()
 {
 	mf_uninstall_plugin(array(
-		'options' => array('setting_log_query_debug', 'setting_log_curl_debug', 'setting_log_js_debug', 'setting_log_query_time_limit', 'setting_log_page_time_limit', 'setting_log_source_percent_limit'),
+		'options' => array('setting_log_activate', 'setting_log_save_notifications', 'setting_log_query_debug', 'setting_log_js_debug', 'setting_log_query_time_limit', 'setting_log_page_time_limit', 'setting_log_source_percent_limit'),
 		'meta' => array('meta_log_viewed'),
 		'post_types' => array('mf_log'),
 	));

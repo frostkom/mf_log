@@ -52,7 +52,7 @@ class mf_log
 
 		$result = $wpdb->get_results($wpdb->prepare("SELECT ID FROM ".$wpdb->posts." WHERE post_type = %s AND (
 			post_status = %s AND post_modified < DATE_SUB(NOW(), INTERVAL 1 MONTH)
-			OR post_status = %s AND post_modified < DATE_SUB(NOW(), INTERVAL 6 MONTH)
+			OR post_status = %s AND post_modified < DATE_SUB(NOW(), INTERVAL 3 MONTH)
 			OR post_status = %s AND post_modified < DATE_SUB(NOW(), INTERVAL 1 YEAR)
 		)", 'mf_log', 'publish', 'notification', 'ignore'));
 
@@ -112,7 +112,7 @@ class mf_log
 
 			if(get_option('setting_log_activate') == 'yes')
 			{
-				$arr_settings['setting_log_curl_debug'] = sprintf(__("Debug %s", 'lang_log'), "cURL");
+				//$arr_settings['setting_log_curl_debug'] = sprintf(__("Debug %s", 'lang_log'), "cURL");
 				$arr_settings['setting_log_js_debug'] = sprintf(__("Debug %s", 'lang_log'), "Javascript");
 				$arr_settings['setting_log_query_debug'] = __("Debug Database Queries", 'lang_log');
 
@@ -180,13 +180,13 @@ class mf_log
 		}
 	}
 
-	function setting_log_curl_debug_callback()
+	/*function setting_log_curl_debug_callback()
 	{
 		$setting_key = get_setting_key(__FUNCTION__);
 		$option = get_option($setting_key, 'no');
 
 		echo show_select(array('data' => get_yes_no_for_select(), 'name' => $setting_key, 'value' => $option));
-	}
+	}*/
 
 	function setting_log_js_debug_callback()
 	{
