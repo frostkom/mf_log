@@ -185,7 +185,7 @@ class mf_log
 		$setting_key = get_setting_key(__FUNCTION__);
 		$option = get_option($setting_key, 'no');
 
-		echo show_select(array('data' => get_yes_no_for_select(), 'name' => $setting_key, 'value' => $option));
+		echo show_select(array('data' => get_yes_no_for_select(), 'name' => $setting_key, 'value' => $option, 'suffix' => ($option == 'yes' ? "<i class='fa fa-exclamation-triangle yellow display_warning'></i>" : "")));
 	}*/
 
 	function setting_log_js_debug_callback()
