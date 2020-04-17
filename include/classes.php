@@ -262,7 +262,7 @@ class mf_log
 
 		if($rows > 0)
 		{
-			$count_message = "&nbsp;<span class='update-plugins' title='".__("New", 'lang_log')."'>
+			$count_message = "&nbsp;<span class='update-plugins' title='".__("New Errors", 'lang_log')."'>
 				<span>".$rows."</span>
 			</span>";
 		}
@@ -280,10 +280,7 @@ class mf_log
 
 			$count_message = $this->get_count_message();
 
-			$menu_title = __("Log", 'lang_log');
-			//add_menu_page($menu_title, $menu_title.$count_message, $menu_capability, $menu_start, '', 'dashicons-warning', 100);
-
-			if($count_message != '')
+			if($count_message != '' && current_user_can($menu_capability))
 			{
 				global $menu;
 
@@ -293,6 +290,7 @@ class mf_log
 				}
 			}
 
+			$menu_title = __("Log", 'lang_log');
 			add_submenu_page("tools.php", $menu_title, $menu_title.$count_message, $menu_capability, $menu_start);
 		}
 	}
