@@ -11,55 +11,63 @@ class mf_log
 	{
 		global $wpdb;
 
-		if(is_main_site())
+		$obj_cron = new mf_cron();
+		$obj_cron->start(__CLASS__);
+
+		if($obj_cron->is_running == false)
 		{
-			$debug_file = ABSPATH."wp-content/debug.log";
-
-			if(file_exists($debug_file))
+			if(is_main_site())
 			{
-				$error_limit = 50 * pow(1024, 2);
+				$debug_file = ABSPATH."wp-content/debug.log";
 
-				if(filesize($debug_file) < $error_limit)
+				if(file_exists($debug_file))
 				{
-					$file = file($debug_file);
+					$error_limit = 50 * pow(1024, 2);
 
-					if(is_array($file))
+					if(filesize($debug_file) < $error_limit)
 					{
-						$file = array_unique($file);
+						$file = file($debug_file);
 
-						foreach($file as $value)
+						if(is_array($file))
 						{
-							if(preg_match("/\]/", $value))
-							{
-								list($date, $value) = explode("] ", $value, 2);
-							}
+							$file = array_unique($file);
 
-							do_log($value);
+							foreach($file as $value)
+							{
+								if(preg_match("/\]/", $value))
+								{
+									list($date, $value) = explode("] ", $value, 2);
+								}
+
+								do_log($value);
+							}
 						}
+
+						@unlink($debug_file);
 					}
 
-					@unlink($debug_file);
-				}
+					else
+					{
+						do_log(sprintf("%s was too large so it was deleted", "debug.log"));
 
-				else
-				{
-					do_log(sprintf("%s was too large so it was deleted", "debug.log"));
-
-					@unlink($debug_file);
+						@unlink($debug_file);
+					}
 				}
+			}
+
+			$result = $wpdb->get_results($wpdb->prepare("SELECT ID FROM ".$wpdb->posts." WHERE post_type = %s AND (
+				post_status = %s AND post_modified < DATE_SUB(NOW(), INTERVAL 1 MONTH)
+				OR post_status = %s AND post_modified < DATE_SUB(NOW(), INTERVAL 3 MONTH)
+				OR post_status = %s AND post_modified < DATE_SUB(NOW(), INTERVAL 1 YEAR)
+			)", 'mf_log', 'publish', 'notification', 'ignore'));
+
+			foreach($result as $r)
+			{
+				wp_trash_post($r->ID);
 			}
 		}
 
-		$result = $wpdb->get_results($wpdb->prepare("SELECT ID FROM ".$wpdb->posts." WHERE post_type = %s AND (
-			post_status = %s AND post_modified < DATE_SUB(NOW(), INTERVAL 1 MONTH)
-			OR post_status = %s AND post_modified < DATE_SUB(NOW(), INTERVAL 3 MONTH)
-			OR post_status = %s AND post_modified < DATE_SUB(NOW(), INTERVAL 1 YEAR)
-		)", 'mf_log', 'publish', 'notification', 'ignore'));
-
-		foreach($result as $r)
-		{
-			wp_trash_post($r->ID);
-		}
+		$obj_cron->end();
 	}
 
 	function init()
