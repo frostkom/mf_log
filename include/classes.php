@@ -7,6 +7,22 @@ class mf_log
 		//$this->post_type = 'mf_log';
 	}
 
+	function get_log_file_dir($data = array())
+	{
+		if(!isset($data['type'])){	$data['type'] = '';}
+
+		$out = ABSPATH."wp-content/debug.log";
+
+		switch($data['type'])
+		{
+			case 'setting':
+				$out = get_option_or_default('setting_log_custom_debug_file', $out);
+			break;
+		}
+
+		return $out;
+	}
+
 	function cron_base()
 	{
 		global $wpdb;
@@ -18,7 +34,7 @@ class mf_log
 		{
 			if(is_main_site())
 			{
-				$debug_file = ABSPATH."wp-content/debug.log";
+				$debug_file = $this->get_log_file_dir(array('type' => 'setting'));
 
 				if(file_exists($debug_file))
 				{
@@ -48,7 +64,7 @@ class mf_log
 
 					else
 					{
-						do_log(sprintf("%s was too large so it was deleted", "debug.log"));
+						do_log(sprintf("%s was too large so it was deleted", basename($debug_file)));
 
 						@unlink($debug_file);
 					}
@@ -130,6 +146,8 @@ class mf_log
 					$arr_settings['setting_log_page_time_limit'] = __("Page Time Limit", 'lang_log');
 					$arr_settings['setting_log_source_percent_limit'] = __("Slow Part Percent Limit", 'lang_log');
 				}
+
+				$arr_settings['setting_log_custom_debug_file'] = __("Custom Debug File", 'lang_log');
 			}
 
 			show_settings_fields(array('area' => $options_area, 'object' => $this, 'settings' => $arr_settings));
@@ -150,7 +168,7 @@ class mf_log
 
 		echo show_select(array('data' => get_yes_no_for_select(), 'name' => $setting_key, 'value' => $option));
 
-		$debug_file = ABSPATH."wp-content/debug.log";
+		$debug_file = $this->get_log_file_dir(array('type' => 'setting'));
 
 		if($option == 'yes')
 		{
@@ -257,13 +275,37 @@ class mf_log
 		echo show_textfield(array('type' => 'number', 'name' => $setting_key, 'value' => $option, 'placeholder' => "10-100", 'xtra' => "min='10' max='100'", 'suffix' => "%"));
 	}
 
+	function setting_log_custom_debug_file_callback()
+	{
+		$setting_key = get_setting_key(__FUNCTION__);
+		$option = get_option($setting_key);
+
+		echo show_textfield(array('name' => $setting_key, 'value' => $option, 'placeholder' => $this->get_log_file_dir()));
+
+		if($option != '')
+		{
+			if(file_exists($option))
+			{
+				if(!is_readable($option))
+				{
+					echo "<em><i class='fa fa-exclamation-triangle yellow'></i> ".__("The file is not readable", 'lang_log')."</em>";
+				}
+			}
+
+			else
+			{
+				echo "<em><i class='fa fa-times red'></i> ".__("The file does not exist", 'lang_log')."</em>";
+			}
+		}
+	}
+
 	function get_count_message($id = 0)
 	{
 		global $wpdb;
 
 		$count_message = "";
 
-		$last_viewed = get_user_meta(get_current_user_id(), 'meta_log_viewed', true);
+		$last_viewed = date("Y-m-d H:i:s", strtotime(get_user_meta(get_current_user_id(), 'meta_log_viewed', true)));
 
 		$result = $wpdb->get_results($wpdb->prepare("SELECT ID FROM ".$wpdb->posts." WHERE post_type = %s AND post_status = %s AND post_modified > %s", 'mf_log', 'publish', $last_viewed));
 		$rows = $wpdb->num_rows;
