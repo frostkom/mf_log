@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-28 07:48+0100\n"
+"POT-Creation-Date: 2020-09-22 10:51+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Fors\n"
 "Language-Team: \n"
@@ -15,93 +15,157 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ..\n"
 
+#: ../include/classes.php:92
+#: ../include/classes.php:93
+#: ../include/classes.php:94
+#: ../include/classes.php:348
+#: ../include/classes.php:413
+#: ../list/index.php:16
 msgid "Log"
 msgstr "Logg"
 
-msgid "Delete All"
-msgstr "Radera alla"
-
+#: ../include/classes.php:139
 msgid "Activate"
 msgstr "Aktivera"
 
+#: ../include/classes.php:145
+#, php-format
 msgid "Debug %s"
 msgstr "Felsök %s"
 
+#: ../include/classes.php:146
 msgid "Debug Database Queries"
 msgstr "Felsök databasfrågor"
 
+#: ../include/classes.php:150
 msgid "Query Time Limit"
 msgstr "Gränsvärde för databasfrågor"
 
+#: ../include/classes.php:151
 msgid "Page Time Limit"
 msgstr "Gränsvärde för sidvisning"
 
+#: ../include/classes.php:152
 msgid "Slow Part Percent Limit"
 msgstr "Gränsvärde för långsam del"
 
+#: ../include/classes.php:155
+msgid "Custom Debug File"
+msgstr "Egen debug-fil"
+
+#: ../include/classes.php:166
 msgid "Log and Debug"
 msgstr "Log och debug"
 
+#: ../include/classes.php:187
+#: ../include/classes.php:244
+#, php-format
 msgid "Add this to the end of %s"
 msgstr "Lägg till detta i slutet av %s"
 
+#: ../include/classes.php:193
+#, php-format
 msgid "%s is not writable. Please, make sure that the folder can be written to so that Wordpress can log errors"
 msgstr "%s är inte skrivbar. Se till så att mappen är skrivbar så att Wordpress kan logga fel"
 
+#: ../include/classes.php:207
+#, php-format
 msgid "Change settings in %s"
 msgstr "Ändra inställningar i %s"
 
+#: ../include/classes.php:208
+#, php-format
 msgid "Change %s to %s in %s or else you have to handle the content in %s so that it does not grow in size"
 msgstr "Ändra %s till %s i %s, eller så måste du hantera innehållet i %s för att det inte ska växa i storlek"
 
+#: ../include/classes.php:235
 msgid "This will hurt performance on the frontend so use this for debugging only and then turn off"
 msgstr "Detta påverkar prestandan negativt på webbsidan så använd detta endast för debugging och stäng av det efteråt"
 
+#: ../include/classes.php:254
+#, php-format
 msgid "Remove %s from %s"
 msgstr "Ta bort %s från %s"
 
+#: ../include/classes.php:264
+#: ../include/classes.php:272
+msgid "s"
+msgstr ""
+
+#: ../include/classes.php:296
+msgid "The file is not readable"
+msgstr "Filen är inte läsbar"
+
+#: ../include/classes.php:302
+msgid "The file does not exist"
+msgstr "Filen finns inte"
+
+#: ../include/classes.php:320
 msgid "New Errors"
 msgstr "Nya fel"
 
+#: ../include/classes.php:367
+#, php-format
 msgid "There are %d new errors in the log"
 msgstr "Det finns %d nya fel i loggen"
 
+#: ../include/classes.php:367
 msgid "There is one new error in the log"
 msgstr "Det finns ett nytt fel i loggen"
 
+#: ../include/classes.php:500
 msgid "The information was deleted"
 msgstr "Informationen togs bort"
 
+#: ../include/classes.php:509
 msgid "The information is being ignored from now on"
 msgstr "Informationen ignoreras from. nu"
 
+#: ../include/classes.php:577
+#, php-format
 msgid "I could only delete %d within %d seconds"
 msgstr "Jag kunde endast radera %s inom %d sekunder"
 
+#: ../include/classes.php:589
 msgid "I deleted them all for you"
 msgstr "Jag tog bort allihop åt dig"
 
+#: ../include/classes.php:746
 msgid "All"
 msgstr "Alla"
 
+#: ../include/classes.php:747
 msgid "Notice"
 msgstr "Notifiering"
 
+#: ../include/classes.php:748
+#: ../include/classes.php:780
+#: ../include/classes.php:855
 msgid "Ignore"
 msgstr "Ignorera"
 
+#: ../include/classes.php:749
 msgid "Trash"
 msgstr "Papperskorg"
 
+#: ../include/classes.php:755
 msgid "Name"
 msgstr "Namn"
 
+#: ../include/classes.php:756
 msgid "Amount"
 msgstr "Antal"
 
+#: ../include/classes.php:757
 msgid "Date"
 msgstr "Datum"
 
+#: ../include/classes.php:775
+#: ../include/classes.php:847
 msgid "Delete"
 msgstr "Radera"
+
+#: ../list/index.php:20
+msgid "Delete All"
+msgstr "Radera alla"
 
