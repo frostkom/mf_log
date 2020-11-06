@@ -719,160 +719,163 @@ class mf_log
 	}
 }
 
-class mf_log_table extends mf_list_table
+if(class_exists('mf_list_table'))
 {
-	function set_default()
+	class mf_log_table extends mf_list_table
 	{
-		$this->post_type = 'mf_log';
-
-		$this->orderby_default = "post_modified";
-		$this->orderby_default_order = "DESC";
-
-		$this->arr_settings['query_trash_id'] = array('trash', 'ignore', 'notification');
-	}
-
-	function init_fetch()
-	{
-		global $wpdb;
-
-		if($this->search != '')
+		function set_default()
 		{
-			$this->query_where .= ($this->query_where != '' ? " AND " : "")."(post_title LIKE '%".$this->search."%' OR SOUNDEX(post_title) = SOUNDEX('".$this->search."'))";
+			$this->post_type = 'mf_log';
+
+			$this->orderby_default = "post_modified";
+			$this->orderby_default_order = "DESC";
+
+			$this->arr_settings['query_trash_id'] = array('trash', 'ignore', 'notification');
 		}
 
-		$this->set_views(array(
-			'db_field' => 'post_status',
-			'types' => array(
-				'all' => __("All", 'lang_log'),
-				'notification' => __("Notice", 'lang_log'),
-				'ignore' => __("Ignore", 'lang_log'),
-				'trash' => __("Trash", 'lang_log'),
-			),
-		));
-
-		$this->set_columns(array(
-			'cb' => '<input type="checkbox">',
-			'post_title' => __("Name", 'lang_log'),
-			'menu_order' => __("Amount", 'lang_log'),
-			'post_modified' => __("Date", 'lang_log'),
-		));
-
-		$this->set_sortable_columns(array(
-			'post_title',
-			'menu_order',
-			'post_modified',
-		));
-	}
-
-	function get_bulk_actions()
-	{
-		$actions = array();
-
-		if(isset($this->columns['cb']))
+		function init_fetch()
 		{
-			if(!isset($_GET['post_status']) || $_GET['post_status'] != 'trash')
+			global $wpdb;
+
+			if($this->search != '')
 			{
-				$actions['delete'] = __("Delete", 'lang_log');
+				$this->query_where .= ($this->query_where != '' ? " AND " : "")."(post_title LIKE '%".$this->search."%' OR SOUNDEX(post_title) = SOUNDEX('".$this->search."'))";
 			}
 
-			if(!isset($_GET['post_status']) || $_GET['post_status'] != 'ignore')
+			$this->set_views(array(
+				'db_field' => 'post_status',
+				'types' => array(
+					'all' => __("All", 'lang_log'),
+					'notification' => __("Notice", 'lang_log'),
+					'ignore' => __("Ignore", 'lang_log'),
+					'trash' => __("Trash", 'lang_log'),
+				),
+			));
+
+			$this->set_columns(array(
+				'cb' => '<input type="checkbox">',
+				'post_title' => __("Name", 'lang_log'),
+				'menu_order' => __("Amount", 'lang_log'),
+				'post_modified' => __("Date", 'lang_log'),
+			));
+
+			$this->set_sortable_columns(array(
+				'post_title',
+				'menu_order',
+				'post_modified',
+			));
+		}
+
+		function get_bulk_actions()
+		{
+			$actions = array();
+
+			if(isset($this->columns['cb']))
 			{
-				$actions['ignore'] = __("Ignore", 'lang_log');
+				if(!isset($_GET['post_status']) || $_GET['post_status'] != 'trash')
+				{
+					$actions['delete'] = __("Delete", 'lang_log');
+				}
+
+				if(!isset($_GET['post_status']) || $_GET['post_status'] != 'ignore')
+				{
+					$actions['ignore'] = __("Ignore", 'lang_log');
+				}
+			}
+
+			return $actions;
+		}
+
+		function process_bulk_action()
+		{
+			if(isset($_GET['_wpnonce']) && !empty($_GET['_wpnonce']))
+			{
+				switch($this->current_action())
+				{
+					case 'delete':
+						$this->bulk_delete();
+					break;
+
+					case 'ignore':
+						$this->bulk_ignore();
+					break;
+				}
 			}
 		}
 
-		return $actions;
-	}
-
-	function process_bulk_action()
-	{
-		if(isset($_GET['_wpnonce']) && !empty($_GET['_wpnonce']))
+		function bulk_delete()
 		{
-			switch($this->current_action())
+			if(isset($_GET[$this->post_type]))
 			{
-				case 'delete':
-					$this->bulk_delete();
+				$obj_log = new mf_log();
+
+				foreach($_GET[$this->post_type] as $post_id)
+				{
+					$obj_log->row_affect(array('type' => 'delete', 'id' => $post_id));
+				}
+			}
+		}
+
+		function bulk_ignore()
+		{
+			if(isset($_GET[$this->post_type]))
+			{
+				$obj_log = new mf_log();
+
+				foreach($_GET[$this->post_type] as $post_id)
+				{
+					$obj_log->row_affect(array('type' => 'ignore', 'id' => $post_id));
+				}
+			}
+		}
+
+		function column_default($item, $column_name)
+		{
+			$out = "";
+
+			switch($column_name)
+			{
+				case 'post_title':
+					$post_id = $item['ID'];
+					$post_status = $item['post_status'];
+					$post_author = $item['post_author'];
+
+					$actions = array();
+
+					if($post_status != "trash")
+					{
+						if($post_author == get_current_user_id() || IS_ADMIN)
+						{
+							$actions['delete'] = "<a href='".wp_nonce_url(admin_url("admin.php?page=mf_log/list/index.php&btnLogDelete&intLogID=".$post_id), 'log_delete_'.$post_id, '_wpnonce_log_delete')."'>".__("Delete", 'lang_log')."</a>";
+						}
+					}
+
+					if($post_status != "ignore")
+					{
+						if($post_author == get_current_user_id() || IS_ADMIN)
+						{
+							$actions['ignore'] = "<a href='".wp_nonce_url(admin_url("admin.php?page=mf_log/list/index.php&btnLogIgnore&intLogID=".$post_id), 'log_ignore_'.$post_id, '_wpnonce_log_ignore')."' rel='confirm'>".__("Ignore", 'lang_log')."</a>";
+						}
+					}
+
+					$out .= $item['post_title']
+					.$this->row_actions($actions);
 				break;
 
-				case 'ignore':
-					$this->bulk_ignore();
+				case 'menu_order':
+					$out .= ($item['menu_order'] > 1 ? $item['menu_order'] : "");
+				break;
+
+				default:
+					if(isset($item[$column_name]))
+					{
+						$out .= $item[$column_name];
+					}
 				break;
 			}
+
+			return $out;
 		}
-	}
-
-	function bulk_delete()
-	{
-		if(isset($_GET[$this->post_type]))
-		{
-			$obj_log = new mf_log();
-
-			foreach($_GET[$this->post_type] as $post_id)
-			{
-				$obj_log->row_affect(array('type' => 'delete', 'id' => $post_id));
-			}
-		}
-	}
-
-	function bulk_ignore()
-	{
-		if(isset($_GET[$this->post_type]))
-		{
-			$obj_log = new mf_log();
-
-			foreach($_GET[$this->post_type] as $post_id)
-			{
-				$obj_log->row_affect(array('type' => 'ignore', 'id' => $post_id));
-			}
-		}
-	}
-
-	function column_default($item, $column_name)
-	{
-		$out = "";
-
-		switch($column_name)
-		{
-			case 'post_title':
-				$post_id = $item['ID'];
-				$post_status = $item['post_status'];
-				$post_author = $item['post_author'];
-
-				$actions = array();
-
-				if($post_status != "trash")
-				{
-					if($post_author == get_current_user_id() || IS_ADMIN)
-					{
-						$actions['delete'] = "<a href='".wp_nonce_url(admin_url("admin.php?page=mf_log/list/index.php&btnLogDelete&intLogID=".$post_id), 'log_delete_'.$post_id, '_wpnonce_log_delete')."'>".__("Delete", 'lang_log')."</a>";
-					}
-				}
-
-				if($post_status != "ignore")
-				{
-					if($post_author == get_current_user_id() || IS_ADMIN)
-					{
-						$actions['ignore'] = "<a href='".wp_nonce_url(admin_url("admin.php?page=mf_log/list/index.php&btnLogIgnore&intLogID=".$post_id), 'log_ignore_'.$post_id, '_wpnonce_log_ignore')."' rel='confirm'>".__("Ignore", 'lang_log')."</a>";
-					}
-				}
-
-				$out .= $item['post_title']
-				.$this->row_actions($actions);
-			break;
-
-			case 'menu_order':
-				$out .= ($item['menu_order'] > 1 ? $item['menu_order'] : "");
-			break;
-
-			default:
-				if(isset($item[$column_name]))
-				{
-					$out .= $item[$column_name];
-				}
-			break;
-		}
-
-		return $out;
 	}
 }
 
