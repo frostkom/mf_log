@@ -888,10 +888,9 @@ if(!class_exists('Debug_Queries'))
 			add_action('shutdown', array($this, 'the_queries'));
 		}
 
-		// core
 		function get_queries()
 		{
-			global $wpdb;
+			global $wpdb, $obj_base;
 
 			$debug_queries = "";
 			$count_queries = count($wpdb->queries);
@@ -997,9 +996,12 @@ if(!class_exists('Debug_Queries'))
 				{
 					if($check_duplicates)
 					{
-						$arr_duplicates = array_sort(array('array' => $arr_duplicates, 'on' => 'total_time', 'order' => 'desc'));
+						if(!isset($obj_base))
+						{
+							$obj_base = new mf_base();
+						}
 
-						//do_log("Duplicates: ".var_export($arr_duplicates, true));
+						$arr_duplicates = $obj_base->array_sort(array('array' => $arr_duplicates, 'on' => 'total_time', 'order' => 'desc'));
 
 						$count_temp = count($arr_duplicates);
 
