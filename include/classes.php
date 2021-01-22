@@ -254,6 +254,8 @@ class mf_log
 				echo "<p><i class='fa fa-exclamation-triangle yellow'></i>".sprintf(__("Remove %s from %s", 'lang_log'), "'SAVEQUERIES'", "wp-config.php")."</p>";
 			}
 		}
+
+		setting_time_limit(array('key' => $setting_key, 'value' => $option));
 	}
 
 	function setting_log_query_time_limit_callback()
