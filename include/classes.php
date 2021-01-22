@@ -73,7 +73,7 @@ class mf_log
 
 			$result = $wpdb->get_results($wpdb->prepare("SELECT ID FROM ".$wpdb->posts." WHERE post_type = %s AND (
 				post_status = %s AND post_modified < DATE_SUB(NOW(), INTERVAL 1 MONTH)
-				OR post_status = %s AND post_modified < DATE_SUB(NOW(), INTERVAL 3 MONTH)
+				OR post_status = %s AND post_modified < DATE_SUB(NOW(), INTERVAL 2 WEEK)
 				OR post_status = %s AND post_modified < DATE_SUB(NOW(), INTERVAL 1 YEAR)
 			)", 'mf_log', 'publish', 'notification', 'ignore'));
 

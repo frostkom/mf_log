@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-22 10:51+0100\n"
+"POT-Creation-Date: 2021-01-22 09:51+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Fors\n"
 "Language-Team: \n"
@@ -130,38 +130,38 @@ msgstr "Jag kunde endast radera %s inom %d sekunder"
 msgid "I deleted them all for you"
 msgstr "Jag tog bort allihop åt dig"
 
-#: ../include/classes.php:746
+#: ../include/classes.php:748
 msgid "All"
 msgstr "Alla"
 
-#: ../include/classes.php:747
+#: ../include/classes.php:749
 msgid "Notice"
 msgstr "Notifiering"
 
-#: ../include/classes.php:748
-#: ../include/classes.php:780
-#: ../include/classes.php:855
+#: ../include/classes.php:750
+#: ../include/classes.php:782
+#: ../include/classes.php:857
 msgid "Ignore"
 msgstr "Ignorera"
 
-#: ../include/classes.php:749
+#: ../include/classes.php:751
 msgid "Trash"
 msgstr "Papperskorg"
 
-#: ../include/classes.php:755
+#: ../include/classes.php:757
 msgid "Name"
 msgstr "Namn"
 
-#: ../include/classes.php:756
+#: ../include/classes.php:758
 msgid "Amount"
 msgstr "Antal"
 
-#: ../include/classes.php:757
+#: ../include/classes.php:759
 msgid "Date"
 msgstr "Datum"
 
-#: ../include/classes.php:775
-#: ../include/classes.php:847
+#: ../include/classes.php:777
+#: ../include/classes.php:849
 msgid "Delete"
 msgstr "Radera"
 
