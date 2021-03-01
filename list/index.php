@@ -13,11 +13,11 @@ $tbl_group->select_data(array(
 
 echo "<div class='wrap'>
 	<h2>"
-		.__("Log", 'lang_log');
+		.__("Log", $obj_log->lang_key);
 
 		if((!isset($_REQUEST['post_status']) || $_REQUEST['post_status'] == 'all') && $tbl_group->num_rows > 1)
 		{
-			echo "<a href='".wp_nonce_url(admin_url("admin.php?page=mf_log/list/index.php&btnLogDeleteAll".($obj_log->post_status != '' && $obj_log->post_status != 'all' ? "&post_status=".$obj_log->post_status : '')), 'log_delete_all', '_wpnonce_log_delete_all')."' class='add-new-h2' rel='confirm'>".__("Delete All", 'lang_log')."</a>";
+			echo "<a href='".wp_nonce_url(admin_url("admin.php?page=mf_log/list/index.php&btnLogDeleteAll".($obj_log->post_status != '' && $obj_log->post_status != 'all' ? "&post_status=".$obj_log->post_status : '')), 'log_delete_all', '_wpnonce_log_delete_all')."' class='add-new-h2' rel='confirm'>".__("Delete All", $obj_log->lang_key)."</a>";
 		}
 
 	echo "</h2>"
