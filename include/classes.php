@@ -436,9 +436,8 @@ class mf_log
 				{
 					switch_to_blog($id);
 
-					$arr_count = array(
-						'publish' => $this->get_amount(),
-					);
+					$arr_count = array();
+					$count_total = 0;
 
 					$arr_post_status = array(
 						'publish' => __("Publish", $this->lang_key),
@@ -449,18 +448,19 @@ class mf_log
 
 					foreach($arr_post_status as $post_status => $value)
 					{
-						$arr_count[$post_status] = $this->get_amount(array('post_status' => $post_status));
+						$count_temp = $this->get_amount(array('post_status' => $post_status));
+
+						$arr_count[$post_status] = $count_temp;
+						$count_total += $count_temp;
 					}
 
 					$base_log_url = get_home_url($id, '/')."wp-admin/admin.php?page=mf_log/list/index.php";
 
 					$i = 0;
 
-					//echo "<a href='".$base_log_url."'".($arr_count['publish'] > 0 ? "" : " class='grey'").">".$arr_count['publish']."</a>";
-
 					foreach($arr_post_status as $post_status => $value)
 					{
-						if(isset($arr_count[$post_status]) && $arr_count[$post_status] > 0)
+						if(isset($arr_count[$post_status]) && $arr_count[$post_status] > 0 || $post_status == 'publish' && $count_total > 0)
 						{
 							echo ($i > 0 ? "/" : "")."<a href='".$base_log_url."&post_status=".$post_status."' title='".$value."'".($arr_count[$post_status] > 0 ? "" : " class='grey'").">".$arr_count[$post_status]."</a>";
 
