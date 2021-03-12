@@ -2,10 +2,19 @@
 
 class mf_log
 {
-	function __contruct()
+	function __construct()
 	{
-		//$this->post_type = 'mf_log';
-		//$this->lang_key = 'lang_log';
+		$this->post_type = 'mf_log';
+		$this->lang_key = 'lang_log';
+	}
+
+	function get_amount($data = array())
+	{
+		global $wpdb;
+
+		if(!isset($data['post_status'])){	$data['post_status'] = 'publish';}
+
+		return $wpdb->get_var($wpdb->prepare("SELECT COUNT(ID) FROM ".$wpdb->posts." WHERE post_type = %s AND post_status = %s", $this->post_type, $data['post_status']));
 	}
 
 	function get_log_file_dir($data = array())
@@ -76,7 +85,7 @@ class mf_log
 				post_status = %s AND post_modified < DATE_SUB(NOW(), INTERVAL 1 MONTH)
 				OR post_status = %s AND post_modified < DATE_SUB(NOW(), INTERVAL 2 WEEK)
 				OR post_status = %s AND post_modified < DATE_SUB(NOW(), INTERVAL 1 YEAR)
-			)", 'mf_log', 'publish', 'notification', 'ignore'));
+			)", $this->post_type, 'publish', 'notification', 'ignore'));
 
 			foreach($result as $r)
 			{
@@ -90,9 +99,9 @@ class mf_log
 	function init()
 	{
 		$labels = array(
-			'name' => _x(__("Log", 'lang_log'), 'post type general name'),
-			'singular_name' => _x(__("Log", 'lang_log'), 'post type singular name'),
-			'menu_name' => __("Log", 'lang_log')
+			'name' => _x(__("Log", $this->lang_key), 'post type general name'),
+			'singular_name' => _x(__("Log", $this->lang_key), 'post type singular name'),
+			'menu_name' => __("Log", $this->lang_key)
 		);
 
 		$args = array(
@@ -104,7 +113,7 @@ class mf_log
 			'has_archive' => false,
 		);
 
-		register_post_type('mf_log', $args);
+		register_post_type($this->post_type, $args);
 	}
 
 	function combined_head()
@@ -137,23 +146,23 @@ class mf_log
 			add_settings_section($options_area, "", array($this, $options_area."_callback"), BASE_OPTIONS_PAGE);
 
 			$arr_settings = array(
-				'setting_log_activate' => __("Activate", 'lang_log'),
+				'setting_log_activate' => __("Activate", $this->lang_key),
 			);
 
 			if(get_option('setting_log_activate') == 'yes')
 			{
-				//$arr_settings['setting_log_curl_debug'] = sprintf(__("Debug %s", 'lang_log'), "cURL");
-				$arr_settings['setting_log_js_debug'] = sprintf(__("Debug %s", 'lang_log'), "Javascript");
-				$arr_settings['setting_log_query_debug'] = __("Debug Database Queries", 'lang_log');
+				//$arr_settings['setting_log_curl_debug'] = sprintf(__("Debug %s", $this->lang_key), "cURL");
+				$arr_settings['setting_log_js_debug'] = sprintf(__("Debug %s", $this->lang_key), "Javascript");
+				$arr_settings['setting_log_query_debug'] = __("Debug Database Queries", $this->lang_key);
 
 				if(get_option('setting_log_query_debug') == 'yes')
 				{
-					$arr_settings['setting_log_query_time_limit'] = __("Query Time Limit", 'lang_log');
-					$arr_settings['setting_log_page_time_limit'] = __("Page Time Limit", 'lang_log');
-					$arr_settings['setting_log_source_percent_limit'] = __("Slow Part Percent Limit", 'lang_log');
+					$arr_settings['setting_log_query_time_limit'] = __("Query Time Limit", $this->lang_key);
+					$arr_settings['setting_log_page_time_limit'] = __("Page Time Limit", $this->lang_key);
+					$arr_settings['setting_log_source_percent_limit'] = __("Slow Part Percent Limit", $this->lang_key);
 				}
 
-				$arr_settings['setting_log_custom_debug_file'] = __("Custom Debug File", 'lang_log');
+				$arr_settings['setting_log_custom_debug_file'] = __("Custom Debug File", $this->lang_key);
 			}
 
 			show_settings_fields(array('area' => $options_area, 'object' => $this, 'settings' => $arr_settings));
@@ -164,7 +173,7 @@ class mf_log
 	{
 		$setting_key = get_setting_key(__FUNCTION__);
 
-		echo settings_header($setting_key, __("Log and Debug", 'lang_log'));
+		echo settings_header($setting_key, __("Log and Debug", $this->lang_key));
 	}
 
 	function setting_log_activate_callback()
@@ -185,13 +194,13 @@ class mf_log
 				define('WP_DEBUG_DISPLAY', false);";
 
 				echo "<div class='mf_form'>"
-					."<h3 class='display_warning'><i class='fa fa-exclamation-triangle yellow'></i> ".sprintf(__("Add this to the end of %s", 'lang_log'), "wp-config.php")."</h3>";
+					."<h3 class='display_warning'><i class='fa fa-exclamation-triangle yellow'></i> ".sprintf(__("Add this to the end of %s", $this->lang_key), "wp-config.php")."</h3>";
 
 					if(!file_exists($debug_file))
 					{
 						if(!is_writable(dirname($debug_file)))
 						{
-							echo "<p>".sprintf(__("%s is not writable. Please, make sure that the folder can be written to so that Wordpress can log errors", 'lang_log'), dirname($debug_file))."</p>";
+							echo "<p>".sprintf(__("%s is not writable. Please, make sure that the folder can be written to so that Wordpress can log errors", $this->lang_key), dirname($debug_file))."</p>";
 						}
 					}
 
@@ -205,8 +214,8 @@ class mf_log
 			if(defined('WP_DEBUG_LOG') && WP_DEBUG_LOG == true)
 			{
 				echo "<div class='mf_form'>"
-					."<h3 class='display_warning'><i class='fa fa-exclamation-triangle yellow'></i> ".sprintf(__("Change settings in %s", 'lang_log'), "wp-config.php")."</h3>
-					<p>".sprintf(__("Change %s to %s in %s or else you have to handle the content in %s so that it does not grow in size", 'lang_log'), "WP_DEBUG_LOG", "false", "wp-config.php", $debug_file)."</p>"
+					."<h3 class='display_warning'><i class='fa fa-exclamation-triangle yellow'></i> ".sprintf(__("Change settings in %s", $this->lang_key), "wp-config.php")."</h3>
+					<p>".sprintf(__("Change %s to %s in %s or else you have to handle the content in %s so that it does not grow in size", $this->lang_key), "WP_DEBUG_LOG", "false", "wp-config.php", $debug_file)."</p>"
 				."</div>";
 			}
 		}
@@ -233,7 +242,7 @@ class mf_log
 		$setting_key = get_setting_key(__FUNCTION__);
 		$option = get_option($setting_key, 'no');
 
-		echo show_select(array('data' => get_yes_no_for_select(), 'name' => $setting_key, 'value' => $option, 'suffix' => __("This will hurt performance on the frontend so use this for debugging only and then turn off", 'lang_log')));
+		echo show_select(array('data' => get_yes_no_for_select(), 'name' => $setting_key, 'value' => $option, 'suffix' => __("This will hurt performance on the frontend so use this for debugging only and then turn off", $this->lang_key)));
 
 		if($option == 'yes')
 		{
@@ -242,7 +251,7 @@ class mf_log
 				$recommend_config = "define('SAVEQUERIES', true);";
 
 				echo "<div class='mf_form'>"
-					."<h3 class='display_warning'><i class='fa fa-exclamation-triangle yellow'></i> ".sprintf(__("Add this to the end of %s", 'lang_log'), "wp-config.php")."</h3>
+					."<h3 class='display_warning'><i class='fa fa-exclamation-triangle yellow'></i> ".sprintf(__("Add this to the end of %s", $this->lang_key), "wp-config.php")."</h3>
 					<p class='input'>".nl2br(htmlspecialchars($recommend_config))."</p>"
 				."</div>";
 			}
@@ -252,7 +261,7 @@ class mf_log
 		{
 			if(defined('SAVEQUERIES') && SAVEQUERIES == true)
 			{
-				echo "<p><i class='fa fa-exclamation-triangle yellow'></i>".sprintf(__("Remove %s from %s", 'lang_log'), "'SAVEQUERIES'", "wp-config.php")."</p>";
+				echo "<p><i class='fa fa-exclamation-triangle yellow'></i>".sprintf(__("Remove %s from %s", $this->lang_key), "'SAVEQUERIES'", "wp-config.php")."</p>";
 			}
 		}
 
@@ -264,7 +273,7 @@ class mf_log
 		$setting_key = get_setting_key(__FUNCTION__);
 		$option = get_option($setting_key, .5);
 
-		echo show_textfield(array('type' => 'number', 'name' => $setting_key, 'value' => $option, 'placeholder' => "0-10", 'xtra' => "min='0' max='10' step='0.1'", 'suffix' => __("s", 'lang_log'))); //, 'pattern' => "\d{1}(\.\d{0,4})?"
+		echo show_textfield(array('type' => 'number', 'name' => $setting_key, 'value' => $option, 'placeholder' => "0-10", 'xtra' => "min='0' max='10' step='0.1'", 'suffix' => __("s", $this->lang_key))); //, 'pattern' => "\d{1}(\.\d{0,4})?"
 	}
 
 	function setting_log_page_time_limit_callback()
@@ -272,7 +281,7 @@ class mf_log
 		$setting_key = get_setting_key(__FUNCTION__);
 		$option = get_option($setting_key, 8);
 
-		echo show_textfield(array('type' => 'number', 'name' => $setting_key, 'value' => $option, 'placeholder' => "0-10", 'xtra' => "min='0' max='10' step='0.1'", 'suffix' => __("s", 'lang_log'))); //, 'pattern' => "\d{1}(\.\d{0,4})?"
+		echo show_textfield(array('type' => 'number', 'name' => $setting_key, 'value' => $option, 'placeholder' => "0-10", 'xtra' => "min='0' max='10' step='0.1'", 'suffix' => __("s", $this->lang_key))); //, 'pattern' => "\d{1}(\.\d{0,4})?"
 	}
 
 	function setting_log_source_percent_limit_callback()
@@ -296,13 +305,13 @@ class mf_log
 			{
 				if(!is_readable($option))
 				{
-					echo "<em><i class='fa fa-exclamation-triangle yellow'></i> ".__("The file is not readable", 'lang_log')."</em>";
+					echo "<em><i class='fa fa-exclamation-triangle yellow'></i> ".__("The file is not readable", $this->lang_key)."</em>";
 				}
 			}
 
 			else
 			{
-				echo "<em><i class='fa fa-times red'></i> ".__("The file does not exist", 'lang_log')."</em>";
+				echo "<em><i class='fa fa-times red'></i> ".__("The file does not exist", $this->lang_key)."</em>";
 			}
 		}
 	}
@@ -315,12 +324,12 @@ class mf_log
 
 		$last_viewed = date("Y-m-d H:i:s", strtotime(get_user_meta(get_current_user_id(), 'meta_log_viewed', true)));
 
-		$result = $wpdb->get_results($wpdb->prepare("SELECT ID FROM ".$wpdb->posts." WHERE post_type = %s AND post_status = %s AND post_modified > %s", 'mf_log', 'publish', $last_viewed));
+		$result = $wpdb->get_results($wpdb->prepare("SELECT ID FROM ".$wpdb->posts." WHERE post_type = %s AND post_status = %s AND post_modified > %s", $this->post_type, 'publish', $last_viewed));
 		$rows = $wpdb->num_rows;
 
 		if($rows > 0)
 		{
-			$count_message = "&nbsp;<span class='update-plugins' title='".__("New Errors", 'lang_log')."'>
+			$count_message = "&nbsp;<span class='update-plugins' title='".__("New Errors", $this->lang_key)."'>
 				<span>".$rows."</span>
 			</span>";
 		}
@@ -348,7 +357,7 @@ class mf_log
 				}
 			}
 
-			$menu_title = __("Log", 'lang_log');
+			$menu_title = __("Log", $this->lang_key);
 			add_submenu_page("tools.php", $menu_title, $menu_title.$count_message, $menu_capability, $menu_start);
 		}
 	}
@@ -361,13 +370,13 @@ class mf_log
 
 		if(IS_ADMIN)
 		{
-			$result = $wpdb->get_results($wpdb->prepare("SELECT ID, post_modified FROM ".$wpdb->posts." WHERE post_type = %s AND post_status = %s AND post_modified > %s", 'mf_log', 'publish', $data['cutoff']));
+			$result = $wpdb->get_results($wpdb->prepare("SELECT ID, post_modified FROM ".$wpdb->posts." WHERE post_type = %s AND post_status = %s AND post_modified > %s", $this->post_type, 'publish', $data['cutoff']));
 			$rows = $wpdb->num_rows;
 
 			if($rows > 0)
 			{
 				return array(
-					'title' => $rows > 1 ? sprintf(__("There are %d new errors in the log", 'lang_log'), $rows) : __("There is one new error in the log", 'lang_log'),
+					'title' => $rows > 1 ? sprintf(__("There are %d new errors in the log", $this->lang_key), $rows) : __("There is one new error in the log", $this->lang_key),
 					'tag' => 'log',
 					//'text' => "",
 					//'icon' => "",
@@ -413,7 +422,7 @@ class mf_log
 	{
 		unset($cols['registered']);
 
-		$cols['log'] = __("Log", 'lang_log');
+		$cols['log'] = __("Log", $this->lang_key);
 
 		return $cols;
 	}
@@ -427,18 +436,36 @@ class mf_log
 				{
 					switch_to_blog($id);
 
-					$tbl_group = new mf_log_table();
+					$arr_count = array(
+						'publish' => $this->get_amount(),
+					);
 
-					$tbl_group->select_data(array(
-						'select' => "ID",
-						'debug' => ($_SERVER['REMOTE_ADDR'] == ""),
-					));
+					$arr_post_status = array(
+						'publish' => __("Publish", $this->lang_key),
+						'notification' => __("Notice", $this->lang_key),
+						//'ignore' => __("Ignore", $this->lang_key),
+						//'trash' => __("Trash", $this->lang_key),
+					);
 
-					$count_temp = count($tbl_group->data);
-
-					if($count_temp > 0)
+					foreach($arr_post_status as $post_status => $value)
 					{
-						echo "<a href='".get_home_url($id, '/')."wp-admin/admin.php?page=mf_log/list/index.php'>".$count_temp."</a>";
+						$arr_count[$post_status] = $this->get_amount(array('post_status' => $post_status));
+					}
+
+					$base_log_url = get_home_url($id, '/')."wp-admin/admin.php?page=mf_log/list/index.php";
+
+					$i = 0;
+
+					//echo "<a href='".$base_log_url."'".($arr_count['publish'] > 0 ? "" : " class='grey'").">".$arr_count['publish']."</a>";
+
+					foreach($arr_post_status as $post_status => $value)
+					{
+						if(isset($arr_count[$post_status]) && $arr_count[$post_status] > 0)
+						{
+							echo ($i > 0 ? "/" : "")."<a href='".$base_log_url."&post_status=".$post_status."' title='".$value."'".($arr_count[$post_status] > 0 ? "" : " class='grey'").">".$arr_count[$post_status]."</a>";
+
+							$i++;
+						}
 					}
 
 					restore_current_blog();
@@ -500,30 +527,30 @@ class mf_log
 				case 'trash':
 					if(wp_trash_post($data['id']))
 					{
-						$done_text = __("The information was trashed", 'lang_log');
+						$done_text = __("The information was trashed", $this->lang_key);
 					}
 				break;
 
 				case 'restore':
 					if(wp_untrash_post($data['id']))
 					{
-						$done_text = __("The information was restored", 'lang_log');
+						$done_text = __("The information was restored", $this->lang_key);
 					}
 				break;
 
 				case 'delete':
 					if(wp_delete_post($data['id']))
 					{
-						$done_text = __("The information was deleted", 'lang_log');
+						$done_text = __("The information was deleted", $this->lang_key);
 					}
 				break;
 
 				case 'ignore':
-					$wpdb->query($wpdb->prepare("UPDATE ".$wpdb->posts." SET post_status = %s, post_modified = NOW() WHERE post_type = %s AND ID = '%d'", 'ignore', 'mf_log', $data['id']));
+					$wpdb->query($wpdb->prepare("UPDATE ".$wpdb->posts." SET post_status = %s, post_modified = NOW() WHERE post_type = %s AND ID = '%d'", 'ignore', $this->post_type, $data['id']));
 
 					if($wpdb->rows_affected > 0)
 					{
-						$done_text = __("The information is being ignored from now on", 'lang_log');
+						$done_text = __("The information is being ignored from now on", $this->lang_key);
 					}
 				break;
 			}
@@ -549,7 +576,7 @@ class mf_log
 			{
 				switch_to_blog($r->blog_id);
 
-				$post_id = $wpdb->get_var($wpdb->prepare("SELECT ID FROM ".$wpdb->posts." WHERE post_type = %s AND post_content = %s", 'mf_log', $post_content));
+				$post_id = $wpdb->get_var($wpdb->prepare("SELECT ID FROM ".$wpdb->posts." WHERE post_type = %s AND post_content = %s", $this->post_type, $post_content));
 
 				switch($data['type'])
 				{
@@ -558,7 +585,7 @@ class mf_log
 					break;
 
 					case 'ignore':
-						$wpdb->query($wpdb->prepare("UPDATE ".$wpdb->posts." SET post_status = %s, post_modified = NOW() WHERE post_type = %s AND ID = '%d'", 'ignore', 'mf_log', $post_id));
+						$wpdb->query($wpdb->prepare("UPDATE ".$wpdb->posts." SET post_status = %s, post_modified = NOW() WHERE post_type = %s AND ID = '%d'", 'ignore', $this->post_type, $post_id));
 					break;
 				}
 
@@ -577,7 +604,7 @@ class mf_log
 
 			$i = 0;
 
-			$result = $wpdb->get_results($wpdb->prepare("SELECT ID FROM ".$wpdb->posts." WHERE post_type = %s AND post_status".($this->post_status != '' ? " = '".esc_sql($this->post_status)."'" : " IN ('publish', 'draft')")." ORDER BY post_date ASC", 'mf_log'));
+			$result = $wpdb->get_results($wpdb->prepare("SELECT ID FROM ".$wpdb->posts." WHERE post_type = %s AND post_status".($this->post_status != '' ? " = '".esc_sql($this->post_status)."'" : " IN ('publish', 'draft')")." ORDER BY post_date ASC", $this->post_type));
 
 			foreach($result as $r)
 			{
@@ -591,7 +618,7 @@ class mf_log
 
 					if($obj_microtime->check_time($time_limit))
 					{
-						$error_text = sprintf(__("I could only delete %d within %d seconds", 'lang_log'), $i, $time_limit);
+						$error_text = sprintf(__("I could only delete %d within %d seconds", $this->lang_key), $i, $time_limit);
 
 						break;
 					}
@@ -603,7 +630,7 @@ class mf_log
 
 			if($error_text == '')
 			{
-				$done_text = __("I deleted them all for you", 'lang_log');
+				$done_text = __("I deleted them all for you", $this->lang_key);
 			}
 		}
 
@@ -669,7 +696,7 @@ class mf_log
 				case 'draft':
 				case 'notification':
 				case 'publish':
-					$result = $wpdb->get_results($wpdb->prepare("SELECT ID, post_status, menu_order, post_modified FROM ".$wpdb->posts." WHERE post_type = %s AND (post_title = %s OR post_content = %s)", 'mf_log', $post_title, $post_md5));
+					$result = $wpdb->get_results($wpdb->prepare("SELECT ID, post_status, menu_order, post_modified FROM ".$wpdb->posts." WHERE post_type = %s AND (post_title = %s OR post_content = %s)", $this->post_type, $post_title, $post_md5));
 
 					if($wpdb->num_rows > 0)
 					{
@@ -689,7 +716,7 @@ class mf_log
 									$post_data = array(
 										'ID' => $post_id,
 										'post_status' => $action,
-										'post_type' => 'mf_log',
+										'post_type' => $this->post_type,
 										'post_title' => $post_title,
 										'post_content' => $post_md5,
 										'menu_order' => ($menu_order == 0 ? 2 : ++$menu_order),
@@ -712,7 +739,7 @@ class mf_log
 					{
 						$post_data = array(
 							'post_status' => $action,
-							'post_type' => 'mf_log',
+							'post_type' => $this->post_type,
 							'post_title' => $post_title,
 							'post_content' => $post_md5,
 						);
@@ -722,7 +749,7 @@ class mf_log
 				break;
 
 				case 'trash':
-					$result = $wpdb->get_results($wpdb->prepare("SELECT ID FROM ".$wpdb->posts." WHERE post_type = %s AND post_status NOT IN ('trash', 'ignore') AND (post_title LIKE %s OR post_content = %s)", 'mf_log', $post_title."%", $post_md5));
+					$result = $wpdb->get_results($wpdb->prepare("SELECT ID FROM ".$wpdb->posts." WHERE post_type = %s AND post_status NOT IN ('trash', 'ignore') AND (post_title LIKE %s OR post_content = %s)", $this->post_type, $post_title."%", $post_md5));
 
 					foreach($result as $r)
 					{
@@ -742,12 +769,14 @@ if(class_exists('mf_list_table'))
 	{
 		function set_default()
 		{
-			$this->post_type = 'mf_log';
+			global $obj_log;
+
+			$this->post_type = $obj_log->post_type; // This has to be here and can not be simplified
 
 			$this->orderby_default = "post_modified";
 			$this->orderby_default_order = "DESC";
 
-			$this->arr_settings['query_trash_id'] = array('trash', 'ignore', 'notification');
+			$this->arr_settings['query_trash_id'] = array('notification', 'ignore', 'trash');
 		}
 
 		function init_fetch()
@@ -762,18 +791,18 @@ if(class_exists('mf_list_table'))
 			$this->set_views(array(
 				'db_field' => 'post_status',
 				'types' => array(
-					'all' => __("All", 'lang_log'),
-					'notification' => __("Notice", 'lang_log'),
-					'ignore' => __("Ignore", 'lang_log'),
-					'trash' => __("Trash", 'lang_log'),
+					'all' => __("All", $obj_log->lang_key),
+					'notification' => __("Notice", $obj_log->lang_key),
+					'ignore' => __("Ignore", $obj_log->lang_key),
+					'trash' => __("Trash", $obj_log->lang_key),
 				),
 			));
 
 			$this->set_columns(array(
 				'cb' => '<input type="checkbox">',
-				'post_title' => __("Name", 'lang_log'),
-				'menu_order' => __("Amount", 'lang_log'),
-				'post_modified' => __("Date", 'lang_log'),
+				'post_title' => __("Name", $obj_log->lang_key),
+				'menu_order' => __("Amount", $obj_log->lang_key),
+				'post_modified' => __("Date", $obj_log->lang_key),
 			));
 
 			$this->set_sortable_columns(array(
@@ -795,18 +824,18 @@ if(class_exists('mf_list_table'))
 
 				if($post_status == 'trash')
 				{
-					$actions['restore'] = __("Restore", 'lang_log');
-					$actions['delete'] = __("Permanently Delete", 'lang_log');
+					$actions['restore'] = __("Restore", $obj_log->lang_key);
+					$actions['delete'] = __("Permanently Delete", $obj_log->lang_key);
 				}
 
 				else
 				{
-					$actions['trash'] = __("Delete", 'lang_log');
+					$actions['trash'] = __("Delete", $obj_log->lang_key);
 				}
 
 				if($post_status != 'ignore')
 				{
-					$actions['ignore'] = __("Ignore", 'lang_log');
+					$actions['ignore'] = __("Ignore", $obj_log->lang_key);
 				}
 			}
 
@@ -842,9 +871,9 @@ if(class_exists('mf_list_table'))
 		{
 			global $obj_log;
 
-			if(isset($_GET[$this->post_type]))
+			if(isset($_GET[$obj_log->post_type]))
 			{
-				foreach($_GET[$this->post_type] as $post_id)
+				foreach($_GET[$obj_log->post_type] as $post_id)
 				{
 					$obj_log->row_affect(array('type' => 'trash', 'id' => $post_id));
 				}
@@ -855,9 +884,9 @@ if(class_exists('mf_list_table'))
 		{
 			global $obj_log;
 
-			if(isset($_GET[$this->post_type]))
+			if(isset($_GET[$obj_log->post_type]))
 			{
-				foreach($_GET[$this->post_type] as $post_id)
+				foreach($_GET[$obj_log->post_type] as $post_id)
 				{
 					$obj_log->row_affect(array('type' => 'restore', 'id' => $post_id));
 				}
@@ -868,9 +897,9 @@ if(class_exists('mf_list_table'))
 		{
 			global $obj_log;
 
-			if(isset($_GET[$this->post_type]))
+			if(isset($_GET[$obj_log->post_type]))
 			{
-				foreach($_GET[$this->post_type] as $post_id)
+				foreach($_GET[$obj_log->post_type] as $post_id)
 				{
 					$obj_log->row_affect(array('type' => 'delete', 'id' => $post_id));
 				}
@@ -881,9 +910,9 @@ if(class_exists('mf_list_table'))
 		{
 			global $obj_log;
 
-			if(isset($_GET[$this->post_type]))
+			if(isset($_GET[$obj_log->post_type]))
 			{
-				foreach($_GET[$this->post_type] as $post_id)
+				foreach($_GET[$obj_log->post_type] as $post_id)
 				{
 					$obj_log->row_affect(array('type' => 'ignore', 'id' => $post_id));
 				}
@@ -909,7 +938,7 @@ if(class_exists('mf_list_table'))
 					{
 						if($post_author == get_current_user_id() || IS_ADMIN)
 						{
-							$actions['delete'] = "<a href='".wp_nonce_url(admin_url("admin.php?page=mf_log/list/index.php&btnLogTrash&intLogID=".$post_id), 'log_trash_'.$post_id, '_wpnonce_log_trash')."'>".__("Delete", 'lang_log')."</a>";
+							$actions['delete'] = "<a href='".wp_nonce_url(admin_url("admin.php?page=mf_log/list/index.php&btnLogTrash&intLogID=".$post_id), 'log_trash_'.$post_id, '_wpnonce_log_trash')."'>".__("Delete", $obj_log->lang_key)."</a>";
 						}
 					}
 
@@ -917,7 +946,7 @@ if(class_exists('mf_list_table'))
 					{
 						if($post_author == get_current_user_id() || IS_ADMIN)
 						{
-							$actions['ignore'] = "<a href='".wp_nonce_url(admin_url("admin.php?page=mf_log/list/index.php&btnLogIgnore&intLogID=".$post_id), 'log_ignore_'.$post_id, '_wpnonce_log_ignore')."' rel='confirm'>".__("Ignore", 'lang_log')."</a>";
+							$actions['ignore'] = "<a href='".wp_nonce_url(admin_url("admin.php?page=mf_log/list/index.php&btnLogIgnore&intLogID=".$post_id), 'log_ignore_'.$post_id, '_wpnonce_log_ignore')."' rel='confirm'>".__("Ignore", $obj_log->lang_key)."</a>";
 						}
 					}
 
@@ -953,7 +982,7 @@ if(!class_exists('Debug_Queries'))
 
 		function get_queries()
 		{
-			global $wpdb, $obj_base;
+			global $wpdb, $obj_base, $obj_log;
 
 			$debug_queries = "";
 			$count_queries = count($wpdb->queries);
@@ -1102,9 +1131,14 @@ if(!class_exists('Debug_Queries'))
 
 								case 'plugins':
 								case 'themes':
+									if(!isset($obj_log))
+									{
+										$obj_log = new mf_log();
+									}
+
 									foreach($source as $folder => $time)
 									{
-										if(!in_array($folder, array('mf_log'))) // This will naturally be a performance drain when activated to debug
+										if(!in_array($folder, array($obj_log->post_type))) // This will naturally be a performance drain when activated to debug
 										{
 											$percent = round(($time / $total_time) * 100);
 
