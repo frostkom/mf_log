@@ -129,11 +129,6 @@ class mf_log
 
 	function admin_init()
 	{
-		if(!is_plugin_active("mf_base/index.php"))
-		{
-			deactivate_plugins(str_replace("include/classes.php", "index.php", plugin_basename(__FILE__)));
-		}
-
 		$this->combined_head();
 	}
 
@@ -934,19 +929,18 @@ if(class_exists('mf_list_table'))
 
 					$actions = array();
 
-					if($post_status != "trash")
+					if($post_author == get_current_user_id() || IS_ADMIN)
 					{
-						if($post_author == get_current_user_id() || IS_ADMIN)
-						{
-							$actions['delete'] = "<a href='".wp_nonce_url(admin_url("admin.php?page=mf_log/list/index.php&btnLogTrash&intLogID=".$post_id), 'log_trash_'.$post_id, '_wpnonce_log_trash')."'>".__("Delete", $obj_log->lang_key)."</a>";
-						}
-					}
+						$list_url = admin_url("admin.php?page=mf_log/list/index.php&intLogID=".$post_id."&post_status=".check_var('post_status'));
 
-					if($post_status != "ignore")
-					{
-						if($post_author == get_current_user_id() || IS_ADMIN)
+						if($post_status != "trash")
 						{
-							$actions['ignore'] = "<a href='".wp_nonce_url(admin_url("admin.php?page=mf_log/list/index.php&btnLogIgnore&intLogID=".$post_id), 'log_ignore_'.$post_id, '_wpnonce_log_ignore')."' rel='confirm'>".__("Ignore", $obj_log->lang_key)."</a>";
+							$actions['delete'] = "<a href='".wp_nonce_url($list_url."&btnLogTrash", 'log_trash_'.$post_id, '_wpnonce_log_trash')."'>".__("Delete", $obj_log->lang_key)."</a>";
+						}
+
+						if($post_status != "ignore")
+						{
+							$actions['ignore'] = "<a href='".wp_nonce_url($list_url."&btnLogIgnore", 'log_ignore_'.$post_id, '_wpnonce_log_ignore')."' rel='confirm'>".__("Ignore", $obj_log->lang_key)."</a>";
 						}
 					}
 
