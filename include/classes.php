@@ -426,7 +426,7 @@ class mf_log
 		switch($col)
 		{
 			case 'log':
-				if(get_blog_status($id, 'deleted') == 0)
+				if(get_blog_status($id, 'deleted') == 0 && get_blog_status($id, 'archived') == 0)
 				{
 					switch_to_blog($id);
 
