@@ -651,6 +651,7 @@ class mf_log
 			"/^([0-9]+)$/",
 			"/^(maybe_log_events_response)/",
 			"/^(spam \= \'0\' AND deleted \= \'0\')/",
+			"/^(auditor\:)/",
 		);
 
 		foreach($arr_ignore as $regexp)
