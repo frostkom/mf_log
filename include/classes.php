@@ -126,11 +126,6 @@ class mf_log
 		}
 	}
 
-	function admin_init()
-	{
-		$this->combined_head();
-	}
-
 	function settings_log()
 	{
 		if(IS_SUPER_ADMIN)
@@ -308,6 +303,25 @@ class mf_log
 				echo "<em><i class='fa fa-times red'></i> ".__("The file does not exist", 'lang_log')."</em>";
 			}
 		}
+	}
+
+	function admin_init()
+	{
+		$this->combined_head();
+	}
+
+	function filter_sites_table_settings($arr_settings)
+	{
+		$arr_settings['settings_log'] = array(
+			'setting_log_activate' => array(
+				'type' => 'bool',
+				'global' => false,
+				'icon' => "fas fa-exclamation-triangle",
+				'name' => __("Activate", 'lang_log'),
+			),
+		);
+
+		return $arr_settings;
 	}
 
 	function get_count_message($id = 0)
