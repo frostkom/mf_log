@@ -8,7 +8,6 @@ $tbl_group = new mf_log_table();
 
 $tbl_group->select_data(array(
 	//'select' => "*",
-	'debug' => ($_SERVER['REMOTE_ADDR'] == ""),
 ));
 
 echo "<div class='wrap'>

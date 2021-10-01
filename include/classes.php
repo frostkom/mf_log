@@ -231,7 +231,9 @@ class mf_log
 		$setting_key = get_setting_key(__FUNCTION__);
 		$option = get_option($setting_key, 'no');
 
-		echo show_select(array('data' => get_yes_no_for_select(), 'name' => $setting_key, 'value' => $option, 'suffix' => __("This will hurt performance on the frontend so use this for debugging only and then turn off", 'lang_log')));
+		$description = setting_time_limit(array('key' => $setting_key, 'value' => $option));
+
+		echo show_select(array('data' => get_yes_no_for_select(), 'name' => $setting_key, 'value' => $option, 'suffix' => __("This will hurt performance on the frontend so use this for debugging only and then turn off", 'lang_log'), 'description' => $description));
 
 		if($option == 'yes')
 		{
@@ -253,8 +255,6 @@ class mf_log
 				echo "<p><i class='fa fa-exclamation-triangle yellow'></i>".sprintf(__("Remove %s from %s", 'lang_log'), "'SAVEQUERIES'", "wp-config.php")."</p>";
 			}
 		}
-
-		setting_time_limit(array('key' => $setting_key, 'value' => $option));
 	}
 
 	function setting_log_query_time_limit_callback()
