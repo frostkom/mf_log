@@ -47,7 +47,7 @@ class mf_log
 
 				if(file_exists($debug_file))
 				{
-					$error_limit = 50 * pow(1024, 2);
+					$error_limit = (50 * pow(1024, 2));
 
 					if(filesize($debug_file) < $error_limit)
 					{

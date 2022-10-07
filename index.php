@@ -2,8 +2,8 @@
 /*
 Plugin Name: MF Log & Debug
 Plugin URI: https://github.com/frostkom/mf_log
-Description: 
-Version: 4.8.18
+Description:
+Version: 4.8.19
 Licence: GPLv2 or later
 Author: Martin Fors
 Author URI: https://frostkom.se
@@ -17,8 +17,6 @@ GitHub Plugin URI: frostkom/mf_log
 if(!function_exists('is_plugin_active') || function_exists('is_plugin_active') && is_plugin_active("mf_base/index.php"))
 {
 	include_once("include/classes.php");
-
-	load_plugin_textdomain('lang_log', false, dirname(plugin_basename(__FILE__))."/lang/");
 
 	$obj_log = new mf_log();
 
@@ -63,6 +61,8 @@ if(!function_exists('is_plugin_active') || function_exists('is_plugin_active') &
 	add_action('wp_ajax_send_js_debug', array($obj_log, 'send_js_debug'));
 	add_action('wp_ajax_nopriv_send_js_debug', array($obj_log, 'send_js_debug'));
 
+	load_plugin_textdomain('lang_log', false, dirname(plugin_basename(__FILE__))."/lang/");
+
 	function activate_log()
 	{
 		mf_uninstall_plugin(array(
@@ -72,7 +72,9 @@ if(!function_exists('is_plugin_active') || function_exists('is_plugin_active') &
 
 	function uninstall_log()
 	{
-		global $obj_log;
+		include_once("include/classes.php");
+
+		$obj_log = new mf_log();
 
 		mf_uninstall_plugin(array(
 			'options' => array('setting_log_activate', 'setting_log_save_notifications', 'setting_log_query_debug', 'setting_log_js_debug', 'setting_log_query_time_limit', 'setting_log_page_time_limit', 'setting_log_source_percent_limit'),
