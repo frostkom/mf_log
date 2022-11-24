@@ -47,7 +47,7 @@ class mf_log
 
 				if(file_exists($debug_file))
 				{
-					$error_limit = (50 * pow(1024, 2));
+					$error_limit = (MB_IN_BYTES * 50);
 
 					if(filesize($debug_file) < $error_limit)
 					{
@@ -181,6 +181,7 @@ class mf_log
 				$recommend_config = "define('WP_DEBUG', true);
 				define('WP_DEBUG_LOG', true);
 				define('WP_DEBUG_DISPLAY', false);";
+				// define('WP_DISABLE_FATAL_ERROR_HANDLER', true); // In case we don't want an e-mail to be sent on fatal error
 
 				echo "<div class='mf_form'>"
 					."<h3 class='display_warning'><i class='fa fa-exclamation-triangle yellow'></i> ".sprintf(__("Add this to the end of %s", 'lang_log'), "wp-config.php")."</h3>";
