@@ -959,6 +959,15 @@ if(class_exists('mf_list_table'))
 						}
 					}
 
+					$arr_exclude = $arr_include = array();
+					$arr_exclude[] = "PHP Deprecated:";		$arr_include[] = "<i class='fa fa-exclamation-triangle yellow' title='".__("Deprecated", 'lang_log')."'></i>";
+					$arr_exclude[] = "PHP Notice:";			$arr_include[] = "<i class='fa fa-exclamation-triangle yellow' title='".__("Notice", 'lang_log')."'></i>";
+					$arr_exclude[] = "PHP Warning:";		$arr_include[] = "<i class='fa fa-exclamation-triangle yellow' title='".__("Warning", 'lang_log')."'></i>";
+					$arr_exclude[] = "PHP Fatal error:";	$arr_include[] = "<i class='fa fa-times red' title='".__("Fatal Error", 'lang_log')."'></i>";
+					$arr_exclude[] = "Git Updater Error:";	$arr_include[] = "<i class='fa fa-exclamation-triangle yellow' title='".__("Git Error", 'lang_log')."'></i>";
+
+					$item['post_title'] = str_replace($arr_exclude, $arr_include, $item['post_title']);
+
 					$out .= $item['post_title']
 					.$this->row_actions($actions);
 				break;
