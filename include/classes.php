@@ -795,7 +795,7 @@ if(class_exists('mf_list_table'))
 
 			if($this->search != '')
 			{
-				$this->query_where .= ($this->query_where != '' ? " AND " : "")."(post_title LIKE '%".$this->search."%' OR SOUNDEX(post_title) = SOUNDEX('".$this->search."'))";
+				$this->query_where .= ($this->query_where != '' ? " AND " : "")."(post_title LIKE '".$this->filter_search_before_like($this->search)."' OR SOUNDEX(post_title) = SOUNDEX('".$this->search."'))";
 			}
 
 			$this->set_views(array(
