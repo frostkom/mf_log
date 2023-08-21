@@ -667,6 +667,7 @@ class mf_log
 			"/^(maybe_log_events_response)/",
 			"/^(spam \= \'0\' AND deleted \= \'0\')/",
 			"/^(auditor\:)/",
+			"/^(A0001 NO \[UNAVAILABLE\] Temporary authentication failure)/",
 		);
 
 		foreach($arr_ignore as $regexp)
