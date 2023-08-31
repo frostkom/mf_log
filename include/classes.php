@@ -2,9 +2,13 @@
 
 class mf_log
 {
+	var $post_type = 'mf_log';
+	var $ID = "";
+	var $post_status = "";
+
 	function __construct()
 	{
-		$this->post_type = 'mf_log';
+		//$this->post_type = 'mf_log';
 	}
 
 	function get_amount($data = array())
@@ -51,13 +55,13 @@ class mf_log
 
 					if(filesize($debug_file) < $error_limit)
 					{
-						$file = file($debug_file);
+						$arr_file = file($debug_file);
 
-						if(is_array($file))
+						if(is_array($arr_file))
 						{
-							$file = array_unique($file);
+							$arr_file = array_unique($arr_file);
 
-							foreach($file as $value)
+							foreach($arr_file as $value)
 							{
 								if(preg_match("/\]/", $value))
 								{
@@ -667,7 +671,7 @@ class mf_log
 			"/^(maybe_log_events_response)/",
 			"/^(spam \= \'0\' AND deleted \= \'0\')/",
 			"/^(auditor\:)/",
-			"/^(A0001 NO \[UNAVAILABLE\] Temporary authentication failure)/",
+			"/(A0001 NO \[UNAVAILABLE\] Temporary authentication failure)/",
 		);
 
 		foreach($arr_ignore as $regexp)
