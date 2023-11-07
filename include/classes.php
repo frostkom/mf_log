@@ -724,7 +724,7 @@ class mf_log
 							$menu_order = $r->menu_order;
 							$post_modified = $r->post_modified;
 
-							if($post_status != 'ignore' && $post_modified < date("Y-m-d H:i:s", strtotime("-60 minute")))
+							if($post_status != 'ignore') // && $post_modified < date("Y-m-d H:i:s", strtotime("-60 minute"))
 							{
 								if($i == 0)
 								{
