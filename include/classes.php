@@ -322,7 +322,7 @@ class mf_log
 				'type' => 'bool',
 				'global' => false,
 				'icon' => "fas fa-exclamation-triangle",
-				'name' => __("Activate", 'lang_log'),
+				'name' => __("Log", 'lang_log')." - ".__("Activate", 'lang_log'),
 			),
 		);
 
