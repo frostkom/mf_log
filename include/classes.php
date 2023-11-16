@@ -77,10 +77,20 @@ class mf_log
 
 					else
 					{
-						do_log(sprintf("%s was too large so it was deleted", basename($debug_file)));
+						do_log(sprintf(__("%s was too big so it was deleted", 'lang_log'), basename($debug_file)));
 
 						@unlink($debug_file);
 					}
+				}
+
+				else if(!is_writeable($debug_file))
+				{
+					$this->do_log(sprintf(__("%s is not writeable", 'lang_log'), basename($debug_file)));
+				}
+
+				else
+				{
+					//$this->do_log(sprintf(__("%s does not exist", 'lang_log'), basename($debug_file)));
 				}
 			}
 
