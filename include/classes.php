@@ -83,14 +83,9 @@ class mf_log
 					}
 				}
 
-				else if(!is_writeable($debug_file))
+				else if(!touch($debug_file))
 				{
 					$this->do_log(sprintf(__("%s is not writeable", 'lang_log'), basename($debug_file)));
-				}
-
-				else
-				{
-					//$this->do_log(sprintf(__("%s does not exist", 'lang_log'), basename($debug_file)));
 				}
 			}
 
