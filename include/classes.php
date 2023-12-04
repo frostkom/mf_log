@@ -6,10 +6,7 @@ class mf_log
 	var $ID = "";
 	var $post_status = "";
 
-	function __construct()
-	{
-		//$this->post_type = 'mf_log';
-	}
+	function __construct(){}
 
 	function get_amount($data = array())
 	{
@@ -85,7 +82,7 @@ class mf_log
 
 				else if(!touch($debug_file))
 				{
-					$this->do_log(sprintf(__("%s is not writeable", 'lang_log'), basename($debug_file)));
+					do_log(sprintf(__("%s is not writeable", 'lang_log'), basename($debug_file)));
 				}
 			}
 
@@ -384,7 +381,7 @@ class mf_log
 	{
 		global $wpdb;
 
-		if(!isset($data['cutoff'])){	$data['cutoff'] = date("Y-m-d H:i:s", strtotime("-2 minute"));} //"DATE_SUB(NOW(), INTERVAL 2 MINUTE)"
+		if(!isset($data['cutoff'])){	$data['cutoff'] = date("Y-m-d H:i:s", strtotime("-2 minute"));}
 
 		if(IS_ADMIN)
 		{
@@ -663,7 +660,7 @@ class mf_log
 		}
 	}
 
-	function filter($string)
+	function use_filter($string)
 	{
 		$string = trim($string);
 
@@ -677,6 +674,7 @@ class mf_log
 			"/^(spam \= \'0\' AND deleted \= \'0\')/",
 			"/^(auditor\:)/",
 			"/(A0001 NO \[UNAVAILABLE\] Temporary authentication failure)/",
+			"/Authenticated requests get a higher rate limit/",
 		);
 
 		foreach($arr_ignore as $regexp)
@@ -705,7 +703,7 @@ class mf_log
 	{
 		global $wpdb;
 
-		$post_title = $this->filter($post_title);
+		$post_title = $this->use_filter($post_title);
 
 		if($post_title != '')
 		{
