@@ -383,7 +383,7 @@ class mf_log
 
 		if(!isset($data['cutoff'])){	$data['cutoff'] = date("Y-m-d H:i:s", strtotime("-2 minute"));}
 
-		if(IS_ADMIN)
+		if(IS_ADMINISTRATOR)
 		{
 			$result = $wpdb->get_results($wpdb->prepare("SELECT ID, post_modified FROM ".$wpdb->posts." WHERE post_type = %s AND post_status = %s AND post_modified > %s", $this->post_type, 'publish', $data['cutoff']));
 			$rows = $wpdb->num_rows;
@@ -952,7 +952,7 @@ if(class_exists('mf_list_table'))
 
 					$actions = array();
 
-					if($post_author == get_current_user_id() || IS_ADMIN)
+					if($post_author == get_current_user_id() || IS_ADMINISTRATOR)
 					{
 						$list_url = admin_url("admin.php?page=mf_log/list/index.php&intLogID=".$post_id."&post_status=".check_var('post_status'));
 
