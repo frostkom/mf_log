@@ -293,23 +293,32 @@ class mf_log
 		$setting_key = get_setting_key(__FUNCTION__);
 		$option = get_option($setting_key);
 
-		echo show_textfield(array('name' => $setting_key, 'value' => $option, 'placeholder' => $this->get_log_file_dir()));
+		$placeholder = $this->get_log_file_dir();
 
-		if($option != '')
+		echo show_textfield(array('name' => $setting_key, 'value' => $option, 'placeholder' => $placeholder));
+
+		if($option == '')
 		{
-			if(file_exists($option))
-			{
-				if(!is_readable($option))
-				{
-					echo "<em><i class='fa fa-exclamation-triangle yellow'></i> ".__("The file is not readable", 'lang_log')."</em>";
-				}
-			}
+			$option = $placeholder;
+		}
 
-			else
+		if(!touch($option))
+		{
+			echo "<em>".sprintf(__("%s is not writeable", 'lang_log'), basename($option))."</em>";
+		}
+
+		/*if(file_exists($option))
+		{
+			if(!is_readable($option))
 			{
-				echo "<em><i class='fa fa-times red'></i> ".__("The file does not exist", 'lang_log')."</em>";
+				echo "<em><i class='fa fa-exclamation-triangle yellow'></i> ".__("The file is not readable", 'lang_log')."</em>";
 			}
 		}
+
+		else
+		{
+			echo "<em><i class='fa fa-times red'></i> ".__("The file does not exist", 'lang_log')."</em>";
+		}*/
 	}
 
 	function admin_init()
