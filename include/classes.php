@@ -684,6 +684,7 @@ class mf_log
 			"/^(auditor\:)/",
 			"/(A0001 NO \[UNAVAILABLE\] Temporary authentication failure)/",
 			"/Authenticated requests get a higher rate limit/",
+			"/data\: \{\"schedule\"\:\"/",
 		);
 
 		foreach($arr_ignore as $regexp)
