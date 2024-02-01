@@ -579,14 +579,14 @@ class mf_log
 				break;
 			}
 
-			if(IS_SUPER_ADMIN && is_multisite())
+			/*if(IS_SUPER_ADMIN && is_multisite())
 			{
 				$this->multisite_affect($data);
-			}
+			}*/
 		}
 	}
 
-	function multisite_affect($data)
+	/*function multisite_affect($data)
 	{
 		global $wpdb;
 
@@ -616,7 +616,7 @@ class mf_log
 				restore_current_blog();
 			}
 		}
-	}
+	}*/
 
 	function save_data()
 	{
