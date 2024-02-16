@@ -69,14 +69,23 @@ class mf_log
 							}
 						}
 
-						@unlink($debug_file);
+						if(file_exists($debug_file))
+						{
+							unlink($debug_file);
+						}
 					}
 
-					else
+					else if(file_exists($debug_file))
 					{
-						do_log(sprintf(__("%s was too big so it was deleted", 'lang_log'), basename($debug_file)));
+						if(unlink($debug_file))
+						{
+							do_log(sprintf(__("%s was too big so it was deleted", 'lang_log'), basename($debug_file)));
+						}
 
-						@unlink($debug_file);
+						else
+						{
+							do_log(sprintf(__("%s was too big so I tried to delete it, but I could not", 'lang_log'), basename($debug_file)));
+						}
 					}
 				}
 
@@ -685,6 +694,7 @@ class mf_log
 			"/(A0001 NO \[UNAVAILABLE\] Temporary authentication failure)/",
 			"/Authenticated requests get a higher rate limit/",
 			"/data\: \{\"schedule\"\:\"/",
+			"/Implicit conversion from float/",
 		);
 
 		foreach($arr_ignore as $regexp)
