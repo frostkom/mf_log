@@ -153,7 +153,7 @@ class mf_log
 				'setting_log_activate' => __("Activate", 'lang_log'),
 			);
 
-			if(get_option('setting_log_activate') == 'yes')
+			if(get_site_option('setting_log_activate', get_option('setting_log_activate')) == 'yes')
 			{
 				//$arr_settings['setting_log_curl_debug'] = sprintf(__("Debug %s", 'lang_log'), "cURL");
 				$arr_settings['setting_log_js_debug'] = sprintf(__("Debug %s", 'lang_log'), "Javascript");
@@ -183,7 +183,8 @@ class mf_log
 	function setting_log_activate_callback()
 	{
 		$setting_key = get_setting_key(__FUNCTION__);
-		$option = get_option($setting_key, 'yes');
+		settings_save_site_wide($setting_key);
+		$option = get_site_option($setting_key, get_option($setting_key, 'yes'));
 
 		echo show_select(array('data' => get_yes_no_for_select(), 'name' => $setting_key, 'value' => $option));
 
@@ -247,7 +248,7 @@ class mf_log
 		$setting_key = get_setting_key(__FUNCTION__);
 		$option = get_option($setting_key, 'no');
 
-		$description = setting_time_limit(array('key' => $setting_key, 'value' => $option));
+		list($option, $description) = setting_time_limit(array('key' => $setting_key, 'value' => $option, 'return' => 'array'));
 
 		echo show_select(array('data' => get_yes_no_for_select(), 'name' => $setting_key, 'value' => $option, 'suffix' => __("This will hurt performance on the frontend so use this for debugging only and then turn off", 'lang_log'), 'description' => $description));
 
@@ -340,7 +341,7 @@ class mf_log
 		$arr_settings['settings_log'] = array(
 			'setting_log_activate' => array(
 				'type' => 'bool',
-				'global' => false,
+				'global' => true,
 				'icon' => "fas fa-exclamation-triangle",
 				'name' => __("Log", 'lang_log')." - ".__("Activate", 'lang_log'),
 			),
@@ -372,7 +373,7 @@ class mf_log
 
 	function admin_menu()
 	{
-		if(get_option('setting_log_activate') == 'yes')
+		if(get_site_option('setting_log_activate', get_option('setting_log_activate')) == 'yes')
 		{
 			$menu_root = 'mf_log/';
 			$menu_start = $menu_root.'list/index.php';
@@ -455,7 +456,10 @@ class mf_log
 	{
 		unset($cols['registered']);
 
-		$cols['log'] = __("Log", 'lang_log');
+		if(get_site_option('setting_log_activate', get_option('setting_log_activate')) == 'yes')
+		{
+			$cols['log'] = __("Log", 'lang_log');
+		}
 
 		return $cols;
 	}
