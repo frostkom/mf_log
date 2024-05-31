@@ -699,6 +699,7 @@ class mf_log
 			"/Authenticated requests get a higher rate limit/",
 			"/data\: \{\"schedule\"\:\"/",
 			"/Implicit conversion from float/",
+			"/".__("Error deleting scheduled event for action hook", 'lang_log')."/",
 		);
 
 		foreach($arr_ignore as $regexp)
