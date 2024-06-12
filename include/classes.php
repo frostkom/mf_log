@@ -700,6 +700,7 @@ class mf_log
 			"/data\: \{\"schedule\"\:\"/",
 			"/Implicit conversion from float/",
 			"/".__("Error deleting scheduled event for action hook", 'lang_log')."/",
+			"/_yoast_indexable/",
 		);
 
 		foreach($arr_ignore as $regexp)
