@@ -701,6 +701,12 @@ class mf_log
 			"/Implicit conversion from float/",
 			"/".__("Error deleting scheduled event for action hook", 'lang_log')."/",
 			"/_yoast_indexable/",
+			"/Automatic updates starting.../",
+			"/Automatic plugin updates starting.../",
+			"/Automatic plugin updates complete./",
+			"/Automatic theme updates starting.../",
+			"/Automatic theme updates complete./",
+			"/Automatic updates complete./",
 		);
 
 		foreach($arr_ignore as $regexp)
