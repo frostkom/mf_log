@@ -731,7 +731,7 @@ class mf_log
 		return $string;
 	}
 
-	function create($post_title, $action = 'publish')
+	function create($post_title, $action = 'publish', $increment = true)
 	{
 		global $wpdb;
 
@@ -759,20 +759,23 @@ class mf_log
 							$menu_order = $r->menu_order;
 							$post_modified = $r->post_modified;
 
-							if($post_status != 'ignore') // && $post_modified < date("Y-m-d H:i:s", strtotime("-60 minute"))
+							if($post_status != 'ignore')
 							{
 								if($i == 0)
 								{
-									$post_data = array(
-										'ID' => $post_id,
-										'post_status' => $action,
-										'post_type' => $this->post_type,
-										'post_title' => $post_title,
-										'post_content' => $post_md5,
-										'menu_order' => ($menu_order == 0 ? 2 : ++$menu_order),
-									);
+									if($increment == true)
+									{
+										$post_data = array(
+											'ID' => $post_id,
+											'post_status' => $action,
+											'post_type' => $this->post_type,
+											'post_title' => $post_title,
+											'post_content' => $post_md5,
+											'menu_order' => ($menu_order == 0 ? 2 : ++$menu_order),
+										);
 
-									wp_update_post($post_data);
+										wp_update_post($post_data);
+									}
 								}
 
 								else
