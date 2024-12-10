@@ -112,6 +112,8 @@ class mf_log
 
 	function init()
 	{
+		load_plugin_textdomain('lang_log', false, str_replace("/include", "", dirname(plugin_basename(__FILE__))."/lang/"));
+
 		$labels = array(
 			'name' => _x(__("Log", 'lang_log'), 'post type general name'),
 			'singular_name' => _x(__("Log", 'lang_log'), 'post type singular name'),
@@ -464,14 +466,14 @@ class mf_log
 		return $cols;
 	}
 
-	function column_cell($col, $id)
+	function column_cell($col, $post_id)
 	{
 		switch($col)
 		{
 			case 'log':
-				if(get_blog_status($id, 'deleted') == 0 && get_blog_status($id, 'archived') == 0)
+				if(get_blog_status($post_id, 'deleted') == 0 && get_blog_status($post_id, 'archived') == 0)
 				{
-					switch_to_blog($id);
+					switch_to_blog($post_id);
 
 					$arr_count = array();
 					$count_total = 0;
@@ -491,7 +493,7 @@ class mf_log
 						$count_total += $count_temp;
 					}
 
-					$base_log_url = get_home_url($id, '/')."wp-admin/admin.php?page=mf_log/list/index.php";
+					$base_log_url = get_home_url($post_id, '/')."wp-admin/admin.php?page=mf_log/list/index.php";
 
 					$i = 0;
 
