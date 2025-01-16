@@ -137,9 +137,8 @@ class mf_log
 		if(get_option('setting_log_js_debug') == 'yes')
 		{
 			$plugin_include_url = plugin_dir_url(__FILE__);
-			$plugin_version = get_plugin_version(__FILE__);
 
-			mf_enqueue_script('script_log', $plugin_include_url."script.js", array('ajax_url' => admin_url('admin-ajax.php')), $plugin_version, false);
+			mf_enqueue_script('script_log', $plugin_include_url."script.js", array('ajax_url' => admin_url('admin-ajax.php')));
 		}
 	}
 
