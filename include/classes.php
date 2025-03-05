@@ -99,11 +99,13 @@ class mf_log
 				post_status = %s AND post_modified < DATE_SUB(NOW(), INTERVAL 1 MONTH)
 				OR post_status = %s AND post_modified < DATE_SUB(NOW(), INTERVAL 2 WEEK)
 				OR post_status = %s AND post_modified < DATE_SUB(NOW(), INTERVAL 1 YEAR)
-			)", $this->post_type, 'publish', 'notification', 'ignore'));
+			) LIMIT 0, 1000", $this->post_type, 'publish', 'notification', 'ignore'));
+
+			//do_log(__FUNCTION__.": ".$wpdb->last_query);
 
 			foreach($result as $r)
 			{
-				wp_trash_post($r->ID);
+				wp_delete_post($r->ID);
 			}
 		}
 
