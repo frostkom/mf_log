@@ -42,6 +42,22 @@ class mf_log
 
 		if($obj_cron->is_running == false)
 		{
+			// Trash old logs
+			#################
+			$result = $wpdb->get_results($wpdb->prepare("SELECT ID FROM ".$wpdb->posts." WHERE post_type = %s AND (
+				post_status = %s AND post_modified < DATE_SUB(NOW(), INTERVAL 1 MONTH)
+				OR post_status = %s AND post_modified < DATE_SUB(NOW(), INTERVAL 2 WEEK)
+				OR post_status = %s AND post_modified < DATE_SUB(NOW(), INTERVAL 1 YEAR)
+			) LIMIT 0, 1000", $this->post_type, 'publish', 'notification', 'ignore'));
+
+			//do_log(__FUNCTION__.": ".$wpdb->last_query);
+
+			foreach($result as $r)
+			{
+				wp_trash_post($r->ID);
+			}
+			#################
+
 			if(is_main_site())
 			{
 				$debug_file = $this->get_log_file_dir(array('type' => 'setting'));
@@ -94,19 +110,6 @@ class mf_log
 					do_log(sprintf(__("%s is not writeable", 'lang_log'), basename($debug_file)));
 				}
 			}
-
-			$result = $wpdb->get_results($wpdb->prepare("SELECT ID FROM ".$wpdb->posts." WHERE post_type = %s AND (
-				post_status = %s AND post_modified < DATE_SUB(NOW(), INTERVAL 1 MONTH)
-				OR post_status = %s AND post_modified < DATE_SUB(NOW(), INTERVAL 2 WEEK)
-				OR post_status = %s AND post_modified < DATE_SUB(NOW(), INTERVAL 1 YEAR)
-			) LIMIT 0, 1000", $this->post_type, 'publish', 'notification', 'ignore'));
-
-			//do_log(__FUNCTION__.": ".$wpdb->last_query);
-
-			foreach($result as $r)
-			{
-				wp_delete_post($r->ID);
-			}
 		}
 
 		$obj_cron->end();
@@ -116,22 +119,21 @@ class mf_log
 	{
 		load_plugin_textdomain('lang_log', false, str_replace("/include", "", dirname(plugin_basename(__FILE__))."/lang/"));
 
-		$labels = array(
-			'name' => _x(__("Log", 'lang_log'), 'post type general name'),
-			'singular_name' => _x(__("Log", 'lang_log'), 'post type singular name'),
-			'menu_name' => __("Log", 'lang_log')
-		);
-
-		$args = array(
-			'labels' => $labels,
+		// Post types
+		#######################
+		register_post_type($this->post_type, array(
+			'labels' => array(
+				'name' => _x(__("Log", 'lang_log'), 'post type general name'),
+				'singular_name' => _x(__("Log", 'lang_log'), 'post type singular name'),
+				'menu_name' => __("Log", 'lang_log')
+			),
 			'public' => false,
 			'exclude_from_search' => true,
 			'supports' => array('title'),
 			'hierarchical' => true,
 			'has_archive' => false,
-		);
-
-		register_post_type($this->post_type, $args);
+		));
+		#######################
 	}
 
 	function combined_head()
@@ -434,26 +436,6 @@ class mf_log
 
 		return $array;
 	}
-
-	/*function get_user_reminders($array)
-	{
-		$user_id = $array['user_id'];
-		$reminder_cutoff = $array['cutoff'];
-
-		do_log("get_user_reminders_log was run for ".$user_id." (".$reminder_cutoff.")");
-
-		if(user_can($user_id, 'manage_options'))
-		{
-			$update_log = $this->get_update_log(array('cutoff' => $reminder_cutoff));
-
-			if($update_log != '')
-			{
-				$array['reminder'][] = $update_log;
-			}
-		}
-
-		return $array;
-	}*/
 
 	function column_header($cols)
 	{
