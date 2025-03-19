@@ -506,8 +506,10 @@ class mf_log
 		$this->combined_head();
 	}
 
-	function send_js_debug()
+	function api_log_js_debug()
 	{
+		$json_output = array();
+
 		$url = check_var('url');
 		$msg = check_var('msg');
 		$lineNo = check_var('lineNo');
@@ -517,16 +519,16 @@ class mf_log
 		{
 			do_log(sprintf("%s in %s on line %d:%d", $msg, $url, $lineNo, $columnNo));
 
-			$result['success'] = true;
+			$json_output['success'] = true;
 		}
 
 		else
 		{
-			$result['success'] = false;
+			$json_output['success'] = false;
 		}
 
 		header('Content-Type: application/json');
-		echo json_encode($result);
+		echo json_encode($json_output);
 		die();
 	}
 

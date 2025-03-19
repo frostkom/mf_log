@@ -6,7 +6,7 @@ window.onerror = function(msg, url, lineNo, columnNo, error)
 		type: 'post',
 		dataType: 'json',
 		data: {
-			action: 'send_js_debug',
+			action: 'api_log_js_debug',
 			url: url,
 			msg: msg,
 			lineNo: lineNo,
