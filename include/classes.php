@@ -50,8 +50,6 @@ class mf_log
 				OR post_status = %s AND post_modified < DATE_SUB(NOW(), INTERVAL 1 YEAR)
 			) LIMIT 0, 1000", $this->post_type, 'publish', 'notification', 'ignore'));
 
-			//do_log(__FUNCTION__.": ".$wpdb->last_query);
-
 			foreach($result as $r)
 			{
 				wp_trash_post($r->ID);
@@ -123,8 +121,8 @@ class mf_log
 		#######################
 		register_post_type($this->post_type, array(
 			'labels' => array(
-				'name' => _x(__("Log", 'lang_log'), 'post type general name'),
-				'singular_name' => _x(__("Log", 'lang_log'), 'post type singular name'),
+				'name' => __("Log", 'lang_log'),
+				'singular_name' => __("Log", 'lang_log'),
 				'menu_name' => __("Log", 'lang_log')
 			),
 			'public' => false,
