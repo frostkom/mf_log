@@ -388,9 +388,9 @@ class mf_log
 			{
 				global $menu;
 
-				if(!preg_match("/update-plugins/i", $menu[75][0]))
+				if(!preg_match("/update-plugins/i", $menu[75][0])) // tools.php
 				{
-					$menu[75][0] .= $count_message; // tools.php
+					$menu[75][0] .= $count_message;
 				}
 			}
 
