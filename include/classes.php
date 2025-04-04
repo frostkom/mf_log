@@ -42,6 +42,10 @@ class mf_log
 
 		if($obj_cron->is_running == false)
 		{
+			mf_uninstall_plugin(array(
+				'options' => array('setting_log_save_notifications', 'setting_log_curl_debug'),
+			));
+
 			// Trash old logs
 			#################
 			$result = $wpdb->get_results($wpdb->prepare("SELECT ID FROM ".$wpdb->posts." WHERE post_type = %s AND (

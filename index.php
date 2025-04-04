@@ -3,7 +3,7 @@
 Plugin Name: MF Log & Debug
 Plugin URI: https://github.com/frostkom/mf_log
 Description:
-Version: 4.9.20
+Version: 4.9.21
 Licence: GPLv2 or later
 Author: Martin Fors
 Author URI: https://martinfors.se
@@ -32,7 +32,6 @@ if(!function_exists('is_plugin_active') || function_exists('is_plugin_active') &
 
 	if(is_admin())
 	{
-		register_activation_hook(__FILE__, 'activate_log');
 		register_uninstall_hook(__FILE__, 'uninstall_log');
 
 		add_action('admin_init', array($obj_log, 'settings_log'));
@@ -60,12 +59,6 @@ if(!function_exists('is_plugin_active') || function_exists('is_plugin_active') &
 	add_action('wp_ajax_api_log_js_debug', array($obj_log, 'api_log_js_debug'));
 	add_action('wp_ajax_nopriv_api_log_js_debug', array($obj_log, 'api_log_js_debug'));
 
-	function activate_log()
-	{
-		mf_uninstall_plugin(array(
-			'options' => array('setting_log_save_notifications', 'setting_log_curl_debug'),
-		));
-	}
 
 	function uninstall_log()
 	{
