@@ -384,7 +384,7 @@ class mf_log
 		{
 			$menu_root = 'mf_log/';
 			$menu_start = $menu_root.'list/index.php';
-			$menu_capability = override_capability(array('page' => $menu_start, 'default' => 'update_core'));
+			$menu_capability = 'update_core';
 
 			$count_message = $this->get_count_message();
 
