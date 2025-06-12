@@ -439,21 +439,21 @@ class mf_log
 		return $array;
 	}
 
-	function column_header($cols)
+	function column_header($columns)
 	{
-		unset($cols['registered']);
+		unset($columns['registered']);
 
 		if(get_site_option('setting_log_activate', get_option('setting_log_activate')) == 'yes')
 		{
-			$cols['log'] = __("Log", 'lang_log');
+			$columns['log'] = __("Log", 'lang_log');
 		}
 
-		return $cols;
+		return $columns;
 	}
 
-	function column_cell($col, $post_id)
+	function column_cell($column, $post_id)
 	{
-		switch($col)
+		switch($column)
 		{
 			case 'log':
 				if(get_blog_status($post_id, 'deleted') == 0 && get_blog_status($post_id, 'archived') == 0)
