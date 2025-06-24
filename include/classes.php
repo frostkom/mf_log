@@ -286,7 +286,7 @@ class mf_log
 		$setting_key = get_setting_key(__FUNCTION__);
 		$option = get_option($setting_key, .5);
 
-		echo show_textfield(array('type' => 'number', 'name' => $setting_key, 'value' => $option, 'placeholder' => "0-10", 'xtra' => "min='0' max='10' step='0.1'", 'suffix' => __("s", 'lang_log'))); //, 'pattern' => "\d{1}(\.\d{0,4})?"
+		echo show_textfield(array('type' => 'number', 'name' => $setting_key, 'value' => $option, 'placeholder' => "0-10", 'xtra' => "min='0' max='10' step='0.1'", 'suffix' => __("s", 'lang_log')));
 	}
 
 	function setting_log_page_time_limit_callback()
@@ -294,7 +294,7 @@ class mf_log
 		$setting_key = get_setting_key(__FUNCTION__);
 		$option = get_option($setting_key, 8);
 
-		echo show_textfield(array('type' => 'number', 'name' => $setting_key, 'value' => $option, 'placeholder' => "0-10", 'xtra' => "min='0' max='10' step='0.1'", 'suffix' => __("s", 'lang_log'))); //, 'pattern' => "\d{1}(\.\d{0,4})?"
+		echo show_textfield(array('type' => 'number', 'name' => $setting_key, 'value' => $option, 'placeholder' => "0-10", 'xtra' => "min='0' max='10' step='0.1'", 'suffix' => __("s", 'lang_log')));
 	}
 
 	function setting_log_source_percent_limit_callback()
