@@ -8,7 +8,7 @@ class mf_log
 
 	function __construct(){}
 
-	function get_amount($data = array())
+	function get_amount($data = [])
 	{
 		global $wpdb;
 
@@ -17,7 +17,7 @@ class mf_log
 		return $wpdb->get_var($wpdb->prepare("SELECT COUNT(ID) FROM ".$wpdb->posts." WHERE post_type = %s AND post_status = %s", $this->post_type, $data['post_status']));
 	}
 
-	function get_log_file_dir($data = array())
+	function get_log_file_dir($data = [])
 	{
 		if(!isset($data['type'])){	$data['type'] = '';}
 
@@ -403,7 +403,7 @@ class mf_log
 		}
 	}
 
-	function get_update_log($data = array())
+	function get_update_log($data = [])
 	{
 		global $wpdb;
 
@@ -460,7 +460,7 @@ class mf_log
 				{
 					switch_to_blog($post_id);
 
-					$arr_count = array();
+					$arr_count = [];
 					$count_total = 0;
 
 					$arr_post_status = array(
@@ -510,7 +510,7 @@ class mf_log
 
 	function api_log_js_debug()
 	{
-		$json_output = array();
+		$json_output = [];
 
 		$url = check_var('url');
 		$msg = check_var('msg');
@@ -858,7 +858,7 @@ if(class_exists('mf_list_table'))
 		{
 			global $obj_log;
 
-			$actions = array();
+			$arr_actions = [];
 
 			if(isset($this->columns['cb']))
 			{
@@ -866,22 +866,22 @@ if(class_exists('mf_list_table'))
 
 				if($post_status == 'trash')
 				{
-					$actions['restore'] = __("Restore", 'lang_log');
-					$actions['delete'] = __("Permanently Delete", 'lang_log');
+					$arr_actions['restore'] = __("Restore", 'lang_log');
+					$arr_actions['delete'] = __("Permanently Delete", 'lang_log');
 				}
 
 				else
 				{
-					$actions['trash'] = __("Delete", 'lang_log');
+					$arr_actions['trash'] = __("Delete", 'lang_log');
 				}
 
 				if($post_status != 'ignore')
 				{
-					$actions['ignore'] = __("Ignore", 'lang_log');
+					$arr_actions['ignore'] = __("Ignore", 'lang_log');
 				}
 			}
 
-			return $actions;
+			return $arr_actions;
 		}
 
 		function process_bulk_action()
@@ -974,7 +974,7 @@ if(class_exists('mf_list_table'))
 					$post_status = $item['post_status'];
 					$post_author = $item['post_author'];
 
-					$actions = array();
+					$arr_actions = [];
 
 					if($post_author == get_current_user_id() || IS_ADMINISTRATOR)
 					{
@@ -982,16 +982,16 @@ if(class_exists('mf_list_table'))
 
 						if($post_status != "trash")
 						{
-							$actions['delete'] = "<a href='".wp_nonce_url($list_url."&btnLogTrash", 'log_trash_'.$post_id, '_wpnonce_log_trash')."'>".__("Delete", 'lang_log')."</a>";
+							$arr_actions['delete'] = "<a href='".wp_nonce_url($list_url."&btnLogTrash", 'log_trash_'.$post_id, '_wpnonce_log_trash')."'>".__("Delete", 'lang_log')."</a>";
 						}
 
 						if($post_status != "ignore")
 						{
-							$actions['ignore'] = "<a href='".wp_nonce_url($list_url."&btnLogIgnore", 'log_ignore_'.$post_id, '_wpnonce_log_ignore')."' rel='confirm'>".__("Ignore", 'lang_log')."</a>";
+							$arr_actions['ignore'] = "<a href='".wp_nonce_url($list_url."&btnLogIgnore", 'log_ignore_'.$post_id, '_wpnonce_log_ignore')."' rel='confirm'>".__("Ignore", 'lang_log')."</a>";
 						}
 					}
 
-					$arr_exclude = $arr_include = array();
+					$arr_exclude = $arr_include = [];
 					$arr_exclude[] = "PHP Deprecated:";		$arr_include[] = "<i class='fa fa-exclamation-triangle yellow' title='".__("Deprecated", 'lang_log')."'></i>";
 					$arr_exclude[] = "PHP Notice:";			$arr_include[] = "<i class='fa fa-exclamation-triangle yellow' title='".__("Notice", 'lang_log')."'></i>";
 					$arr_exclude[] = "PHP Warning:";		$arr_include[] = "<i class='fa fa-exclamation-triangle yellow' title='".__("Warning", 'lang_log')."'></i>";
@@ -1001,7 +1001,7 @@ if(class_exists('mf_list_table'))
 					$item['post_title'] = str_replace($arr_exclude, $arr_include, $item['post_title']);
 
 					$out .= $item['post_title']
-					.$this->row_actions($actions);
+					.$this->row_actions($arr_actions);
 				break;
 
 				case 'menu_order':
@@ -1046,12 +1046,12 @@ if(!class_exists('Debug_Queries'))
 				$page_time_limit = get_option('setting_log_page_time_limit', 8);
 				$source_percent_limit = get_option('setting_log_source_percent_limit', 25);
 
-				$arr_duplicates = array();
+				$arr_duplicates = [];
 				$arr_sources = array(
 					'total_time' => 0,
 					'core' => 0,
-					'plugins' => array(),
-					'themes' => array(),
+					'plugins' => [],
+					'themes' => [],
 				);
 
 				//do_log("All queries: ".var_export($wpdb->queries, true));
