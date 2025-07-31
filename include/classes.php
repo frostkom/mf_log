@@ -130,7 +130,6 @@ class mf_log
 				'menu_name' => __("Log", 'lang_log')
 			),
 			'public' => false,
-			'exclude_from_search' => true,
 			'supports' => array('title'),
 			'hierarchical' => true,
 			'has_archive' => false,
