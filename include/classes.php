@@ -707,14 +707,14 @@ class mf_log
 			}
 		}
 
-		if($string != '')
+		/*if($string != '')
 		{
 			$arr_exclude = array(
 				ABSPATH,
 			);
 
 			$string = str_replace($arr_exclude, "", $string);
-		}
+		}*/
 
 		return $string;
 	}
