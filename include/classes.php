@@ -369,9 +369,7 @@ class mf_log
 
 		if($rows > 0)
 		{
-			$count_message = "&nbsp;<span class='update-plugins' title='".__("New Errors", 'lang_log')."'>
-				<span>".$rows."</span>
-			</span>";
+			$count_message = "&nbsp;<span class='update-plugins' title='".__("New Errors", 'lang_log')."'><span>".$rows."</span></span>";
 		}
 
 		return $count_message;
@@ -379,6 +377,8 @@ class mf_log
 
 	function admin_menu()
 	{
+		global $menu;
+
 		if(get_site_option('setting_log_activate', get_option('setting_log_activate')) == 'yes')
 		{
 			$menu_root = 'mf_log/';
@@ -389,8 +389,6 @@ class mf_log
 
 			if($count_message != '' && current_user_can($menu_capability))
 			{
-				global $menu;
-
 				if(!preg_match("/update-plugins/i", $menu[75][0])) // tools.php
 				{
 					$menu[75][0] .= $count_message;
