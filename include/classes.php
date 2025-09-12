@@ -127,7 +127,11 @@ class mf_log
 			'labels' => array(
 				'name' => __("Log", 'lang_log'),
 				'singular_name' => __("Log", 'lang_log'),
-				'menu_name' => __("Log", 'lang_log')
+				'menu_name' => __("Log", 'lang_log'),
+				'all_items' => __('List', 'lang_log'),
+				'edit_item' => __('Edit', 'lang_log'),
+				'view_item' => __('View', 'lang_log'),
+				'add_new_item' => __('Add New', 'lang_log'),
 			),
 			'public' => false,
 			'supports' => array('title'),

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-29 11:17+0100\n"
+"POT-Creation-Date: 2025-09-12 03:56+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Fors\n"
 "Language-Team: \n"
@@ -15,150 +15,166 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../include/classes.php:82
+#: ../include/classes.php:100
 #, php-format
 msgid "%s was too big so it was deleted"
 msgstr "%s var för stor så den togs bort"
 
-#: ../include/classes.php:87
+#: ../include/classes.php:105
 #, php-format
 msgid "%s was too big so I tried to delete it, but I could not"
 msgstr "%s var för stor så jag försökte ta bort den, men jag lyckades inte"
 
-#: ../include/classes.php:94
-#: ../include/classes.php:317
+#: ../include/classes.php:112
+#: ../include/classes.php:327
 #, php-format
 msgid "%s is not writeable"
 msgstr "%s är inte skrivbar"
 
-#: ../include/classes.php:116
-#: ../include/classes.php:117
-#: ../include/classes.php:118
-#: ../include/classes.php:346
-#: ../include/classes.php:394
-#: ../include/classes.php:461
+#: ../include/classes.php:128
+#: ../include/classes.php:129
+#: ../include/classes.php:130
+#: ../include/classes.php:356
+#: ../include/classes.php:402
+#: ../include/classes.php:449
 #: ../list/index.php:15
 msgid "Log"
 msgstr "Logg"
 
-#: ../include/classes.php:153
-#: ../include/classes.php:346
+#: ../include/classes.php:131
+msgid "List"
+msgstr "Lista"
+
+#: ../include/classes.php:132
+msgid "Edit"
+msgstr "Redigera"
+
+#: ../include/classes.php:133
+msgid "View"
+msgstr "Visa"
+
+#: ../include/classes.php:134
+msgid "Add New"
+msgstr "Lägg till ny"
+
+#: ../include/classes.php:163
+#: ../include/classes.php:356
 msgid "Activate"
 msgstr "Aktivera"
 
-#: ../include/classes.php:159
+#: ../include/classes.php:169
 #, php-format
 msgid "Debug %s"
 msgstr "Felsök %s"
 
-#: ../include/classes.php:160
+#: ../include/classes.php:170
 msgid "Debug Database Queries"
 msgstr "Felsök databasfrågor"
 
-#: ../include/classes.php:164
+#: ../include/classes.php:174
 msgid "Query Time Limit"
 msgstr "Gränsvärde för databasfrågor"
 
-#: ../include/classes.php:165
+#: ../include/classes.php:175
 msgid "Page Time Limit"
 msgstr "Gränsvärde för sidvisning"
 
-#: ../include/classes.php:166
+#: ../include/classes.php:176
 msgid "Slow Part Percent Limit"
 msgstr "Gränsvärde för långsam del"
 
-#: ../include/classes.php:169
+#: ../include/classes.php:179
 msgid "Custom Debug File"
 msgstr "Egen debug-fil"
 
-#: ../include/classes.php:180
+#: ../include/classes.php:190
 msgid "Log and Debug"
 msgstr "Log och debug"
 
-#: ../include/classes.php:203
-#: ../include/classes.php:262
+#: ../include/classes.php:213
+#: ../include/classes.php:272
 #, php-format
 msgid "Add this to the end of %s"
 msgstr "Lägg till detta i slutet av %s"
 
-#: ../include/classes.php:209
+#: ../include/classes.php:219
 #, php-format
 msgid "%s is not writable. Please, make sure that the folder can be written to so that Wordpress can log errors"
 msgstr "%s är inte skrivbar. Se till så att mappen är skrivbar så att Wordpress kan logga fel"
 
-#: ../include/classes.php:223
+#: ../include/classes.php:233
 #, php-format
 msgid "Change settings in %s"
 msgstr "Ändra inställningar i %s"
 
-#: ../include/classes.php:224
+#: ../include/classes.php:234
 #, php-format
 msgid "Change %s to %s in %s or else you have to handle the content in %s so that it does not grow in size"
 msgstr "Ändra %s till %s i %s, eller så måste du hantera innehållet i %s för att det inte ska växa i storlek"
 
-#: ../include/classes.php:253
+#: ../include/classes.php:263
 msgid "This will hurt performance on the frontend so use this for debugging only and then turn off"
 msgstr "Detta påverkar prestandan negativt på webbsidan så använd detta endast för debugging och stäng av det efteråt"
 
-#: ../include/classes.php:272
+#: ../include/classes.php:282
 #, php-format
 msgid "Remove %s from %s"
 msgstr "Ta bort %s från %s"
 
-#: ../include/classes.php:282
-#: ../include/classes.php:290
+#: ../include/classes.php:292
+#: ../include/classes.php:300
 msgid "s"
 msgstr ""
 
-#: ../include/classes.php:366
+#: ../include/classes.php:376
 msgid "New Errors"
 msgstr "Nya fel"
 
-#: ../include/classes.php:413
+#: ../include/classes.php:421
 #, php-format
 msgid "There are %d new errors in the log"
 msgstr "Det finns %d nya fel i loggen"
 
-#: ../include/classes.php:413
+#: ../include/classes.php:421
 msgid "There is one new error in the log"
 msgstr "Det finns ett nytt fel i loggen"
 
-#: ../include/classes.php:480
+#: ../include/classes.php:468
 msgid "Publish"
 msgstr "Publik"
 
-#: ../include/classes.php:481
+#: ../include/classes.php:469
 #: ../include/classes.php:838
 #: ../include/classes.php:997
 msgid "Notice"
 msgstr "Notifiering"
 
-#: ../include/classes.php:567
+#: ../include/classes.php:557
 msgid "The information was trashed"
 msgstr "Informationen är lagd i papperskorgen"
 
-#: ../include/classes.php:574
+#: ../include/classes.php:564
 msgid "The information was restored"
 msgstr "Informationen återställdes"
 
-#: ../include/classes.php:581
+#: ../include/classes.php:571
 msgid "The information was deleted"
 msgstr "Informationen togs bort"
 
-#: ../include/classes.php:590
+#: ../include/classes.php:580
 msgid "The information is being ignored from now on"
 msgstr "Informationen ignoreras from. nu"
 
-#: ../include/classes.php:658
+#: ../include/classes.php:648
 #, php-format
 msgid "I could only delete %d within %d seconds"
 msgstr "Jag kunde endast radera %s inom %d sekunder"
 
-#: ../include/classes.php:670
+#: ../include/classes.php:660
 msgid "I deleted them all for you"
 msgstr "Jag tog bort allihop åt dig"
 
-#: ../include/classes.php:702
+#: ../include/classes.php:692
 msgid "Error deleting scheduled event for action hook"
 msgstr "Fel vid borttagning av schemalagd händelse för åtgärds-hooken"
 
