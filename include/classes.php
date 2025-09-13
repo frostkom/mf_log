@@ -373,7 +373,7 @@ class mf_log
 
 		if($rows > 0)
 		{
-			$count_message = "&nbsp;<span class='update-plugins' title='".__("New Errors", 'lang_log')."'><span>".$rows."</span></span>";
+			$count_message = " <span class='update-plugins'><span>".$rows."</span></span>";
 		}
 
 		return $count_message;
@@ -391,11 +391,26 @@ class mf_log
 
 			$count_message = $this->get_count_message();
 
-			if($count_message != '' && current_user_can($menu_capability))
+			if($count_message != '')
 			{
-				if(!preg_match("/update-plugins/i", $menu[75][0])) // tools.php
+				/*if(!preg_match("/update-plugins/i", $menu[75][0])) // tools.php
 				{
 					$menu[75][0] .= $count_message;
+				}*/
+
+				if(is_array($menu))
+				{
+					foreach($menu as $key => $menu_item)
+					{
+						if(isset($menu_item[2]) && $menu_item[2] == 'tools.php')
+						{
+							if(!preg_match("/update-plugins/i", $menu[$key][0]))
+							{
+								$menu[$key][0] .= $count_message;
+								break;
+							}
+						}
+					}
 				}
 			}
 
