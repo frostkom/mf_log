@@ -360,7 +360,7 @@ class mf_log
 		return $arr_settings;
 	}
 
-	function get_count_message($id = 0)
+	function get_count_message()
 	{
 		global $wpdb;
 
@@ -391,24 +391,16 @@ class mf_log
 
 			$count_message = $this->get_count_message();
 
-			if($count_message != '')
+			if($count_message != '' && is_array($menu))
 			{
-				/*if(!preg_match("/update-plugins/i", $menu[75][0])) // tools.php
+				foreach($menu as $key => $menu_item)
 				{
-					$menu[75][0] .= $count_message;
-				}*/
-
-				if(is_array($menu))
-				{
-					foreach($menu as $key => $menu_item)
+					if(isset($menu_item[2]) && $menu_item[2] == 'tools.php')
 					{
-						if(isset($menu_item[2]) && $menu_item[2] == 'tools.php')
+						if(!preg_match("/update-plugins/i", $menu[$key][0]))
 						{
-							if(!preg_match("/update-plugins/i", $menu[$key][0]))
-							{
-								$menu[$key][0] .= $count_message;
-								break;
-							}
+							$menu[$key][0] .= $count_message;
+							break;
 						}
 					}
 				}
