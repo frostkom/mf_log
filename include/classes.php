@@ -986,7 +986,7 @@ if(class_exists('mf_list_table'))
 
 						if($post_status != "ignore")
 						{
-							$arr_actions['ignore'] = "<a href='".wp_nonce_url($list_url."&btnLogIgnore", 'log_ignore_'.$post_id, '_wpnonce_log_ignore')."' rel='confirm'>".__("Ignore", 'lang_log')."</a>";
+							$arr_actions['ignore'] = "<a href='".wp_nonce_url($list_url."&btnLogIgnore", 'log_ignore_'.$post_id, '_wpnonce_log_ignore')."'".make_link_confirm().">".__("Ignore", 'lang_log')."</a>";
 						}
 					}
 
