@@ -591,7 +591,7 @@ class mf_log
 	{
 		global $wpdb;
 
-		$post_content = mf_get_post_content($data['id']);
+		$post_content = get_post_field('post_content', $data['id']);
 
 		if($post_content != '')
 		{
