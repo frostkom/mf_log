@@ -2,7 +2,7 @@
 
 class mf_log
 {
-	var $post_type = 'mf_log';
+	var $post_type = __CLASS__;
 	var $ID = "";
 	var $post_status = "";
 
@@ -823,6 +823,8 @@ if(class_exists('mf_list_table'))
 		function init_fetch()
 		{
 			global $wpdb, $obj_log;
+
+			do_action('load_font_awesome');
 
 			if($this->search != '')
 			{
