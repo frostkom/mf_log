@@ -209,7 +209,7 @@ class mf_log
 				// define('WP_DISABLE_FATAL_ERROR_HANDLER', true); // In case we don't want an e-mail to be sent on fatal error
 
 				echo "<div class='mf_form'>"
-					."<h3 class='display_warning'><i class='fa fa-exclamation-triangle yellow'></i> ".sprintf(__("Add this to the end of %s", 'lang_log'), "wp-config.php")."</h3>";
+					."<h3><i class='fa fa-exclamation-triangle yellow display_warning'></i> ".sprintf(__("Add this to the end of %s", 'lang_log'), "wp-config.php")."</h3>";
 
 					if(!file_exists($debug_file))
 					{
@@ -229,7 +229,7 @@ class mf_log
 			if(defined('WP_DEBUG_LOG') && WP_DEBUG_LOG == true)
 			{
 				echo "<div class='mf_form'>"
-					."<h3 class='display_warning'><i class='fa fa-exclamation-triangle yellow'></i> ".sprintf(__("Change settings in %s", 'lang_log'), "wp-config.php")."</h3>
+					."<h3><i class='fa fa-exclamation-triangle yellow display_warning'></i> ".sprintf(__("Change settings in %s", 'lang_log'), "wp-config.php")."</h3>
 					<p>".sprintf(__("Change %s to %s in %s or else you have to handle the content in %s so that it does not grow in size", 'lang_log'), "WP_DEBUG_LOG", "false", "wp-config.php", $debug_file)."</p>"
 				."</div>";
 			}
@@ -260,19 +260,19 @@ class mf_log
 				$recommend_config = "define('SAVEQUERIES', true);";
 
 				echo "<div class='mf_form'>"
-					."<h3 class='display_warning'><i class='fa fa-exclamation-triangle yellow'></i> ".sprintf(__("Add this to the end of %s", 'lang_log'), "wp-config.php")."</h3>
+					."<h3><i class='fa fa-exclamation-triangle yellow display_warning'></i> ".sprintf(__("Add this to the end of %s", 'lang_log'), "wp-config.php")."</h3>
 					<p class='input'>".nl2br(htmlspecialchars($recommend_config))."</p>"
 				."</div>";
 			}
 		}
 
-		else
+		/*else
 		{
 			if(defined('SAVEQUERIES') && SAVEQUERIES == true)
 			{
-				echo "<p><i class='fa fa-exclamation-triangle yellow'></i>".sprintf(__("Remove %s from %s", 'lang_log'), "'SAVEQUERIES'", "wp-config.php")."</p>";
+				echo "<p><i class='fa fa-exclamation-triangle yellow display_warning'></i>".sprintf(__("Remove %s from %s", 'lang_log'), "'SAVEQUERIES'", "wp-config.php")."</p>";
 			}
-		}
+		}*/
 	}
 
 	function setting_log_query_time_limit_callback()
