@@ -452,46 +452,53 @@ class mf_log
 
 	function column_cell($column, $post_id)
 	{
-		switch($column)
+		global $post;
+
+		switch($post->post_type)
 		{
-			case 'log':
-				if(get_blog_status($post_id, 'deleted') == 0 && get_blog_status($post_id, 'archived') == 0)
+			case $this->post_type:
+				switch($column)
 				{
-					switch_to_blog($post_id);
-
-					$arr_count = [];
-					$count_total = 0;
-
-					$arr_post_status = array(
-						'publish' => __("Publish", 'lang_log'),
-						'notification' => __("Notice", 'lang_log'),
-						//'ignore' => __("Ignore", 'lang_log'),
-						//'trash' => __("Trash", 'lang_log'),
-					);
-
-					foreach($arr_post_status as $post_status => $value)
-					{
-						$count_temp = $this->get_amount(array('post_status' => $post_status));
-
-						$arr_count[$post_status] = $count_temp;
-						$count_total += $count_temp;
-					}
-
-					$base_log_url = get_home_url($post_id, '/')."wp-admin/admin.php?page=mf_log/list/index.php";
-
-					$i = 0;
-
-					foreach($arr_post_status as $post_status => $value)
-					{
-						if(isset($arr_count[$post_status]) && $arr_count[$post_status] > 0 || $post_status == 'publish' && $count_total > 0)
+					case 'log':
+						if(get_blog_status($post_id, 'deleted') == 0 && get_blog_status($post_id, 'archived') == 0)
 						{
-							echo ($i > 0 ? "/" : "")."<a href='".$base_log_url."&post_status=".$post_status."' title='".$value."'".($arr_count[$post_status] > 0 ? "" : " class='grey'").">".$arr_count[$post_status]."</a>";
+							switch_to_blog($post_id);
 
-							$i++;
+							$arr_count = [];
+							$count_total = 0;
+
+							$arr_post_status = array(
+								'publish' => __("Publish", 'lang_log'),
+								'notification' => __("Notice", 'lang_log'),
+								//'ignore' => __("Ignore", 'lang_log'),
+								//'trash' => __("Trash", 'lang_log'),
+							);
+
+							foreach($arr_post_status as $post_status => $value)
+							{
+								$count_temp = $this->get_amount(array('post_status' => $post_status));
+
+								$arr_count[$post_status] = $count_temp;
+								$count_total += $count_temp;
+							}
+
+							$base_log_url = get_home_url($post_id, '/')."wp-admin/admin.php?page=mf_log/list/index.php";
+
+							$i = 0;
+
+							foreach($arr_post_status as $post_status => $value)
+							{
+								if(isset($arr_count[$post_status]) && $arr_count[$post_status] > 0 || $post_status == 'publish' && $count_total > 0)
+								{
+									echo ($i > 0 ? "/" : "")."<a href='".$base_log_url."&post_status=".$post_status."' title='".$value."'".($arr_count[$post_status] > 0 ? "" : " class='grey'").">".$arr_count[$post_status]."</a>";
+
+									$i++;
+								}
+							}
+
+							restore_current_blog();
 						}
-					}
-
-					restore_current_blog();
+					break;
 				}
 			break;
 		}
