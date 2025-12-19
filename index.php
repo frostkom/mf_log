@@ -3,7 +3,7 @@
 Plugin Name: MF Log & Debug
 Plugin URI: https://github.com/frostkom/mf_log
 Description:
-Version: 4.9.41
+Version: 4.9.42
 Licence: GPLv2 or later
 Author: Martin Fors
 Author URI: https://martinfors.se
@@ -44,6 +44,12 @@ if(!function_exists('is_plugin_active') || function_exists('is_plugin_active') &
 			add_filter('manage_sites-network_columns', array($obj_log, 'sites_column_header'), 5);
 			add_action('manage_sites_custom_column', array($obj_log, 'sites_column_cell'), 5, 2);
 		}
+
+		if(wp_doing_ajax())
+		{
+			add_action('wp_ajax_api_log_js_debug', array($obj_log, 'api_log_js_debug'));
+			add_action('wp_ajax_nopriv_api_log_js_debug', array($obj_log, 'api_log_js_debug'));
+		}
 	}
 
 	else
@@ -51,10 +57,6 @@ if(!function_exists('is_plugin_active') || function_exists('is_plugin_active') &
 		add_action('wp_head', array($obj_log, 'wp_head'), 0);
 		add_action('login_init', array($obj_log, 'login_init'), 0);
 	}
-
-	add_action('wp_ajax_api_log_js_debug', array($obj_log, 'api_log_js_debug'));
-	add_action('wp_ajax_nopriv_api_log_js_debug', array($obj_log, 'api_log_js_debug'));
-
 
 	function uninstall_log()
 	{
