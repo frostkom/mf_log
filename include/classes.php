@@ -380,18 +380,21 @@ class mf_log
 			$menu_start = $menu_root.'list/index.php';
 			$menu_capability = 'update_core';
 
-			$count_message = $this->get_count_message();
-
-			if($count_message != '' && is_array($menu))
+			if(current_user_can($menu_capability))
 			{
-				foreach($menu as $key => $menu_item)
+				$count_message = $this->get_count_message();
+
+				if($count_message != '' && is_array($menu))
 				{
-					if(isset($menu_item[2]) && $menu_item[2] == 'tools.php')
+					foreach($menu as $key => $menu_item)
 					{
-						if(!preg_match("/update-plugins/i", $menu[$key][0]))
+						if(isset($menu_item[2]) && $menu_item[2] == 'tools.php')
 						{
-							$menu[$key][0] .= $count_message;
-							break;
+							if(!preg_match("/update-plugins/i", $menu[$key][0]))
+							{
+								$menu[$key][0] .= $count_message;
+								break;
+							}
 						}
 					}
 				}
