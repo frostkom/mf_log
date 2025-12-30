@@ -398,10 +398,10 @@ class mf_log
 						}
 					}
 				}
-			}
 
-			$menu_title = __("Log", 'lang_log');
-			add_submenu_page("tools.php", $menu_title, $menu_title.$count_message, $menu_capability, $menu_start);
+				$menu_title = __("Log", 'lang_log');
+				add_submenu_page("tools.php", $menu_title, $menu_title.$count_message, $menu_capability, $menu_start);
+			}
 		}
 	}
 
