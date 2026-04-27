@@ -382,9 +382,7 @@ class mf_log
 
 			if(current_user_can($menu_capability))
 			{
-				$count_message = $this->get_count_message();
-
-				if($count_message != '' && is_array($menu))
+				if(is_array($menu))
 				{
 					foreach($menu as $key => $menu_item)
 					{
@@ -392,8 +390,13 @@ class mf_log
 						{
 							if(!preg_match("/update-plugins/i", $menu[$key][0]))
 							{
-								$menu[$key][0] .= $count_message;
-								break;
+								$count_message = $this->get_count_message();
+
+								if($count_message != '')
+								{
+									$menu[$key][0] .= $count_message;
+									break;
+								}
 							}
 						}
 					}

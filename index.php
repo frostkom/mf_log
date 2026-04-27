@@ -2,8 +2,8 @@
 /*
 Plugin Name: MF Log & Debug
 Plugin URI: https://github.com/frostkom/mf_log
-Description:
-Version: 4.9.45
+Description: Display log messages and add base functionality for other plugins to log to admin interface
+Version: 4.9.46
 Licence: GPLv2 or later
 Author: Martin Fors
 Author URI: https://martinfors.se
