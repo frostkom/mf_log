@@ -412,7 +412,7 @@ class mf_log
 	{
 		global $wpdb;
 
-		if(!isset($data['cutoff'])){	$data['cutoff'] = date("Y-m-d H:i:s", strtotime("-2 minute"));}
+		if(!isset($data['cutoff'])){	$data['cutoff'] = date("Y-m-d H:i:s", strtotime(current_time('mysql')." -2 minute"));}
 
 		if(IS_ADMINISTRATOR)
 		{
