@@ -141,7 +141,7 @@ class mf_log
 		#######################
 	}
 
-	function combined_head()
+	/*function combined_head()
 	{
 		if(get_option('setting_log_js_debug') == 'yes')
 		{
@@ -149,7 +149,7 @@ class mf_log
 
 			mf_enqueue_script('script_log', $plugin_include_url."script.js", array('ajax_url' => admin_url('admin-ajax.php')));
 		}
-	}
+	}*/
 
 	function settings_log()
 	{
@@ -165,15 +165,15 @@ class mf_log
 
 			if(get_site_option('setting_log_activate', get_option('setting_log_activate')) == 'yes')
 			{
-				$arr_settings['setting_log_js_debug'] = sprintf(__("Debug %s", 'lang_log'), "Javascript");
-				$arr_settings['setting_log_query_debug'] = __("Debug Database Queries", 'lang_log');
+				//$arr_settings['setting_log_js_debug'] = sprintf(__("Debug %s", 'lang_log'), "Javascript");
+				/*$arr_settings['setting_log_query_debug'] = __("Debug Database Queries", 'lang_log');
 
 				if(get_option('setting_log_query_debug') == 'yes')
 				{
 					$arr_settings['setting_log_query_time_limit'] = __("Query Time Limit", 'lang_log');
 					$arr_settings['setting_log_page_time_limit'] = __("Page Time Limit", 'lang_log');
 					$arr_settings['setting_log_source_percent_limit'] = __("Slow Part Percent Limit", 'lang_log');
-				}
+				}*/
 
 				$arr_settings['setting_log_custom_debug_file'] = __("Custom Debug File", 'lang_log');
 			}
@@ -236,15 +236,15 @@ class mf_log
 		}
 	}
 
-	function setting_log_js_debug_callback()
+	/*function setting_log_js_debug_callback()
 	{
 		$setting_key = get_setting_key(__FUNCTION__);
 		$option = get_option($setting_key, 'no');
 
 		echo show_select(array('data' => get_yes_no_for_select(), 'name' => $setting_key, 'value' => $option));
-	}
+	}*/
 
-	function setting_log_query_debug_callback()
+	/*function setting_log_query_debug_callback()
 	{
 		$setting_key = get_setting_key(__FUNCTION__);
 		$option = get_option($setting_key, 'no');
@@ -265,15 +265,7 @@ class mf_log
 				."</div>";
 			}
 		}
-
-		/*else
-		{
-			if(defined('SAVEQUERIES') && SAVEQUERIES == true)
-			{
-				echo "<p><i class='fa fa-exclamation-triangle yellow display_warning'></i>".sprintf(__("Remove %s from %s", 'lang_log'), "'SAVEQUERIES'", "wp-config.php")."</p>";
-			}
-		}*/
-	}
+	}*/
 
 	function setting_log_query_time_limit_callback()
 	{
@@ -332,10 +324,10 @@ class mf_log
 		}*/
 	}
 
-	function admin_init()
+	/*function admin_init()
 	{
 		$this->combined_head();
-	}
+	}*/
 
 	function filter_sites_table_settings($arr_settings)
 	{
@@ -503,7 +495,7 @@ class mf_log
 		}
 	}
 
-	function wp_head()
+	/*function wp_head()
 	{
 		$this->combined_head();
 	}
@@ -511,7 +503,7 @@ class mf_log
 	function login_init()
 	{
 		$this->combined_head();
-	}
+	}*/
 
 	function api_log_js_debug()
 	{

@@ -3,7 +3,7 @@
 Plugin Name: MF Log & Debug
 Plugin URI: https://github.com/frostkom/mf_log
 Description: Display log messages and add base functionality for other plugins to log to admin interface
-Version: 4.9.47
+Version: 4.9.48
 Licence: GPLv2 or later
 Author: Martin Fors
 Author URI: https://martinfors.se
@@ -17,10 +17,10 @@ if(!function_exists('is_plugin_active') || function_exists('is_plugin_active') &
 
 	$obj_log = new mf_log();
 
-	if(defined('SAVEQUERIES') && SAVEQUERIES == true && class_exists('Debug_Queries') && get_option('setting_log_query_debug') == 'yes')
+	/*if(defined('SAVEQUERIES') && SAVEQUERIES == true && class_exists('Debug_Queries') && get_option('setting_log_query_debug') == 'yes')
 	{
 		new Debug_Queries();
-	}
+	}*/
 
 	add_action('cron_base', array($obj_log, 'cron_base'), mt_rand(1, 10));
 
@@ -31,7 +31,7 @@ if(!function_exists('is_plugin_active') || function_exists('is_plugin_active') &
 		register_uninstall_hook(__FILE__, 'uninstall_log');
 
 		add_action('admin_init', array($obj_log, 'settings_log'));
-		add_action('admin_init', array($obj_log, 'admin_init'), 0);
+		//add_action('admin_init', array($obj_log, 'admin_init'), 0);
 
 		add_filter('filter_sites_table_settings', array($obj_log, 'filter_sites_table_settings'));
 
@@ -52,11 +52,11 @@ if(!function_exists('is_plugin_active') || function_exists('is_plugin_active') &
 		}
 	}
 
-	else
+	/*else
 	{
 		add_action('wp_head', array($obj_log, 'wp_head'), 0);
 		add_action('login_init', array($obj_log, 'login_init'), 0);
-	}
+	}*/
 
 	function uninstall_log()
 	{
