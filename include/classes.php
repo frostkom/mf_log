@@ -495,16 +495,6 @@ class mf_log
 		}
 	}
 
-	/*function wp_head()
-	{
-		$this->combined_head();
-	}
-
-	function login_init()
-	{
-		$this->combined_head();
-	}*/
-
 	function api_log_js_debug()
 	{
 		$json_output = [];
